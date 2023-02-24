@@ -1,12 +1,10 @@
 import { useQuery, gql } from "@apollo/client";
 const QUERY = gql`
   query {
-    getAllUsers {
-      firstname
-      lastname
-      email
-      password
+    jobs {
+      position
       id
+      jobDescription
     }
   }
 `;
@@ -22,13 +20,14 @@ export default function Users() {
     return null;
   }
 
-  const users = data.getAllUsers.slice(0, 4);
+  const jobs = data.jobs;
 
   return (
     <div>
-      {users.map((user) => (
+      {jobs.map((job) => (
         <div>
-          <h3>{user.firstname}</h3>
+          <h3>{job.id}</h3>
+          <h3>{job.position}</h3>
         </div>
       ))}
     </div>
