@@ -14,4 +14,5 @@ export interface Job extends Document {
   readonly category: string;
   readonly createdAt: Date;
   readonly updatedAt: Date;
+  readonly image: string;
 }

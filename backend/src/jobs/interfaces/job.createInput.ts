@@ -1,4 +1,6 @@
 import { Field, Int, InputType, ID } from '@nestjs/graphql';
+import * as GraphQLUpload from 'graphql-upload/GraphQLUpload.js';
+import { FileUpload } from './job.fileupload';
 
 @InputType()
 export class JobCreateInput {
@@ -27,4 +29,6 @@ export class JobCreateInput {
   type: string;
   @Field()
   category: string;
+  @Field(() => GraphQLUpload, { nullable: true })
+  image: Promise<FileUpload>;
 }
