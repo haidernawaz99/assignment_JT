@@ -10,7 +10,7 @@ export const JobSchema = new mongoose.Schema({
   position: stringAndRequired,
   location: stringAndRequired,
   jobDescription: stringAndRequired,
-  howToApply: stringAndRequired,
+  howToApply: String,
   public: Boolean,
   email: stringAndRequired,
   url: String,
