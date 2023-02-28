@@ -5,6 +5,7 @@ import { Job } from './interfaces/job.interface';
 import { JobCreateInput } from './interfaces/job.createInput';
 import { createWriteStream } from 'fs';
 import { join } from 'path';
+import { GetJobInputParams } from './interfaces/jobs.getJobParams';
 
 // CreateCatDto  used to define the structure of the data to be returned from the server when querying for a list of cats.
 
@@ -37,7 +38,7 @@ export class JobsService {
     return createdJob.save();
   }
 
-  async findAll(input): Promise<Job[]> {
+  async findAll(input: GetJobInputParams): Promise<Job[]> {
     console.log(input);
     if (input?.category && input?.limit) {
       return await this.jobModel

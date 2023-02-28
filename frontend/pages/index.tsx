@@ -1,15 +1,16 @@
 import Link from "next/link";
 import Layout from "../components/Layout";
-import RecentJobInfo from "../components/RecentJobInfo";
+import RecentJobs from "../components/RecentJobs";
+import RecentJobTable from "../components/RecentJobTable";
 
 import Users from "../components/Users";
 
-const IndexPage = () => (
-  <Layout title="Home | Next.js + TypeScript Example">
-    <RecentJobInfo category="Design" />
-    <RecentJobInfo category="Programming" />
-    <Users />
-  </Layout>
-);
+const IndexPage = () => {
+  return (
+    <Layout title="Jobeet">
+      <RecentJobs />
+    </Layout>
+  );
+};
 
 export default IndexPage;
