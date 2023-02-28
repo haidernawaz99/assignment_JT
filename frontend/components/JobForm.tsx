@@ -49,10 +49,6 @@ const JobForm = () => {
   const fileUploadProps: UploadProps = {
     multiple: false,
     onRemove: (file) => {
-      // const index = fileList.indexOf(file);
-      // const newFileList = fileList.slice();
-      // newFileList.splice(index, 1);
-      // setFileList(newFileList);
       setFileList([]);
     },
     beforeUpload: (file) => {
@@ -69,6 +65,7 @@ const JobForm = () => {
   };
 
   const onFinish = (values: any) => {
+    console.log(fileList[0]);
     setUploading(true);
     uploadFormdata({
       variables: {

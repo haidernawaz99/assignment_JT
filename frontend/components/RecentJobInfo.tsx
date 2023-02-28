@@ -50,16 +50,6 @@ const columns: ColumnsType<DataType> = [
       </>
     ),
   },
-  {
-    title: "Action",
-    key: "action",
-    render: (_, record) => (
-      <Space size="middle">
-        <a>Invite {record.name}</a>
-        <a>Delete</a>
-      </Space>
-    ),
-  },
 ];
 
 const data: DataType[] = [
@@ -99,7 +89,7 @@ const RecentJobInfo = ({ category }: Props) => (
     </Row>
     <hr />
 
-    <Table columns={columns} dataSource={data} />
+    <Table columns={columns} dataSource={data} pagination={false} />
   </Divider>
 );
 

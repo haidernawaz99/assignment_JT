@@ -2,6 +2,7 @@ import { Mutation, Query, ResolveField, Resolver, Args } from '@nestjs/graphql';
 import { JobsService } from './jobs.service';
 import { JobReturn } from './interfaces/job.return';
 import { JobCreateInput } from './interfaces/job.createInput';
+import { GetJobInputParams } from './interfaces/jobs.getJobParams';
 
 @Resolver()
 export class JobsResolver {
@@ -22,9 +23,10 @@ export class JobsResolver {
   }
 
   @Query(() => [JobReturn])
-  async jobs() {
-    return this.jobsService.findAll();
+  async jobs(@Args('input', { nullable: true }) input: GetJobInputParams) {
+    return this.jobsService.findAll(input);
   }
+
   @Mutation(() => JobReturn)
   async createJob(@Args('input') input: JobCreateInput) {
     return this.jobsService.create(input);

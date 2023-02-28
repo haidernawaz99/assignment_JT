@@ -34,7 +34,12 @@ scalar DateTime
 type Query {
   hello123: String!
   cats: [CatReturn!]!
-  jobs: [JobReturn!]!
+  jobs(input: GetJobInputParams): [JobReturn!]!
+}
+
+input GetJobInputParams {
+  category: String
+  limit: Int
 }
 
 type Mutation {

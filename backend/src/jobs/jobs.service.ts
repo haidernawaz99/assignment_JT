@@ -37,7 +37,27 @@ export class JobsService {
     return createdJob.save();
   }
 
-  async findAll(): Promise<Job[]> {
-    return this.jobModel.find().exec();
+  async findAll(input): Promise<Job[]> {
+    console.log(input);
+    if (input?.category && input?.limit) {
+      return await this.jobModel
+        .find({ category: input.category })
+        .limit(input.limit)
+        .sort({ createdAt: -1 });
+    }
+    if (input?.category) {
+      return await this.jobModel
+        .find({ category: input.category })
+        .sort({ createdAt: -1 });
+    }
+
+    if (input?.limit) {
+      return await this.jobModel
+        .find()
+        .limit(input.limit)
+        .sort({ createdAt: -1 });
+    }
+
+    return await this.jobModel.find().sort({ createdAt: -1 });
   }
 }
