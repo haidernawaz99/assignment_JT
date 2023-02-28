@@ -13,21 +13,14 @@ import {
   Row,
   Col,
   Upload,
+  message,
 } from "antd";
 import { InboxOutlined, UploadOutlined } from "@ant-design/icons";
 const { Title, Paragraph, Text } = Typography;
 const { Option } = Select;
 const { TextArea } = Input;
 import { useMutation, gql } from "@apollo/client";
-
-const fileUploadProps: UploadProps = {
-  action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
-  onChange({ file, fileList }) {
-    if (file.status !== "uploading") {
-      console.log(file, fileList);
-    }
-  },
-};
+import type { RcFile, UploadFile } from "antd/es/upload/interface";
 
 // const MUTATION = gql`
 //   mutation {
@@ -50,13 +43,33 @@ const MUTATION = gql`
 const JobForm = () => {
   const [jobType, setJobType] = useState("Full Time");
   const [uploadFormdata, { data, loading, error }] = useMutation(MUTATION);
+  const [fileList, setFileList] = useState<UploadFile[]>([]);
+  const [uploading, setUploading] = useState(false);
 
+  const fileUploadProps: UploadProps = {
+    multiple: false,
+    onRemove: (file) => {
+      // const index = fileList.indexOf(file);
+      // const newFileList = fileList.slice();
+      // newFileList.splice(index, 1);
+      // setFileList(newFileList);
+      setFileList([]);
+    },
+    beforeUpload: (file) => {
+      if (file.type !== "image/jpeg" && file.type !== "image/png") {
+        message.error(`${file.name} is not a valid image file`);
+        return false; //escape so that the line below doesnt run
+      }
+      setFileList([file]);
+    },
+    fileList,
+  };
   const onJobTypeChange = (e: RadioChangeEvent) => {
     setJobType(e.target.value);
   };
 
   const onFinish = (values: any) => {
-    console.log(values);
+    setUploading(true);
     uploadFormdata({
       variables: {
         input: {
@@ -69,9 +82,11 @@ const JobForm = () => {
           email: values.Email || "null@null.com",
           type: jobType,
           category: values.Category,
+          image: fileList[0],
         },
       },
     });
+    setUploading(false);
   };
   const [form] = Form.useForm();
   return (
@@ -110,7 +125,9 @@ const JobForm = () => {
           </Form.Item>
           <Form.Item label="Logo" name="Logo">
             <Upload {...fileUploadProps}>
-              <Button icon={<UploadOutlined />}>Upload</Button>
+              <Button icon={<UploadOutlined />}>
+                {uploading ? "Uploading" : "Select File"}
+              </Button>
             </Upload>
           </Form.Item>
           <Form.Item label="URL" name="URL">
