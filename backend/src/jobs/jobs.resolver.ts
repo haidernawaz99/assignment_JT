@@ -3,6 +3,7 @@ import { JobsService } from './jobs.service';
 import { JobReturn } from './interfaces/job.return';
 import { JobCreateInput } from './interfaces/job.createInput';
 import { GetJobInputParams } from './interfaces/jobs.getJobParams';
+import { JobPaginationReturn } from './interfaces/job.pagination.return';
 
 @Resolver()
 export class JobsResolver {
@@ -24,7 +25,15 @@ export class JobsResolver {
 
   @Query(() => [JobReturn])
   async jobs(@Args('input', { nullable: true }) input: GetJobInputParams) {
-    return this.jobsService.findAll(input);
+    return this.jobsService.find(input);
+  }
+
+  @Query(() => JobPaginationReturn)
+  async getJobByPagination(
+    @Args('input', { nullable: true }) input: GetJobInputParams,
+  ) {
+    // return this.jobsService.pagination(input);
+    return this.jobsService.pagination(input);
   }
 
   @Mutation(() => JobReturn)

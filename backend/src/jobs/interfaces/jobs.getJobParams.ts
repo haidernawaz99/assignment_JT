@@ -19,4 +19,6 @@ export class GetJobInputParams {
   category: AllowedCategories;
   @Field(() => Int, { nullable: true })
   limit: number;
+  @Field(() => Int, { nullable: true })
+  skip: number;
 }

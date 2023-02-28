@@ -31,15 +31,22 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+type JobPaginationReturn {
+  job: [JobReturn!]!
+  jobCount: Int!
+}
+
 type Query {
   hello123: String!
   cats: [CatReturn!]!
   jobs(input: GetJobInputParams): [JobReturn!]!
+  getJobByPagination(input: GetJobInputParams): JobPaginationReturn!
 }
 
 input GetJobInputParams {
   category: String
   limit: Int
+  skip: Int
 }
 
 type Mutation {

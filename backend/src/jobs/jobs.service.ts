@@ -6,6 +6,7 @@ import { JobCreateInput } from './interfaces/job.createInput';
 import { createWriteStream } from 'fs';
 import { join } from 'path';
 import { GetJobInputParams } from './interfaces/jobs.getJobParams';
+import { JobPagination } from './interfaces/job.pagination.interface';
 
 // CreateCatDto  used to define the structure of the data to be returned from the server when querying for a list of cats.
 
@@ -38,21 +39,38 @@ export class JobsService {
     return createdJob.save();
   }
 
-  async findAll(input: GetJobInputParams): Promise<Job[]> {
+  async find(input: GetJobInputParams): Promise<Job[]> {
     console.log(input);
+
+    if (input?.category && input?.limit && input?.skip) {
+      return await this.jobModel
+        .find({ category: input.category })
+        .limit(input.limit)
+        // .skip((input.skip - 1) * 20) // (input.skip - 1) corrects for the fact that the first page is page 1, not page 0. 20 is the number of items per page.
+        .skip(input.skip) // (input.skip - 1) corrects for the fact that the first page is page 1, not page 0. 20 is the number of items per page.
+
+        .sort({ createdAt: -1 });
+    }
+
     if (input?.category && input?.limit) {
+      console.log('HIII2');
+
       return await this.jobModel
         .find({ category: input.category })
         .limit(input.limit)
         .sort({ createdAt: -1 });
     }
     if (input?.category) {
+      console.log('HIII3');
+
       return await this.jobModel
         .find({ category: input.category })
         .sort({ createdAt: -1 });
     }
 
     if (input?.limit) {
+      console.log('HIII4');
+
       return await this.jobModel
         .find()
         .limit(input.limit)
@@ -60,5 +78,23 @@ export class JobsService {
     }
 
     return await this.jobModel.find().sort({ createdAt: -1 });
+  }
+
+  async pagination(input: GetJobInputParams): Promise<JobPagination> {
+    console.log(input);
+
+    const job = await this.jobModel
+      .find({ category: input.category })
+      .limit(input.limit)
+      // .skip((input.skip - 1) * 20) // (input.skip - 1) corrects for the fact that the first page is page 1, not page 0. 20 is the number of items per page.
+      .skip(input.skip) // (input.skip - 1) corrects for the fact that the first page is page 1, not page 0. 20 is the number of items per page.
+
+      .sort({ createdAt: -1 });
+
+    const jobCount = await this.jobModel
+      .find({ category: input.category })
+      .countDocuments();
+
+    return { jobCount, job };
   }
 }
