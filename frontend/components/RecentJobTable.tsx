@@ -13,6 +13,7 @@ interface DataType {
   position: string;
   company: string;
   category: string;
+  id: string;
 }
 const columns: ColumnsType<DataType> = [
   {

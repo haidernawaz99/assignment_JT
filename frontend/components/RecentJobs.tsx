@@ -5,19 +5,28 @@ import RecentJobTable from "../components/RecentJobTable";
 import Users from "../components/Users";
 
 import { useQuery, gql } from "@apollo/client";
+import { useEffect, useState } from "react";
 const QUERY = gql`
-  query {
+  query fetchJobs {
     jobs(input: { limit: 10 }) {
       location
       position
       company
       category
+      id
     }
   }
 `;
 
 const RecentJobs = () => {
-  const { data, loading, error } = useQuery(QUERY);
+  const { data, loading, error, refetch } = useQuery(QUERY, {
+    // fetchPolicy: "network-only",
+  });
+  console.log("dasdasdas");
+
+  //   useEffect(() => {
+  //     refetch();
+  //   }, []);
 
   if (loading) {
     return <h2>Loading...</h2>;
@@ -28,7 +37,9 @@ const RecentJobs = () => {
     return null;
   }
   const filterJobsByCategory = () => {
-    const jobs = data.jobs;
+    let jobs = data.jobs;
+    // map object's id to key
+    jobs = data.jobs.map((job) => ({ ...job, key: job.id }));
     const designJobs = jobs.filter((job) => job.category === "Design");
     const developmentJobs = jobs.filter(
       (job) => job.category === "Development"

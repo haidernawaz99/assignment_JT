@@ -21,6 +21,7 @@ const { Option } = Select;
 const { TextArea } = Input;
 import { useMutation, gql } from "@apollo/client";
 import type { RcFile, UploadFile } from "antd/es/upload/interface";
+import client from "../graphql/apollo-client";
 
 // const MUTATION = gql`
 //   mutation {
@@ -42,7 +43,10 @@ const MUTATION = gql`
 
 const JobForm = () => {
   const [jobType, setJobType] = useState("Full Time");
-  const [uploadFormdata, { data, loading, error }] = useMutation(MUTATION);
+  const [uploadFormdata, { data, loading, error }] = useMutation(MUTATION, {
+    //TODO: make this work!
+    // refetchQueries: ["QUERY"],
+  });
   const [fileList, setFileList] = useState<UploadFile[]>([]);
   const [uploading, setUploading] = useState(false);
 
@@ -83,6 +87,8 @@ const JobForm = () => {
         },
       },
     });
+    // update the cache store
+    client.resetStore();
     setUploading(false);
   };
   const [form] = Form.useForm();
