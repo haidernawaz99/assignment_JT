@@ -2,8 +2,9 @@ import { Mutation, Query, ResolveField, Resolver, Args } from '@nestjs/graphql';
 import { JobsService } from './jobs.service';
 import { JobReturn } from './interfaces/job.return';
 import { JobCreateInput } from './interfaces/job.createInput';
-import { GetJobInputParams } from './interfaces/jobs.getJobParams';
+import { GetJobPaginationInputParams } from './interfaces/jobs.getJobInputPagination';
 import { JobPaginationReturn } from './interfaces/job.pagination.return';
+import { GetJobInputParams } from './interfaces/job.getJobInput';
 
 @Resolver()
 export class JobsResolver {
@@ -30,7 +31,7 @@ export class JobsResolver {
 
   @Query(() => JobPaginationReturn)
   async getJobByPagination(
-    @Args('input', { nullable: true }) input: GetJobInputParams,
+    @Args('input', { nullable: true }) input: GetJobPaginationInputParams,
   ) {
     // return this.jobsService.pagination(input);
     return this.jobsService.pagination(input);

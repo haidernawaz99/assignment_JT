@@ -6,9 +6,14 @@ import Users from "../components/Users";
 
 import { useQuery, gql } from "@apollo/client";
 import { useEffect, useState } from "react";
+
+type Props = {
+  getAllCategories: boolean;
+};
+
 const QUERY = gql`
-  query fetchJobs {
-    jobs(input: { limit: 20 }) {
+  query fetchJobs($input: GetJobInputParams!) {
+    jobs(input: $input) {
       location
       position
       company
@@ -18,9 +23,17 @@ const QUERY = gql`
   }
 `;
 
-const RecentJobs = () => {
+const RecentJobs = ({ getAllCategories }: Props) => {
   const { data, loading, error, refetch } = useQuery(QUERY, {
-    // fetchPolicy: "network-only",
+    variables: {
+      input: {
+        categories: getAllCategories
+          ? ["Design", "Development", "Product", "Other"]
+          : null,
+
+        limit: 10,
+      },
+    },
   });
   console.log("dasdasdas");
 

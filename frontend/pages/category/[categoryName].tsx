@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import client from "../../graphql/apollo-client";
 
 const GET_DATA_BY_PAGINATION = gql`
-  query getJobByPagination($input: GetJobInputParams!) {
+  query getJobByPagination($input: GetJobPaginationInputParams!) {
     getJobByPagination(input: $input) {
       job {
         location

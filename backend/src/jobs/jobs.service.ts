@@ -5,8 +5,9 @@ import { Job } from './interfaces/job.interface';
 import { JobCreateInput } from './interfaces/job.createInput';
 import { createWriteStream } from 'fs';
 import { join } from 'path';
-import { GetJobInputParams } from './interfaces/jobs.getJobParams';
+import { GetJobPaginationInputParams } from './interfaces/jobs.getJobInputPagination';
 import { JobPagination } from './interfaces/job.pagination.interface';
+import { GetJobInputParams } from './interfaces/job.getJobInput';
 
 // CreateCatDto  used to define the structure of the data to be returned from the server when querying for a list of cats.
 
@@ -42,45 +43,56 @@ export class JobsService {
   async find(input: GetJobInputParams): Promise<Job[]> {
     console.log(input);
 
-    if (input?.category && input?.limit && input?.skip) {
+    if (input?.categories && input?.limit && input?.skip) {
       return await this.jobModel
-        .find({ category: input.category })
+
+        .find({ category: { $in: input.categories } })
         .limit(input.limit)
-        // .skip((input.skip - 1) * 20) // (input.skip - 1) corrects for the fact that the first page is page 1, not page 0. 20 is the number of items per page.
+
         .skip(input.skip) // (input.skip - 1) corrects for the fact that the first page is page 1, not page 0. 20 is the number of items per page.
 
         .sort({ createdAt: -1 });
     }
 
-    if (input?.category && input?.limit) {
+    if (input?.categories && input?.limit) {
       console.log('HIII2');
 
-      return await this.jobModel
-        .find({ category: input.category })
-        .limit(input.limit)
-        .sort({ createdAt: -1 });
+      const jobs = [];
+      for (let i = 0; i < input.categories.length; i++) {
+        const res = await this.jobModel
+          .find({ category: input.categories[i] })
+          .limit(input.limit)
+          .sort({ createdAt: -1 });
+        jobs.push(res);
+      }
+      console.log(jobs);
+      const jobsFlattened = jobs.flat();
+      return jobsFlattened;
     }
-    if (input?.category) {
+    if (input?.categories) {
       console.log('HIII3');
 
       return await this.jobModel
-        .find({ category: input.category })
+        .find({ category: { $in: input.categories } })
         .sort({ createdAt: -1 });
     }
 
     if (input?.limit) {
       console.log('HIII4');
 
-      return await this.jobModel
+      const res = await this.jobModel
         .find()
         .limit(input.limit)
         .sort({ createdAt: -1 });
+      console.log(res);
+
+      return res;
     }
 
     return await this.jobModel.find().sort({ createdAt: -1 });
   }
 
-  async pagination(input: GetJobInputParams): Promise<JobPagination> {
+  async pagination(input: GetJobPaginationInputParams): Promise<JobPagination> {
     console.log(input);
 
     const job = await this.jobModel

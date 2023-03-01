@@ -40,10 +40,16 @@ type Query {
   hello123: String!
   cats: [CatReturn!]!
   jobs(input: GetJobInputParams): [JobReturn!]!
-  getJobByPagination(input: GetJobInputParams): JobPaginationReturn!
+  getJobByPagination(input: GetJobPaginationInputParams): JobPaginationReturn!
 }
 
 input GetJobInputParams {
+  categories: [String!]
+  limit: Int
+  skip: Int
+}
+
+input GetJobPaginationInputParams {
   category: String
   limit: Int
   skip: Int

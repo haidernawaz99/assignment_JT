@@ -10,7 +10,7 @@ import Users from "../components/Users";
 const { Paragraph } = Typography;
 
 const IndexPage = () => {
-  const [checked, setChecked] = useState(false);
+  const [checked, setChecked] = useState(true);
 
   const onSwitchChange = (checked: boolean) => {
     setChecked(checked);
@@ -32,7 +32,7 @@ const IndexPage = () => {
         />
       </Paragraph>
 
-      <RecentJobs />
+      <RecentJobs getAllCategories={checked} />
     </Layout>
   );
 };

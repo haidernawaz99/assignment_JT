@@ -14,7 +14,7 @@ registerEnumType(AllowedCategories, {
 });
 
 @InputType()
-export class GetJobInputParams {
+export class GetJobPaginationInputParams {
   @Field((type) => String, { nullable: true })
   category: AllowedCategories;
   @Field(() => Int, { nullable: true })
