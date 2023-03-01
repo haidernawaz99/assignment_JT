@@ -87,7 +87,7 @@ export class JobsService {
       .find({ category: input.category })
       .limit(input.limit)
       // .skip((input.skip - 1) * 20) // (input.skip - 1) corrects for the fact that the first page is page 1, not page 0. 20 is the number of items per page.
-      .skip(input.skip) // (input.skip - 1) corrects for the fact that the first page is page 1, not page 0. 20 is the number of items per page.
+      .skip(input.skip)
 
       .sort({ createdAt: -1 });
 
@@ -95,6 +95,7 @@ export class JobsService {
       .find({ category: input.category })
       .countDocuments();
 
+    console.log({ job, jobCount });
     return { jobCount, job };
   }
 }

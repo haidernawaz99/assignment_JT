@@ -8,7 +8,7 @@ import { useQuery, gql } from "@apollo/client";
 import { useEffect, useState } from "react";
 const QUERY = gql`
   query fetchJobs {
-    jobs(input: { limit: 10 }) {
+    jobs(input: { limit: 20 }) {
       location
       position
       company
@@ -65,22 +65,30 @@ const RecentJobs = () => {
             <RecentJobTable category={job.category} />
           </div>
         ))} */}
-        <RecentJobTable
-          category={"Design"}
-          data={filterJobsByCategory().designJobs}
-        />
-        <RecentJobTable
-          category={"Development"}
-          data={filterJobsByCategory().developmentJobs}
-        />
-        <RecentJobTable
-          category={"Product"}
-          data={filterJobsByCategory().productJobs}
-        />
-        <RecentJobTable
-          category={"Other"}
-          data={filterJobsByCategory().otherJobs}
-        />
+        {filterJobsByCategory().designJobs.length > 0 && (
+          <RecentJobTable
+            category={"Design"}
+            data={filterJobsByCategory().designJobs}
+          />
+        )}
+        {filterJobsByCategory().developmentJobs.length > 0 && (
+          <RecentJobTable
+            category={"Development"}
+            data={filterJobsByCategory().developmentJobs}
+          />
+        )}
+        {filterJobsByCategory().productJobs.length > 0 && (
+          <RecentJobTable
+            category={"Product"}
+            data={filterJobsByCategory().productJobs}
+          />
+        )}
+        {filterJobsByCategory().otherJobs.length > 0 && (
+          <RecentJobTable
+            category={"Other"}
+            data={filterJobsByCategory().otherJobs}
+          />
+        )}
       </div>
     </>
   );

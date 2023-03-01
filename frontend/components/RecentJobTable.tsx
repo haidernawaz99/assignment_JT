@@ -4,8 +4,11 @@ import { Divider, Row, Col, Space, Table, Tag } from "antd";
 import type { ColumnsType } from "antd/es/table";
 
 type Props = {
-  category: String;
+  category: string;
   data: DataType[];
+  setCurrentPage?: (page: number) => void;
+  totalDataCount?: number;
+  currentPage?: number;
 };
 interface DataType {
   __typename: string;
@@ -34,14 +37,22 @@ const columns: ColumnsType<DataType> = [
   },
 ];
 
-const RecentJobTable = ({ category, data }: Props) => {
+const RecentJobTable = ({
+  category,
+  data,
+  setCurrentPage,
+  totalDataCount,
+  currentPage,
+}: Props) => {
   console.log(data);
 
   return (
     <Divider orientation="left" orientationMargin={0}>
       <Row justify={"space-between"}>
         <Col>
-          <Link href="/users/[id]">{category}</Link>
+          <Link href={`/category/${encodeURIComponent(category)}`}>
+            {category}
+          </Link>
         </Col>
 
         <Col>
@@ -50,7 +61,19 @@ const RecentJobTable = ({ category, data }: Props) => {
       </Row>
       <hr />
 
-      <Table columns={columns} dataSource={data} pagination={false} />
+      <Table
+        columns={columns}
+        dataSource={data}
+        pagination={{
+          hideOnSinglePage: true,
+          pageSize: 20,
+          onChange: (page) => setCurrentPage(page),
+          total: totalDataCount,
+          // currentPage,
+          showTotal: (total, range) =>
+            `${range[0]}-${range[1]} of ${total} items`,
+        }}
+      />
     </Divider>
   );
 };
