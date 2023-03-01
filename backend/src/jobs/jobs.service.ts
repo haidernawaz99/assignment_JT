@@ -77,6 +77,34 @@ export class JobsService {
         .sort({ createdAt: -1 });
     }
 
+    // SEARCH STARTS
+
+    if (input?.location) {
+      console.log('HI location');
+
+      return await this.jobModel
+        .find({ location: { $regex: input.location, $options: 'i' } }) // i for case insensitive
+        .sort({ createdAt: -1 });
+    }
+
+    if (input?.position) {
+      console.log('HI position');
+
+      return await this.jobModel
+        .find({ position: { $regex: input.position, $options: 'i' } }) // i for case insensitive
+        .sort({ createdAt: -1 });
+    }
+
+    if (input?.company) {
+      console.log('HI position');
+
+      return await this.jobModel
+        .find({ company: { $regex: input.company, $options: 'i' } }) // i for case insensitive
+        .sort({ createdAt: -1 });
+    }
+
+    // SEARCH ENDS
+
     if (input?.limit) {
       console.log('HIII4');
 

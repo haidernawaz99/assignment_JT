@@ -15,8 +15,16 @@ registerEnumType(AllowedCategories, {
 
 @InputType()
 export class GetJobInputParams {
-  @Field((type) => [String], { nullable: true })
+  @Field(() => [AllowedCategories], { nullable: true })
   categories: [AllowedCategories];
+
+  @Field(() => String, { nullable: true })
+  location: string;
+  @Field(() => String, { nullable: true })
+  position: string;
+  @Field(() => String, { nullable: true })
+  company: string;
+
   @Field(() => Int, { nullable: true })
   limit: number;
   @Field(() => Int, { nullable: true })
