@@ -44,19 +44,12 @@ type Query {
 }
 
 input GetJobInputParams {
-  categories: [AllowedCategories!]
+  categories: [String!]
   location: String
   position: String
   company: String
   limit: Int
   skip: Int
-}
-
-enum AllowedCategories {
-  Design
-  Development
-  Product
-  Other
 }
 
 input GetJobPaginationInputParams {

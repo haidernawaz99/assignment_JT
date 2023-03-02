@@ -44,7 +44,7 @@ const RecentJobTable = ({
   totalDataCount,
   currentPage,
 }: Props) => {
-  console.log(data);
+  // console.log(data);
 
   return (
     <Divider orientation="left" orientationMargin={0}>
@@ -69,7 +69,6 @@ const RecentJobTable = ({
           pageSize: 20,
           onChange: (page) => setCurrentPage(page),
           total: totalDataCount,
-          // currentPage,
           showTotal: (total, range) =>
             `${range[0]}-${range[1]} of ${total} items`,
         }}

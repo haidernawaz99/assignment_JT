@@ -71,13 +71,22 @@ export class JobsService {
     }
     if (input?.categories) {
       console.log('HIII3');
+      console.log(input.categories);
 
-      return await this.jobModel
+      if (input.categories.length === 1) {
+        const result = await this.jobModel
+          .find({ category: { $regex: input.categories[0], $options: 'i' } })
+          .sort({ createdAt: -1 }); // i for case insensitive
+        return result;
+      }
+
+      const result = this.jobModel
         .find({ category: { $in: input.categories } })
         .sort({ createdAt: -1 });
+      return result;
     }
 
-    // SEARCH STARTS
+    // GLOBAL SEARCH STARTS
 
     if (input?.location) {
       console.log('HI location');
@@ -103,7 +112,7 @@ export class JobsService {
         .sort({ createdAt: -1 });
     }
 
-    // SEARCH ENDS
+    // GLOBAL SEARCH ENDS
 
     if (input?.limit) {
       console.log('HIII4');
