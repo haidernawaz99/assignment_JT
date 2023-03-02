@@ -7,10 +7,15 @@ import RecentJobTable from "../components/RecentJobTable";
 import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
 
 import Users from "../components/Users";
+import { SearchBarQuery } from "../interfaces/searchBarQuery";
 const { Paragraph } = Typography;
 
 const IndexPage = () => {
   const [checked, setChecked] = useState(true);
+  const [searchBar, setSearchBar] = useState<SearchBarQuery>({
+    text: "",
+    option: "Position" as "Position" | "Company" | "Location" | "Category",
+  });
 
   const onSwitchChange = (checked: boolean) => {
     setChecked(checked);
@@ -18,7 +23,7 @@ const IndexPage = () => {
   };
 
   return (
-    <Layout title="Jobeet">
+    <Layout title="Jobeet" setSearch={setSearchBar}>
       <br />
 
       <Paragraph>
@@ -32,7 +37,7 @@ const IndexPage = () => {
         />
       </Paragraph>
 
-      <RecentJobs getAllCategories={checked} />
+      <RecentJobs getAllCategories={checked} searchBar={searchBar} />
     </Layout>
   );
 };

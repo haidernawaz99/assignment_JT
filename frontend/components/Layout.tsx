@@ -14,7 +14,7 @@ type Props = {
   children?: ReactNode;
   title?: string;
   categoryEnabled?: boolean;
-  setSearch?: ({}: SearchBarQuery) => any;
+  setSearch?: (prevState: any) => any;
 };
 
 const Layout = ({
@@ -48,16 +48,13 @@ const Layout = ({
               <Select
                 defaultValue={categoryEnabled ? "Category" : "Position"}
                 onChange={(value: String) =>
-                  setSearch((prevState) => ({
+                  setSearch((prevState: SearchBarQuery) => ({
                     ...prevState,
                     option: value,
                   }))
                 }
               >
-                <Option
-                  disabled={categoryEnabled ? false : true}
-                  value="Category"
-                >
+                <Option disabled={!categoryEnabled} value="Category">
                   Category
                 </Option>
                 <Option value="Position">Position</Option>
@@ -67,7 +64,7 @@ const Layout = ({
               <Search
                 placeholder="Live Search"
                 onSearch={(value: String) =>
-                  setSearch((prevState) => ({
+                  setSearch((prevState: SearchBarQuery) => ({
                     ...prevState,
                     text: value,
                   }))

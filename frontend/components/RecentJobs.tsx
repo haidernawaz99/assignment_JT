@@ -6,9 +6,12 @@ import Users from "../components/Users";
 
 import { useQuery, gql } from "@apollo/client";
 import { useEffect, useState } from "react";
+import { SearchBarQuery } from "../interfaces/searchBarQuery";
+import search from "../utils/search";
 
 type Props = {
   getAllCategories: boolean;
+  searchBar: SearchBarQuery;
 };
 
 const QUERY = gql`
@@ -23,7 +26,7 @@ const QUERY = gql`
   }
 `;
 
-const RecentJobs = ({ getAllCategories }: Props) => {
+const RecentJobs = ({ getAllCategories, searchBar }: Props) => {
   const { data, loading, error, refetch } = useQuery(QUERY, {
     variables: {
       input: {
@@ -53,6 +56,12 @@ const RecentJobs = ({ getAllCategories }: Props) => {
     let jobs = data.jobs;
     // map object's id to key
     jobs = data.jobs.map((job) => ({ ...job, key: job.id }));
+
+    if (searchBar.text !== "") {
+      // if search bar is not empty, return search results
+      const searchResults = search(jobs, searchBar);
+      jobs = searchResults;
+    }
 
     const designJobs = jobs.filter((job) => job.category === "Design");
     const developmentJobs = jobs.filter(
