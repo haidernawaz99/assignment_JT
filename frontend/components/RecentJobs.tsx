@@ -53,6 +53,7 @@ const RecentJobs = ({ getAllCategories }: Props) => {
     let jobs = data.jobs;
     // map object's id to key
     jobs = data.jobs.map((job) => ({ ...job, key: job.id }));
+
     const designJobs = jobs.filter((job) => job.category === "Design");
     const developmentJobs = jobs.filter(
       (job) => job.category === "Development"

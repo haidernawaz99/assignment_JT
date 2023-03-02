@@ -4,6 +4,8 @@ import RecentJobTable from "../../components/RecentJobTable";
 import { useQuery, gql, ApolloClient, ApolloProvider } from "@apollo/client";
 import { useEffect, useState } from "react";
 import client from "../../graphql/apollo-client";
+import search from "../../utils/search";
+import { SearchBarQuery } from "../../interfaces/searchBarQuery";
 
 const GET_DATA_BY_PAGINATION = gql`
   query getJobByPagination($input: GetJobPaginationInputParams!) {
@@ -22,7 +24,11 @@ const GET_DATA_BY_PAGINATION = gql`
 const Post = () => {
   const router = useRouter();
   const { categoryName } = router.query as { categoryName: string };
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [searchBar, setSearchBar] = useState<SearchBarQuery>({
+    text: "",
+    option: "Position" as "Position" | "Company" | "Location" | "Category",
+  });
 
   const { data, loading, error, refetch } = useQuery(GET_DATA_BY_PAGINATION, {
     variables: {
@@ -37,7 +43,13 @@ const Post = () => {
     let jobs = data.getJobByPagination.job;
     jobs = data.getJobByPagination.job.map((job) => ({ ...job, key: job.id }));
     const jobCount = data.getJobByPagination.jobCount;
-    return { jobs, jobCount };
+    if (searchBar.text === "") {
+      // if search bar is empty, return all jobs
+      return { jobs, jobCount };
+    }
+
+    const searchResults = search(jobs, searchBar); // if search bar is not empty, return search results
+    return { jobs: searchResults, jobCount };
   };
 
   if (loading) {
@@ -49,10 +61,12 @@ const Post = () => {
     return null;
   }
 
+  console.log(searchBar);
+
   console.log(currentPage);
 
   return (
-    <Layout>
+    <Layout categoryEnabled={false} setSearch={setSearchBar}>
       <RecentJobTable
         // currentPage={currentPage}
         category={categoryName}

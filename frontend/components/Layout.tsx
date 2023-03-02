@@ -1,9 +1,11 @@
 import React, { ReactNode } from "react";
 import Link from "next/link";
 import Head from "next/head";
-import { Input, Col, Row, Typography, Button } from "antd";
+import { Input, Col, Row, Typography, Button, Select, InputNumber } from "antd";
 import { ApolloProvider } from "@apollo/client";
 import client from "../graphql/apollo-client";
+import { SearchBarQuery } from "../interfaces/searchBarQuery";
+const { Option } = Select;
 
 const { Search } = Input;
 const { Title } = Typography;
@@ -11,9 +13,16 @@ const { Title } = Typography;
 type Props = {
   children?: ReactNode;
   title?: string;
+  categoryEnabled?: boolean;
+  setSearch?: ({}: SearchBarQuery) => any;
 };
 
-const Layout = ({ children, title = "This is the default title" }: Props) => (
+const Layout = ({
+  children,
+  title = "This is the default title",
+  categoryEnabled = true,
+  setSearch = () => {},
+}: Props) => (
   <div>
     <Head>
       <title>{title}</title>
@@ -35,10 +44,38 @@ const Layout = ({ children, title = "This is the default title" }: Props) => (
 
         <Row justify={"space-between"}>
           <Col xs={24} sm={12} md={6} lg={8} xl={10}>
-            <Search
-              placeholder="Live Search"
-              onSearch={(value) => console.log(value)}
-            />
+            <Input.Group compact>
+              <Select
+                defaultValue={categoryEnabled ? "Category" : "Position"}
+                onChange={(value: String) =>
+                  setSearch((prevState) => ({
+                    ...prevState,
+                    option: value,
+                  }))
+                }
+              >
+                <Option
+                  disabled={categoryEnabled ? false : true}
+                  value="Category"
+                >
+                  Category
+                </Option>
+                <Option value="Position">Position</Option>
+                <Option value="Location">Location</Option>
+                <Option value="Company">Company</Option>
+              </Select>
+              <Search
+                placeholder="Live Search"
+                onSearch={(value: String) =>
+                  setSearch((prevState) => ({
+                    ...prevState,
+                    text: value,
+                  }))
+                }
+                style={{ width: "50%" }}
+                enterButton
+              />
+            </Input.Group>
           </Col>
           <Col>
             <Button type="primary">
