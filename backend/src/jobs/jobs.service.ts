@@ -126,6 +126,13 @@ export class JobsService {
       return res;
     }
 
+    if (input?.id) {
+      console.log('HI ID');
+
+      const res = await this.jobModel.findById(input.id);
+      return [res];
+    }
+
     return await this.jobModel.find().sort({ createdAt: -1 });
   }
 

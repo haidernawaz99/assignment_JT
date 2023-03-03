@@ -18,8 +18,8 @@ type JobReturn {
   howToApply: String!
   public: Boolean!
   email: String!
-  url: String!
-  logo: String!
+  url: String
+  logo: String
   type: String!
   category: String!
   createdAt: DateTime!
@@ -44,6 +44,7 @@ type Query {
 }
 
 input GetJobInputParams {
+  id: ID
   categories: [String!]
   location: String
   position: String

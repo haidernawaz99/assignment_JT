@@ -1,0 +1,15 @@
+span {
+  display: block;
+  text-align: right;
+  position: relative;
+}
+span:after {
+  content: "";
+  width: 40%;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  height: 1px;
+  background: black;
+  z-index: -1;
+}

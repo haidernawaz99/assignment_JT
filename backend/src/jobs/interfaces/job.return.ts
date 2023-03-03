@@ -18,9 +18,9 @@ export class JobReturn {
   public: boolean;
   @Field()
   email: string;
-  @Field()
+  @Field({ nullable: true })
   url: string;
-  @Field()
+  @Field({ nullable: true })
   logo: string;
   @Field()
   type: string;
