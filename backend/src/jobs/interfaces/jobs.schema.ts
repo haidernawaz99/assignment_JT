@@ -34,4 +34,5 @@ export const JobSchema = new mongoose.Schema({
   updatedAt: {
     type: Date,
   },
+  editLink: stringAndRequired,
 });

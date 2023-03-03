@@ -27,6 +27,7 @@ type Props = {
   title?: string;
   categoryEnabled?: boolean;
   setSearch?: (prevState: any) => any;
+  enableLocalSearch?: boolean;
 };
 
 const Layout = ({
@@ -34,6 +35,7 @@ const Layout = ({
   title = "This is the default title",
   categoryEnabled = true,
   setSearch = () => {},
+  enableLocalSearch = true,
 }: Props) => {
   const [globalSearch, setGlobalSearch] = useState(true);
   const [searchBarOption, setSearchBarOption] = useState<String>("Category");
@@ -102,16 +104,18 @@ const Layout = ({
                   enterButton
                 />
               </Input.Group>
-              <Paragraph>
-                Perform Global Search:{" "}
-                <Switch
-                  checkedChildren={<CheckOutlined />}
-                  unCheckedChildren={<CloseOutlined />}
-                  defaultChecked
-                  onChange={onSwitchChange}
-                  title="Perform Global Search?"
-                />
-              </Paragraph>
+              {enableLocalSearch && (
+                <Paragraph>
+                  Perform Global Search:{" "}
+                  <Switch
+                    checkedChildren={<CheckOutlined />}
+                    unCheckedChildren={<CloseOutlined />}
+                    defaultChecked
+                    onChange={onSwitchChange}
+                    title="Perform Global Search?"
+                  />
+                </Paragraph>
+              )}
             </Col>
             <Col>
               <Button type="primary">

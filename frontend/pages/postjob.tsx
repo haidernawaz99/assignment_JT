@@ -7,7 +7,7 @@ const { Title } = Typography;
 
 const PostJob = () => {
   return (
-    <Layout title="Post a Job">
+    <Layout title="Post a Job" enableLocalSearch={false}>
       <Title level={3}>Post a Job</Title>
       <JobForm />
     </Layout>

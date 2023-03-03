@@ -58,7 +58,11 @@ export default function GlobalSearch() {
   if (data) {
     console.log(data);
     return (
-      <Layout title={data.position} setSearch={setSearchBar}>
+      <Layout
+        title={data.position}
+        setSearch={setSearchBar}
+        enableLocalSearch={false}
+      >
         <JobDetail job={data.jobs[0]} />
       </Layout>
     );
