@@ -47,7 +47,7 @@ export default function GlobalSearch() {
         },
       },
     });
-  }, [optionParamKey]);
+  }, [searchText, option]);
 
   if (loading) {
     return <h2>Loading...</h2>;
