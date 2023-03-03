@@ -8,6 +8,7 @@ import { join } from 'path';
 import { GetJobPaginationInputParams } from './interfaces/jobs.getJobInputPagination';
 import { JobPagination } from './interfaces/job.pagination.interface';
 import { GetJobInputParams } from './interfaces/job.getJobInput';
+import { v4 as uuidv4 } from 'uuid';
 
 // CreateCatDto  used to define the structure of the data to be returned from the server when querying for a list of cats.
 
@@ -17,11 +18,12 @@ export class JobsService {
 
   async create(jobInput: JobCreateInput): Promise<Job> {
     // if the user has uploaded an image (logo) then dump it to the filesystem
+    const editLink = uuidv4();
     if (jobInput?.image) {
       console.log(jobInput.image);
       const { createReadStream, filename } = await jobInput?.image;
       jobInput.logo = filename || null; //save the filename to the database (if exists)
-      const createdJob = new this.jobModel(jobInput);
+      const createdJob = new this.jobModel({ ...jobInput, editLink });
 
       return new Promise(async (resolve) =>
         createReadStream()
@@ -36,7 +38,7 @@ export class JobsService {
     }
 
     // if the user has NOT uploaded an image (logo)
-    const createdJob = new this.jobModel(jobInput);
+    const createdJob = new this.jobModel({ ...jobInput, editLink });
     return createdJob.save();
   }
 

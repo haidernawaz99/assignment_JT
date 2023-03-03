@@ -24,6 +24,7 @@ type JobReturn {
   category: String!
   createdAt: DateTime!
   updatedAt: DateTime!
+  editLink: String!
 }
 
 """

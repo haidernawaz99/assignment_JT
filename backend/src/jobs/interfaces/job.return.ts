@@ -30,4 +30,6 @@ export class JobReturn {
   createdAt: Date;
   @Field()
   updatedAt: Date;
+  @Field()
+  editLink: string;
 }
