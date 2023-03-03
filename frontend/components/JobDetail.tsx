@@ -52,7 +52,7 @@ const JobDetail = ({ job }: Props) => {
             }}
             width={150}
             align="right"
-            src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+            src={"http://localhost:3000/" + job.logo}
           />
         </Title>
         <Paragraph>{job.location}</Paragraph>

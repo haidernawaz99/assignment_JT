@@ -2,6 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { Divider, Row, Col, Space, Table, Tag } from "antd";
 import type { ColumnsType } from "antd/es/table";
+import Router from "next/router";
 
 type Props = {
   category: string;
@@ -23,17 +24,19 @@ const columns: ColumnsType<DataType> = [
     title: "Location",
     dataIndex: "location",
     key: "location",
-    // render: (text) => <a>{text}</a>,
+    render: (text) => <a>{text}</a>,
   },
   {
     title: "Position",
     dataIndex: "position",
     key: "position",
+    render: (text) => <a>{text}</a>,
   },
   {
     title: "Company",
     dataIndex: "company",
     key: "company",
+    render: (text) => <a>{text}</a>,
   },
 ];
 
@@ -71,6 +74,13 @@ const RecentJobTable = ({
           total: totalDataCount,
           showTotal: (total, range) =>
             `${range[0]}-${range[1]} of ${total} items`,
+        }}
+        onRow={(record, rowIndex) => {
+          return {
+            onClick: () => {
+              Router.push(`/jobdetails?jobID=${record.id}`);
+            },
+          };
         }}
       />
     </Divider>

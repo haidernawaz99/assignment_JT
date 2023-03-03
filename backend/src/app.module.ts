@@ -6,6 +6,8 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { CatsModule } from './cats/cats.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { JobsModule } from './jobs/jobs.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 @Module({
   imports: [
@@ -16,6 +18,9 @@ import { JobsModule } from './jobs/jobs.module';
     }),
     MongooseModule.forRoot('mongodb://localhost/assignment'),
     JobsModule,
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'src/upload'),
+    }),
   ],
   controllers: [AppController],
   providers: [AppService],

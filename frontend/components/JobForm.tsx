@@ -14,23 +14,22 @@ import {
   Col,
   Upload,
   message,
+  Modal,
+  Space,
 } from "antd";
-import { InboxOutlined, UploadOutlined } from "@ant-design/icons";
+import {
+  InboxOutlined,
+  UploadOutlined,
+  ExclamationCircleFilled,
+} from "@ant-design/icons";
 const { Title, Paragraph, Text } = Typography;
 const { Option } = Select;
 const { TextArea } = Input;
 import { useMutation, gql } from "@apollo/client";
 import type { RcFile, UploadFile } from "antd/es/upload/interface";
 import client from "../graphql/apollo-client";
-
-// const MUTATION = gql`
-//   mutation {
-//     createJob(input: $input) {
-//       company
-//       id
-//     }
-//   }
-// `;
+import SuccessfulModal from "./SuccessfulModal";
+import Router from "next/router";
 
 const MUTATION = gql`
   mutation createJob($input: JobCreateInput!) {
@@ -49,6 +48,7 @@ const JobForm = () => {
   });
   const [fileList, setFileList] = useState<UploadFile[]>([]);
   const [uploading, setUploading] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   const fileUploadProps: UploadProps = {
     multiple: false,
@@ -69,6 +69,7 @@ const JobForm = () => {
   };
 
   const onFinish = (values: any) => {
+    setShowModal(false);
     console.log(fileList[0]);
     setUploading(true);
     uploadFormdata({
@@ -90,7 +91,9 @@ const JobForm = () => {
     // update the cache store
     client.resetStore();
     setUploading(false);
+    setShowModal(true);
   };
+
   const [form] = Form.useForm();
   return (
     <Form form={form} labelCol={{ span: 4 }} onFinish={onFinish}>
@@ -159,13 +162,25 @@ const JobForm = () => {
             name="JobDescription"
             rules={[{ required: true }]}
           >
-            <TextArea showCount maxLength={100} />
+            <TextArea showCount maxLength={700} />
           </Form.Item>
           <Form.Item wrapperCol={{ offset: 4 }}>
-            <Button type={"primary"} size={"large"} htmlType="submit">
+            <Button
+              type={"primary"}
+              size={"large"}
+              htmlType="submit"
+              disabled={uploading}
+            >
               Submit
             </Button>
           </Form.Item>
+          {data && (
+            <SuccessfulModal
+              showModal={showModal}
+              message={{ title: "Job added successfully!" }}
+              redirectTo={`/jobdetails?jobID=${data?.createJob?.id}`}
+            />
+          )}
         </Col>
       </Row>
     </Form>
