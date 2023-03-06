@@ -5,6 +5,7 @@ import { Typography } from "antd";
 import JobForm from "../components/JobForm";
 import { gql, useLazyQuery, useMutation, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
+import Error from "next/error";
 const { Title } = Typography;
 
 const QUERY = gql`
@@ -56,13 +57,12 @@ const EditJob = () => {
     });
   }, [editToken]);
 
-  if (loading || !data) {
+  if (loading) {
     return <h2>Loading...</h2>;
   }
-
   if (error) {
     console.error(error);
-    return null;
+    return <Error statusCode={404} title="Invalid Job Edit Token" />;
   }
 
   if (data) {
@@ -70,15 +70,17 @@ const EditJob = () => {
   }
 
   return (
-    <Layout title="Edit a Job" enableLocalSearch={false}>
-      <Title level={3}>Edit a Job</Title>
-      <JobForm
-        uploadFormdata={updateFormdata}
-        data={data.jobs[0]}
-        isUpdating={true}
-        editToken={editToken as string}
-      />
-    </Layout>
+    data && (
+      <Layout title="Edit a Job" enableLocalSearch={false}>
+        <Title level={3}>Edit a Job</Title>
+        <JobForm
+          uploadFormdata={updateFormdata}
+          data={data.jobs[0]}
+          isUpdating={true}
+          editToken={editToken as string}
+        />
+      </Layout>
+    )
   );
 };
 

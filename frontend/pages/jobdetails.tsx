@@ -4,6 +4,7 @@ import { useEffect, useLayoutEffect, useState } from "react";
 import JobDetail from "../components/JobDetail";
 import Layout from "../components/Layout";
 import { SearchBarQuery } from "../interfaces/searchBarQuery";
+import Error from "next/error";
 
 const FETCH_JOB_DETAILS = gql`
   query fetchJobs($input: GetJobInputParams!) {
@@ -54,7 +55,7 @@ export default function GlobalSearch() {
 
   if (error) {
     console.error(error);
-    return null;
+    return <Error statusCode={404} title="Invalid Job ID" />;
   }
 
   if (data) {
