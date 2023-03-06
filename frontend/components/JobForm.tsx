@@ -31,6 +31,13 @@ import client from "../graphql/apollo-client";
 import SuccessfulModal from "./SuccessfulModal";
 import Router from "next/router";
 
+type Props = {
+  uploadFormdata: (input: any) => void;
+  data?: any;
+  isUpdating: boolean;
+  editToken?: string;
+};
+
 const MUTATION = gql`
   mutation createJob($input: JobCreateInput!) {
     createJob(input: $input) {
@@ -40,13 +47,23 @@ const MUTATION = gql`
   }
 `;
 
-const JobForm = () => {
+const JobForm = ({ uploadFormdata, data, isUpdating, editToken }: Props) => {
+  const imageInitialVal = data?.logo
+    ? [
+        {
+          uid: "-1",
+          name: `${data.logo}`,
+          status: "done",
+          url: `http://localhost:3000/${data.logo}`,
+        },
+      ]
+    : [];
+
   const [jobType, setJobType] = useState("Full Time");
-  const [uploadFormdata, { data, loading, error }] = useMutation(MUTATION, {
-    //TODO: make this work!
-    // refetchQueries: ["QUERY"],
-  });
-  const [fileList, setFileList] = useState<UploadFile[]>([]);
+
+  const [fileList, setFileList] = useState<UploadFile[]>(
+    imageInitialVal as UploadFile[]
+  );
   const [uploading, setUploading] = useState(false);
   const [showModal, setShowModal] = useState(false);
 
@@ -62,6 +79,7 @@ const JobForm = () => {
       }
       setFileList([file]);
     },
+
     fileList,
   };
   const onJobTypeChange = (e: RadioChangeEvent) => {
@@ -70,28 +88,31 @@ const JobForm = () => {
 
   const onFinish = (values: any) => {
     setShowModal(false);
-    console.log(fileList[0]);
     setUploading(true);
+    const input = {
+      company: values.Company,
+      position: values.Position,
+      location: values.Location,
+      jobDescription: values.JobDescription,
+      howToApply: values.HowToApply || "",
+      public: true,
+      email: values.Email || "null@null.com",
+      type: jobType,
+      category: values.Category,
+      image: imageInitialVal[0] === fileList[0] ? null : fileList[0],
+      url: values.url || "",
+    };
+    if (isUpdating && editToken) {
+      input["editToken"] = editToken;
+    }
     uploadFormdata({
-      variables: {
-        input: {
-          company: values.Company,
-          position: values.Position,
-          location: values.Location,
-          jobDescription: values.JobDescription,
-          howToApply: values.HowToApply || "",
-          public: true,
-          email: values.Email || "null@null.com",
-          type: jobType,
-          category: values.Category,
-          image: fileList[0],
-        },
-      },
+      variables: { input },
     });
     // update the cache store
     client.resetStore();
     setUploading(false);
     setShowModal(true);
+    console.log(showModal);
   };
 
   const [form] = Form.useForm();
@@ -103,6 +124,7 @@ const JobForm = () => {
             name="Category"
             label="Category"
             rules={[{ required: true }]}
+            initialValue={isUpdating ? data.category : ""}
           >
             <Select allowClear>
               <Option value="Design">Design</Option>
@@ -111,8 +133,12 @@ const JobForm = () => {
               <Option value="Other">Other</Option>
             </Select>
           </Form.Item>
-          <Form.Item label="JobType" name="JobType">
-            <Radio.Group defaultValue={"Full Time"} onChange={onJobTypeChange}>
+          <Form.Item
+            label="JobType"
+            name="JobType"
+            initialValue={isUpdating ? data.type : "Full Time"}
+          >
+            <Radio.Group onChange={onJobTypeChange}>
               <Radio value={"Full Time"}>Full Time</Radio>
               <Radio value={"Part Time"}>Part Time</Radio>
               <Radio value={"Contract"}>Contract</Radio>
@@ -126,43 +152,58 @@ const JobForm = () => {
             label="Company"
             name="Company"
             rules={[{ required: true }]}
+            initialValue={isUpdating ? data.company : ""}
           >
-            <Input />
+            <Input placeholder="Enter Company Name Here" />
           </Form.Item>
           <Form.Item label="Logo" name="Logo">
-            <Upload {...fileUploadProps}>
+            <Upload
+              {...fileUploadProps}
+              listType={isUpdating ? "picture-card" : undefined}
+            >
               <Button icon={<UploadOutlined />}>
                 {uploading ? "Uploading" : "Select File"}
               </Button>
             </Upload>
           </Form.Item>
-          <Form.Item label="URL" name="URL">
+          <Form.Item
+            label="Custom URL"
+            name="url"
+            initialValue={isUpdating ? (data?.url ? data.url : "") : ""}
+          >
             <Input
               addonBefore="http://localhost:3000/customURL/"
               addonAfter=".com"
-              defaultValue=""
+              placeholder="Enter Custom URL Here"
             />
           </Form.Item>
           <Form.Item
             label="Position"
             name="Position"
             rules={[{ required: true }]}
+            initialValue={isUpdating ? data.position : ""}
           >
-            <Input />
+            <Input placeholder="Enter Position Here" />
           </Form.Item>
           <Form.Item
             label="Location"
             name="Location"
             rules={[{ required: true }]}
+            initialValue={isUpdating ? data.location : ""}
           >
-            <Input />
+            <Input placeholder="Enter Location Here" />
           </Form.Item>
           <Form.Item
             label="Job Description"
             name="JobDescription"
             rules={[{ required: true }]}
+            initialValue={isUpdating ? data.jobDescription : ""}
           >
-            <TextArea showCount maxLength={700} />
+            <TextArea
+              showCount
+              maxLength={700}
+              placeholder="Enter Job Description Here"
+            />
           </Form.Item>
           <Form.Item wrapperCol={{ offset: 4 }}>
             <Button
@@ -177,8 +218,12 @@ const JobForm = () => {
           {data && (
             <SuccessfulModal
               showModal={showModal}
-              message={{ title: "Job added successfully!" }}
-              redirectTo={`/jobdetails?jobID=${data?.createJob?.id}`}
+              message={{
+                title: `Job ${isUpdating ? `updated` : `added`} successfully!`,
+              }}
+              redirectTo={`/jobdetails?jobID=${
+                data?.createJob?.id || data?.id
+              }`}
             />
           )}
         </Col>

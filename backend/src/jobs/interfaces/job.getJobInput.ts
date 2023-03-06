@@ -21,6 +21,9 @@ export class GetJobInputParams {
   @Field(() => ID, { nullable: true })
   id: string;
 
+  @Field(() => String, { nullable: true })
+  editToken: string;
+
   @Field(() => [String], { nullable: true })
   categories: [string];
 

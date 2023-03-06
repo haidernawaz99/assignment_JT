@@ -31,5 +31,5 @@ export class JobReturn {
   @Field()
   updatedAt: Date;
   @Field()
-  editLink: string;
+  editToken: string;
 }

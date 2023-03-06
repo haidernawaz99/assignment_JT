@@ -9,6 +9,7 @@ import { GetJobPaginationInputParams } from './interfaces/jobs.getJobInputPagina
 import { JobPagination } from './interfaces/job.pagination.interface';
 import { GetJobInputParams } from './interfaces/job.getJobInput';
 import { v4 as uuidv4 } from 'uuid';
+import { JobUpdateInput } from './interfaces/job.updateInput';
 
 // CreateCatDto  used to define the structure of the data to be returned from the server when querying for a list of cats.
 
@@ -18,12 +19,12 @@ export class JobsService {
 
   async create(jobInput: JobCreateInput): Promise<Job> {
     // if the user has uploaded an image (logo) then dump it to the filesystem
-    const editLink = uuidv4();
+    const editToken = uuidv4();
     if (jobInput?.image) {
       console.log(jobInput.image);
       const { createReadStream, filename } = await jobInput?.image;
       jobInput.logo = filename || null; //save the filename to the database (if exists)
-      const createdJob = new this.jobModel({ ...jobInput, editLink });
+      const createdJob = new this.jobModel({ ...jobInput, editToken });
 
       return new Promise(async (resolve) =>
         createReadStream()
@@ -38,7 +39,7 @@ export class JobsService {
     }
 
     // if the user has NOT uploaded an image (logo)
-    const createdJob = new this.jobModel({ ...jobInput, editLink });
+    const createdJob = new this.jobModel({ ...jobInput, editToken });
     return createdJob.save();
   }
 
@@ -135,6 +136,12 @@ export class JobsService {
       return [res];
     }
 
+    if (input?.editToken) {
+      console.log('HI editToken');
+      const res = await this.jobModel.findOne({ editToken: input.editToken });
+      return [res];
+    }
+
     return await this.jobModel.find().sort({ createdAt: -1 });
   }
 
@@ -155,5 +162,45 @@ export class JobsService {
 
     console.log({ job, jobCount });
     return { jobCount, job };
+  }
+  async update(jobUpdate: JobUpdateInput): Promise<Job> {
+    console.log('UPDATE');
+    console.log(jobUpdate);
+    console.log('Update');
+    // if the user has uploaded a **NEW** image (logo) then dump it to the filesystem
+    if (jobUpdate?.image) {
+      console.log(jobUpdate.image);
+      const { createReadStream, filename } = await jobUpdate?.image;
+      jobUpdate.logo = filename || null; //save the filename to the database (if exists)
+
+      return new Promise(async (resolve) =>
+        createReadStream()
+          .pipe(
+            createWriteStream(join(process.cwd(), `./src/upload/${filename}`)),
+          )
+          .on('finish', () =>
+            resolve(
+              this.jobModel.findOneAndUpdate(
+                { editToken: jobUpdate.editToken },
+                jobUpdate,
+                { new: true },
+              ),
+            ),
+          )
+          .on('error', () => {
+            new HttpException('Could not save image', HttpStatus.BAD_REQUEST);
+          }),
+      );
+    }
+
+    // if the user has NOT uploaded an image (logo)
+
+    jobUpdate.logo = null;
+    const updatedJob = await this.jobModel.findOneAndUpdate(
+      { editToken: jobUpdate.editToken },
+      jobUpdate,
+      { new: true },
+    );
+    return updatedJob;
   }
 }

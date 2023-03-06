@@ -24,7 +24,7 @@ type JobReturn {
   category: String!
   createdAt: DateTime!
   updatedAt: DateTime!
-  editLink: String!
+  editToken: String!
 }
 
 """
@@ -46,6 +46,7 @@ type Query {
 
 input GetJobInputParams {
   id: ID
+  editToken: String
   categories: [String!]
   location: String
   position: String
@@ -63,6 +64,7 @@ input GetJobPaginationInputParams {
 type Mutation {
   createCat(input: CatInput!): CatReturn!
   createJob(input: JobCreateInput!): JobReturn!
+  editJob(input: JobUpdateInput!): JobReturn!
 }
 
 input CatInput {
@@ -88,3 +90,19 @@ input JobCreateInput {
 
 """The `Upload` scalar type represents a file upload."""
 scalar Upload
+
+input JobUpdateInput {
+  company: String
+  editToken: String!
+  position: String
+  location: String
+  jobDescription: String
+  howToApply: String
+  public: Boolean
+  email: String
+  url: String
+  logo: String
+  type: String
+  category: String
+  image: Upload
+}
