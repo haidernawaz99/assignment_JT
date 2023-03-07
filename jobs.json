@@ -1,0 +1,980 @@
+[{
+  "_id": {
+    "$oid": "63fd8d51dd0eb78cc3c7f11a"
+  },
+  "company": "ABC",
+  "position": "Product Manager",
+  "location": "LHR",
+  "jobDescription": "Some random description here",
+  "howToApply": "",
+  "public": true,
+  "email": "null@null.com",
+  "type": "Full Time",
+  "category": "Product",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1677561169717"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63fd8d68dd0eb78cc3c7f11c"
+  },
+  "company": "DEF",
+  "position": "Senior Software Engineer",
+  "location": "LHR",
+  "jobDescription": "Some random description here",
+  "howToApply": "",
+  "public": true,
+  "email": "null@null.com",
+  "type": "Internship",
+  "category": "Development",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1677561192811"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63fd8d85dd0eb78cc3c7f11e"
+  },
+  "company": "EFG",
+  "position": "Administrator",
+  "location": "KHI",
+  "jobDescription": "Some random description here",
+  "howToApply": "",
+  "public": true,
+  "email": "null@null.com",
+  "logo": "catto.jpg",
+  "type": "Part Time",
+  "category": "Other",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1677561221993"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63fd8ddedd0eb78cc3c7f120"
+  },
+  "company": "LMO",
+  "position": "Staff Manager",
+  "location": "LHR",
+  "jobDescription": "new desc",
+  "howToApply": "",
+  "public": true,
+  "email": "null@null.com",
+  "logo": "istockphoto-105097179-612x612.jpg",
+  "type": "Contract",
+  "category": "Other",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1677561310935"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63fd8e00dd0eb78cc3c7f122"
+  },
+  "company": "PQR",
+  "position": "Electrician",
+  "location": "LHR",
+  "jobDescription": "*Some Job Description here*",
+  "howToApply": "",
+  "public": true,
+  "email": "null@null.com",
+  "logo": "istockphoto-105097179-612x612.jpg",
+  "type": "Full Time",
+  "category": "Other",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1677561344679"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63fd8e16dd0eb78cc3c7f124"
+  },
+  "company": "Jin Tech",
+  "position": "Senior Product Designer",
+  "location": "MLT",
+  "jobDescription": "*Some Job Description here*",
+  "howToApply": "",
+  "public": true,
+  "email": "null@null.com",
+  "logo": "istockphoto-105097179-612x612.jpg",
+  "type": "Full Time",
+  "category": "Design",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1677561366965"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63fd8e30dd0eb78cc3c7f126"
+  },
+  "company": "Microsoft",
+  "position": "CEO",
+  "location": "Washington, USA",
+  "jobDescription": "*Some Job Description here*",
+  "howToApply": "",
+  "public": true,
+  "email": "null@null.com",
+  "logo": "istockphoto-105097179-612x612.jpg",
+  "type": "Full Time",
+  "category": "Other",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1677561392717"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63fd8e4add0eb78cc3c7f128"
+  },
+  "company": "Meta",
+  "position": "Project Manager",
+  "location": "California, USA",
+  "jobDescription": "*Some Job Description here*",
+  "howToApply": "",
+  "public": true,
+  "email": "null@null.com",
+  "logo": "istockphoto-105097179-612x612.jpg",
+  "type": "Full Time",
+  "category": "Development",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1677561418125"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63fd8e5add0eb78cc3c7f12a"
+  },
+  "company": "Meta",
+  "position": "HR Manager",
+  "location": "California, USA",
+  "jobDescription": "*Some Job Description here*",
+  "howToApply": "",
+  "public": true,
+  "email": "null@null.com",
+  "logo": "istockphoto-105097179-612x612.jpg",
+  "type": "Part Time",
+  "category": "Other",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1677561434428"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63fd8e6add0eb78cc3c7f12c"
+  },
+  "company": "Meta",
+  "position": "Building Manager",
+  "location": "California, USA",
+  "jobDescription": "*Some Job Description here*",
+  "howToApply": "",
+  "public": true,
+  "email": "null@null.com",
+  "logo": "istockphoto-105097179-612x612.jpg",
+  "type": "Part Time",
+  "category": "Design",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1677561450836"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63fd8e7cdd0eb78cc3c7f12e"
+  },
+  "company": "Google",
+  "position": "Product Manager",
+  "location": "California, USA",
+  "jobDescription": "*Some Job Description here*",
+  "howToApply": "",
+  "public": true,
+  "email": "null@null.com",
+  "logo": "istockphoto-105097179-612x612.jpg",
+  "type": "Part Time",
+  "category": "Product",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1677561468750"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63fd8e97dd0eb78cc3c7f130"
+  },
+  "company": "Google",
+  "position": "Lead Product Designer",
+  "location": "California, USA",
+  "jobDescription": "*Some Job Description here*",
+  "howToApply": "",
+  "public": true,
+  "email": "null@null.com",
+  "type": "Part Time",
+  "category": "Design",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1677561495505"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63fdb268e5d0f52fa0e182fd"
+  },
+  "company": "Netflix",
+  "position": "Senior Software Engineer",
+  "location": "TX, USA",
+  "jobDescription": "We need a....",
+  "howToApply": "",
+  "public": true,
+  "email": "null@null.com",
+  "logo": "istockphoto-105097179-612x612.jpg",
+  "type": "Contract",
+  "category": "Development",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1677570664540"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63fdb2a5e5d0f52fa0e18300"
+  },
+  "company": "Netflix",
+  "position": "Product Manager",
+  "location": "TX, USA",
+  "jobDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In pulvinar posuere nulla, id ultricies ante pretium eget. Fusce dictum nibh at aliquam aliquet. Quisque semper, purus non consectetur sagittis, massa felis porta nunc, non finibus dolor elit vitae nunc. Aliquam at fringilla nulla. Curabitur bibendum eros eros, vitae sodales lectus pharetra eget. Fusce molestie lacus et tellus rhoncus vestibulum. Donec justo nisi, sollicitudin at bibendum mollis, tincidunt vitae eros. Phasellus iaculis luctus eros quis aliquet. Nam laoreet feugiat justo. Pellentesque eleifend, massa nec sollicitudin interdum, felis arcu sagittis orci, vitae egestas leo ex eu elit. Aenean ut tristique ex. Aliquam augue leo, venenatis vel rhoncus quis, cursus ac purus. Cras aliquam egestas neque, nec sagittis urna hendrerit at. Vivamus ac ultrices lectus.\n\nMorbi consectetur sapien risus, ultricies maximus quam convallis nec. Duis sed sapien tellus. Aliquam sed odio feugiat, tincidunt nibh id, condimentum felis. Integer sed venenatis libero. Donec non feugiat diam, lobortis placerat ex. Aliquam tellus lacus, vehicula vitae ipsum ac, rutrum rhoncus neque. Vestibulum porta nibh eu efficitur gravida. Nulla ullamcorper mauris diam, eleifend gravida lectus ullamcorper eget. Mauris vehicula, justo vel blandit hendrerit, orci erat finibus ipsum, in semper ante quam in turpis. Mauris posuere laoreet sollicitudin. Sed ac lacus tortor. Sed ut odio ipsum. Suspendisse potenti.",
+  "howToApply": "",
+  "public": true,
+  "email": "null@null.com",
+  "type": "Full Time",
+  "category": "Product",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1677570725029"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63fdc59be5d0f52fa0e18308"
+  },
+  "company": "JTPL",
+  "position": "Software Engineer",
+  "location": "ISB",
+  "jobDescription": "Apply ....",
+  "howToApply": "",
+  "public": true,
+  "email": "null@null.com",
+  "type": "Full Time",
+  "category": "Development",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1677575579728"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63fdef9735c9e9495edb41f9"
+  },
+  "company": "hghgh",
+  "position": "hghg",
+  "location": "tyrtyr",
+  "jobDescription": "rtyrtyrty",
+  "howToApply": "",
+  "public": true,
+  "email": "null@null.com",
+  "type": "Full Time",
+  "category": "Development",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1677586327637"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63fee576519bbbcde7f27693"
+  },
+  "company": "COMSATS University",
+  "position": "Product Designer",
+  "location": "Islamabad",
+  "jobDescription": "Please apply, we need a highly talented .....",
+  "howToApply": "",
+  "public": true,
+  "email": "null@null.com",
+  "logo": "640px-COMSATS_new_logo.jpg",
+  "type": "Full Time",
+  "category": "Product",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1677649270975"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63fee59d519bbbcde7f27695"
+  },
+  "company": "FAST University",
+  "position": "Product Designer",
+  "location": "Faisalabad",
+  "jobDescription": "Former FASTIANs are highly encouraged to apply",
+  "howToApply": "",
+  "public": true,
+  "email": "null@null.com",
+  "logo": "640px-COMSATS_new_logo.jpg",
+  "type": "Full Time",
+  "category": "Product",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1677649309625"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63fee70c519bbbcde7f27697"
+  },
+  "company": "Nust",
+  "position": "Product Designer",
+  "location": "Karachi",
+  "jobDescription": "Former Nustians are highly encouraged to apply",
+  "howToApply": "",
+  "public": true,
+  "email": "null@null.com",
+  "logo": "Logo1-277x300.jpg",
+  "type": "Full Time",
+  "category": "Product",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1677649676857"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63fee71623a0e45621b871d1"
+  },
+  "company": "Nust",
+  "position": "Product Designer",
+  "location": "Karachi",
+  "jobDescription": "Former Nustians are highly encouraged to apply",
+  "howToApply": "",
+  "public": true,
+  "email": "null@null.com",
+  "logo": "Logo1-277x300.jpg",
+  "type": "Full Time",
+  "category": "Product",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1677649676857"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63fee71723a0e45621b871d2"
+  },
+  "company": "Nust",
+  "position": "Product Designer",
+  "location": "Karachi",
+  "jobDescription": "Former Nustians are highly encouraged to apply",
+  "howToApply": "",
+  "public": true,
+  "email": "null@null.com",
+  "logo": "Logo1-277x300.jpg",
+  "type": "Full Time",
+  "category": "Product",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1677649676857"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63fee71f23a0e45621b871d3"
+  },
+  "company": "COMSATS University",
+  "position": "Product Designer",
+  "location": "Islamabad",
+  "jobDescription": "Please apply, we need a highly talented .....",
+  "howToApply": "",
+  "public": true,
+  "email": "null@null.com",
+  "logo": "640px-COMSATS_new_logo.jpg",
+  "type": "Full Time",
+  "category": "Product",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1677649270975"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63fee72323a0e45621b871d4"
+  },
+  "company": "COMSATS University",
+  "position": "Product Designer",
+  "location": "Islamabad",
+  "jobDescription": "Please apply, we need a highly talented .....",
+  "howToApply": "",
+  "public": true,
+  "email": "null@null.com",
+  "logo": "640px-COMSATS_new_logo.jpg",
+  "type": "Full Time",
+  "category": "Product",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1677649270975"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63fee72b23a0e45621b871d5"
+  },
+  "company": "Google",
+  "position": "Product Manager",
+  "location": "California, USA",
+  "jobDescription": "*Some Job Description here*",
+  "howToApply": "",
+  "public": true,
+  "email": "null@null.com",
+  "logo": "istockphoto-105097179-612x612.jpg",
+  "type": "Part Time",
+  "category": "Product",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1677561468750"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63fee72f23a0e45621b871d6"
+  },
+  "company": "ABC",
+  "position": "Product Manager",
+  "location": "LHR",
+  "jobDescription": "Some random description here",
+  "howToApply": "",
+  "public": true,
+  "email": "null@null.com",
+  "type": "Full Time",
+  "category": "Product",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1677561169717"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63fee73523a0e45621b871d7"
+  },
+  "company": "Google",
+  "position": "Product Manager",
+  "location": "California, USA",
+  "jobDescription": "*Some Job Description here*",
+  "howToApply": "",
+  "public": true,
+  "email": "null@null.com",
+  "logo": "istockphoto-105097179-612x612.jpg",
+  "type": "Part Time",
+  "category": "Product",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1677561468750"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63fee73c23a0e45621b871d8"
+  },
+  "company": "Netflix",
+  "position": "Product Manager",
+  "location": "TX, USA",
+  "jobDescription": "Please apply via .......",
+  "howToApply": "",
+  "public": true,
+  "email": "null@null.com",
+  "type": "Full Time",
+  "category": "Product",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1677570725029"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63fee74123a0e45621b871d9"
+  },
+  "company": "COMSATS University",
+  "position": "Product Designer",
+  "location": "Islamabad",
+  "jobDescription": "Please apply, we need a highly talented .....",
+  "howToApply": "",
+  "public": true,
+  "email": "null@null.com",
+  "logo": "640px-COMSATS_new_logo.jpg",
+  "type": "Full Time",
+  "category": "Product",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1677649270975"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63fee74423a0e45621b871da"
+  },
+  "company": "COMSATS University",
+  "position": "Product Designer",
+  "location": "Islamabad",
+  "jobDescription": "Please apply, we need a highly talented .....",
+  "howToApply": "",
+  "public": true,
+  "email": "null@null.com",
+  "logo": "640px-COMSATS_new_logo.jpg",
+  "type": "Full Time",
+  "category": "Product",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1677649270975"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63fee74723a0e45621b871db"
+  },
+  "company": "FAST University",
+  "position": "Product Designer",
+  "location": "Faisalabad",
+  "jobDescription": "Former FASTIANs are highly encouraged to apply",
+  "howToApply": "",
+  "public": true,
+  "email": "null@null.com",
+  "logo": "640px-COMSATS_new_logo.jpg",
+  "type": "Full Time",
+  "category": "Product",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1677649309625"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63fee74c23a0e45621b871dc"
+  },
+  "company": "COMSATS University",
+  "position": "Product Designer",
+  "location": "Islamabad",
+  "jobDescription": "Please apply, we need a highly talented .....",
+  "howToApply": "",
+  "public": true,
+  "email": "null@null.com",
+  "logo": "640px-COMSATS_new_logo.jpg",
+  "type": "Full Time",
+  "category": "Product",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1677649270975"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63fee7b123a0e45621b871dd"
+  },
+  "company": "Google",
+  "position": "Product Manager",
+  "location": "California, USA",
+  "jobDescription": "*Some Job Description here*",
+  "howToApply": "",
+  "public": true,
+  "email": "null@null.com",
+  "logo": "istockphoto-105097179-612x612.jpg",
+  "type": "Part Time",
+  "category": "Product",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1677561468750"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63fee7b723a0e45621b871de"
+  },
+  "company": "Netflix",
+  "position": "Product Manager",
+  "location": "TX, USA",
+  "jobDescription": "Please apply via .......",
+  "howToApply": "",
+  "public": true,
+  "email": "null@null.com",
+  "type": "Full Time",
+  "category": "Product",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1677570725029"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63fee7cb23a0e45621b871df"
+  },
+  "company": "Netflix",
+  "position": "Product Manager",
+  "location": "TX, USA",
+  "jobDescription": "Please apply via .......",
+  "howToApply": "",
+  "public": true,
+  "email": "null@null.com",
+  "type": "Full Time",
+  "category": "Product",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1677570725029"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63fee7d623a0e45621b871e0"
+  },
+  "company": "COMSATS University",
+  "position": "Product Designer",
+  "location": "Islamabad",
+  "jobDescription": "Please apply, we need a highly talented .....",
+  "howToApply": "",
+  "public": true,
+  "email": "null@null.com",
+  "logo": "640px-COMSATS_new_logo.jpg",
+  "type": "Full Time",
+  "category": "Product",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1677649270975"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63ff2a6023a0e45621b871e1"
+  },
+  "company": "DEF",
+  "position": "Senior Software Engineer",
+  "location": "LHR",
+  "jobDescription": "Some random description here",
+  "howToApply": "",
+  "public": true,
+  "email": "null@null.com",
+  "type": "Internship",
+  "category": "Development",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1677561192811"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63ff2aa264092092e9c36030"
+  },
+  "company": "GIKI",
+  "position": "Software Architect",
+  "location": "KPK",
+  "jobDescription": "Please apply as we are ......",
+  "howToApply": "",
+  "public": true,
+  "email": "null@null.com",
+  "type": "Full Time",
+  "category": "Development",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1677666978963"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63ff2ab764092092e9c36032"
+  },
+  "company": "Harvard University",
+  "position": "Software Architect",
+  "location": "MA, USA",
+  "jobDescription": "We are looking for....",
+  "howToApply": "",
+  "public": true,
+  "email": "null@null.com",
+  "type": "Full Time",
+  "category": "Development",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1677666999306"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63ff2ad064092092e9c36034"
+  },
+  "company": "Cambridge University",
+  "position": "Software Developer",
+  "location": "Cambridge, UK",
+  "jobDescription": "We the .....",
+  "howToApply": "",
+  "public": true,
+  "email": "null@null.com",
+  "type": "Full Time",
+  "category": "Development",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1677667024001"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63ff2ad564092092e9c36036"
+  },
+  "company": "Cambridge University",
+  "position": "Software Developer",
+  "location": "Cambridge, UK",
+  "jobDescription": "We the .....",
+  "howToApply": "",
+  "public": true,
+  "email": "null@null.com",
+  "type": "Full Time",
+  "category": "Development",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1677667029408"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63ff2aeb64092092e9c36038"
+  },
+  "company": "University",
+  "position": "Software Developer",
+  "location": "Worldwide",
+  "jobDescription": "Please.....",
+  "howToApply": "",
+  "public": true,
+  "email": "null@null.com",
+  "type": "Contract",
+  "category": "Development",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1677667051073"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63ff2af264092092e9c3603a"
+  },
+  "company": "University",
+  "position": "Software Developer",
+  "location": "Worldwide",
+  "jobDescription": "Please.....",
+  "howToApply": "",
+  "public": true,
+  "email": "null@null.com",
+  "type": "Contract",
+  "category": "Development",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1677667058400"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63ff2af264092092e9c3603c"
+  },
+  "company": "University",
+  "position": "Software Developer",
+  "location": "Worldwide",
+  "jobDescription": "Please.....",
+  "howToApply": "",
+  "public": true,
+  "email": "null@null.com",
+  "type": "Contract",
+  "category": "Development",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1677667058748"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63ff2af364092092e9c3603e"
+  },
+  "company": "University",
+  "position": "Software Developer",
+  "location": "Worldwide",
+  "jobDescription": "Please.....",
+  "howToApply": "",
+  "public": true,
+  "email": "null@null.com",
+  "type": "Contract",
+  "category": "Development",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1677667059081"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63ff2afb64092092e9c36040"
+  },
+  "company": "University",
+  "position": "Software Developer",
+  "location": "Worldwide",
+  "jobDescription": "Please.....",
+  "howToApply": "",
+  "public": true,
+  "email": "null@null.com",
+  "type": "Contract",
+  "category": "Development",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1677667067097"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63ff2b0864092092e9c36042"
+  },
+  "company": "University",
+  "position": "Software Developer",
+  "location": "Worldwide",
+  "jobDescription": "Please.....",
+  "howToApply": "",
+  "public": true,
+  "email": "null@null.com",
+  "type": "Contract",
+  "category": "Development",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1677667080765"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63ff3404e1d52f26514c5c18"
+  },
+  "company": "Sam's Hardware Store",
+  "position": "Intern Designer ",
+  "location": "MA, US",
+  "jobDescription": "We need a freshly graduated ....",
+  "howToApply": "",
+  "public": true,
+  "email": "null@null.com",
+  "type": "Internship",
+  "category": "Design",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1677669380919"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "64003ea0e1d52f26514c5c8d"
+  },
+  "company": "Meta",
+  "position": "Intern Developer",
+  "location": "US",
+  "jobDescription": "Please apply ...",
+  "howToApply": "",
+  "public": true,
+  "email": "null@null.com",
+  "type": "Internship",
+  "category": "Development",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1677737632218"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6401e6bcb52e54655313f799"
+  },
+  "company": "Broadcom",
+  "position": "Chip Designer",
+  "location": "UK",
+  "jobDescription": "Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs. The passage is attributed to an unknown typesetter in the 15th century who is thought to have scrambled parts of Cicero's De Finibus Bonorum et Malorum for use in a type specimen book. It usually begins with:\n\n“Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.”\nThe purpose of lorem ipsum is to create a natural looking block of text (sentence, paragraph, page, etc.) that doesn't distract from the layout. A practice not without controversy, laying out pages with meaningless filler text can be very useful when ",
+  "howToApply": "",
+  "public": true,
+  "email": "null@null.com",
+  "logo": "tavuddvl_400x400.jpg",
+  "type": "Full Time",
+  "category": "Other",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1677846204257"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "64056a20e515d12af1cdf7cb"
+  },
+  "company": "dasd",
+  "position": "Software Engineer",
+  "location": "UK",
+  "jobDescription": "Story F3: Trying to fix an issue where keeping the same option, but different text doesnt fetch new data\t(2)",
+  "howToApply": "",
+  "public": true,
+  "email": "null@null.com",
+  "logo": "mongoose5_62x30_transparent.png",
+  "type": "Full Time",
+  "category": "Design",
+  "editToken": "befe3aa7-5694-4bb4-b48b-2ea25364d7bb",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1678076448082"
+    }
+  },
+  "__v": 0,
+  "url": ""
+}]

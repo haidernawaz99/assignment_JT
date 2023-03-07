@@ -43,6 +43,7 @@ const MUTATION = gql`
     createJob(input: $input) {
       company
       id
+      editToken
     }
   }
 `;
@@ -102,6 +103,8 @@ const JobForm = ({ uploadFormdata, data, isUpdating, editToken }: Props) => {
       image: imageInitialVal[0] === fileList[0] ? null : fileList[0],
       url: values.url || "",
     };
+
+    // if we are updating, add the editToken to the input
     if (isUpdating && editToken) {
       input["editToken"] = editToken;
     }
@@ -111,6 +114,7 @@ const JobForm = ({ uploadFormdata, data, isUpdating, editToken }: Props) => {
     // update the cache store
     client.resetStore();
     setUploading(false);
+    console.log(data);
     setShowModal(true);
     console.log(showModal);
   };
@@ -218,12 +222,11 @@ const JobForm = ({ uploadFormdata, data, isUpdating, editToken }: Props) => {
           {data && (
             <SuccessfulModal
               showModal={showModal}
-              message={{
-                title: `Job ${isUpdating ? `updated` : `added`} successfully!`,
-              }}
+              isUpdating={isUpdating}
               redirectTo={`/jobdetails?jobID=${
                 data?.createJob?.id || data?.id
               }`}
+              editToken={data?.createJob?.editToken}
             />
           )}
         </Col>

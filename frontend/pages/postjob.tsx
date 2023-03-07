@@ -11,6 +11,7 @@ const MUTATION = gql`
     createJob(input: $input) {
       company
       id
+      editToken
     }
   }
 `;

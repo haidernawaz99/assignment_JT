@@ -17,7 +17,7 @@ import { SearchBarQuery } from "../interfaces/searchBarQuery";
 const { Paragraph } = Typography;
 const { Option } = Select;
 import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
-import { useRouter } from "next/router";
+import Router, { useRouter } from "next/router";
 
 const { Search } = Input;
 const { Title } = Typography;
@@ -118,8 +118,13 @@ const Layout = ({
               )}
             </Col>
             <Col>
-              <Button type="primary">
-                <Link href="/postjob">Post a Job</Link>
+              <Button
+                type="primary"
+                onClick={() => {
+                  Router.push("/postjob");
+                }}
+              >
+                Post a Job
               </Button>
             </Col>
           </Row>
