@@ -25,6 +25,7 @@ type JobReturn {
   createdAt: DateTime!
   updatedAt: DateTime!
   editToken: String!
+  expiresAt: DateTime!
 }
 
 """
@@ -65,6 +66,7 @@ type Mutation {
   createCat(input: CatInput!): CatReturn!
   createJob(input: JobCreateInput!): JobReturn!
   editJob(input: JobUpdateInput!): JobReturn!
+  extendExpiresAt(input: JobExtendInput!): JobReturn!
 }
 
 input CatInput {
@@ -105,4 +107,8 @@ input JobUpdateInput {
   type: String
   category: String
   image: Upload
+}
+
+input JobExtendInput {
+  editToken: String!
 }

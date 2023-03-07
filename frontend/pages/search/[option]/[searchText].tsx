@@ -14,6 +14,7 @@ const GLOBAL_SEARCH = gql`
       company
       category
       id
+      expiresAt
     }
   }
 `;

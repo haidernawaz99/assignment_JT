@@ -32,4 +32,6 @@ export class JobReturn {
   updatedAt: Date;
   @Field()
   editToken: string;
+  @Field()
+  expiresAt: Date;
 }

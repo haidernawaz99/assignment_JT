@@ -23,6 +23,7 @@ const QUERY = gql`
       company
       category
       id
+      expiresAt
     }
   }
 `;

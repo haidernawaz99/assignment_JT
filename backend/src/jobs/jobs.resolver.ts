@@ -6,6 +6,7 @@ import { GetJobPaginationInputParams } from './interfaces/jobs.getJobInputPagina
 import { JobPaginationReturn } from './interfaces/job.pagination.return';
 import { GetJobInputParams } from './interfaces/job.getJobInput';
 import { JobUpdateInput } from './interfaces/job.updateInput';
+import { JobExtendInput } from './interfaces/job.extendInput';
 
 @Resolver()
 export class JobsResolver {
@@ -46,6 +47,11 @@ export class JobsResolver {
   @Mutation(() => JobReturn)
   async editJob(@Args('input') input: JobUpdateInput) {
     return this.jobsService.update(input);
+  }
+
+  @Mutation(() => JobReturn)
+  async extendExpiresAt(@Args('input') input: JobExtendInput) {
+    return this.jobsService.extendExpiresAt(input);
   }
 
   //   @ResolveField()

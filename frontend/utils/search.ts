@@ -10,5 +10,7 @@ export default function search(data: Data, query: SearchBarQuery) {
       .includes(query.text.toLowerCase().trim())
   );
 
+  // console.log(result);
+
   return result;
 }

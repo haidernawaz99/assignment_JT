@@ -10,21 +10,41 @@ import { JobPagination } from './interfaces/job.pagination.interface';
 import { GetJobInputParams } from './interfaces/job.getJobInput';
 import { v4 as uuidv4 } from 'uuid';
 import { JobUpdateInput } from './interfaces/job.updateInput';
-
-// CreateCatDto  used to define the structure of the data to be returned from the server when querying for a list of cats.
+import { JobExtendInput } from './interfaces/job.extendInput';
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const jsonfile = require('jsonfile');
 
 @Injectable()
 export class JobsService {
   constructor(@InjectModel('Job') private jobModel: Model<Job>) {}
 
+  async getExtensionPeriod() {
+    const file = './src/jobs/jobsConfig.json';
+
+    // read from File the extension period
+    const expiresAtDays = await jsonfile
+      .readFile(file)
+      .then((obj) => {
+        const expiresAtDays = 1000 * 60 * 60 * 24 * obj.days; // 1000ms * 60s * 60m * 24h * days
+        return expiresAtDays;
+      })
+      .catch((error) => console.error(error));
+    return expiresAtDays;
+  }
+
   async create(jobInput: JobCreateInput): Promise<Job> {
     // if the user has uploaded an image (logo) then dump it to the filesystem
     const editToken = uuidv4();
+    const expiresAt = Date.now() + (await this.getExtensionPeriod());
     if (jobInput?.image) {
       console.log(jobInput.image);
       const { createReadStream, filename } = await jobInput?.image;
       jobInput.logo = filename || null; //save the filename to the database (if exists)
-      const createdJob = new this.jobModel({ ...jobInput, editToken });
+      const createdJob = new this.jobModel({
+        ...jobInput,
+        editToken,
+        expiresAt,
+      });
 
       return new Promise(async (resolve) =>
         createReadStream()
@@ -39,7 +59,7 @@ export class JobsService {
     }
 
     // if the user has NOT uploaded an image (logo)
-    const createdJob = new this.jobModel({ ...jobInput, editToken });
+    const createdJob = new this.jobModel({ ...jobInput, editToken, expiresAt });
     return createdJob.save();
   }
 
@@ -199,6 +219,17 @@ export class JobsService {
     const updatedJob = await this.jobModel.findOneAndUpdate(
       { editToken: jobUpdate.editToken },
       jobUpdate,
+      { new: true },
+    );
+    return updatedJob;
+  }
+  async extendExpiresAt(jobExtend: JobExtendInput): Promise<Job> {
+    const newExpiresAt = Date.now() + (await this.getExtensionPeriod());
+
+    //read the configuration file to see how the extension period (in days)
+    const updatedJob = await this.jobModel.findOneAndUpdate(
+      { editToken: jobExtend.editToken },
+      { expiresAt: newExpiresAt },
       { new: true },
     );
     return updatedJob;

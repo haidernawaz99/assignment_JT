@@ -1,5 +1,6 @@
 import { SearchBarQuery } from "../interfaces/searchBarQuery";
 import search from "../utils/search";
+import expiresAtDays from "./expiresAtDay";
 
 const filterJobsByCategory = (data, searchBar: SearchBarQuery) => {
   let jobs = data.jobs;
@@ -11,6 +12,9 @@ const filterJobsByCategory = (data, searchBar: SearchBarQuery) => {
     const searchResults = search(jobs, searchBar);
     jobs = searchResults;
   }
+
+  // remove expired jobs -- only show jobs that expire in 5 days or more
+  jobs = jobs.filter((job) => expiresAtDays(job.expiresAt) >= 5);
 
   const designJobs = jobs.filter((job) => job.category === "Design");
   const developmentJobs = jobs.filter((job) => job.category === "Development");

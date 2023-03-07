@@ -20,6 +20,7 @@ const FETCH_JOB_DETAILS = gql`
       category
       createdAt
       logo
+      expiresAt
     }
   }
 `;

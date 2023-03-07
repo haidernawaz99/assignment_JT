@@ -35,4 +35,7 @@ export const JobSchema = new mongoose.Schema({
     type: Date,
   },
   editToken: stringAndRequired,
+  expiresAt: {
+    type: Date,
+  },
 });
