@@ -31,10 +31,13 @@ const GET_ALL_AFFILIATES = gql`
   }
 `;
 
-const SET_ADMIN_MUTATION = gql`
-  mutation updateAdminConfig($input: SetAdminConfigInputParams!) {
-    updateAdminConfig(input: $input) {
-      days
+const APPROVE_AFFILIATE = gql`
+  mutation approveAffiliate($input: ApproveAffiliatesInputParams!) {
+    approveAffiliate(input: $input) {
+      email
+      status
+      name
+      id
     }
   }
 `;
@@ -48,76 +51,6 @@ interface DataType {
   status: "Unapproved" | "Disabled" | "Enabled";
 }
 
-const columns: ColumnsType<DataType> = [
-  {
-    title: "Name",
-    dataIndex: "name",
-    key: "name",
-    align: "center",
-    // render: (text) => <a>{text}</a>,
-  },
-  {
-    title: "Email",
-    dataIndex: "email",
-    key: "email",
-    align: "center",
-    // render: (text) => <a>{text}</a>,
-  },
-  {
-    title: "Site URL",
-    dataIndex: "siteURL",
-    key: "siteURL",
-    align: "center",
-    render: (text) => (
-      <a href={text} target="_blank">
-        {text}
-      </a>
-    ),
-  },
-
-  {
-    title: "Status",
-    key: "status",
-    dataIndex: "status",
-    align: "center",
-    render: (_, record) => (
-      <>
-        {record.status === "Unapproved" && (
-          <Tag style={{ padding: "8%", fontSize: 13 }} color="geekblue">
-            Unapproved
-          </Tag>
-        )}
-
-        {record.status === "Disabled" && (
-          <Tag color="volcano" style={{ padding: "8%", fontSize: 13 }}>
-            Disabled
-          </Tag>
-        )}
-        {record.status === "Enabled" && (
-          <Tag color="green" style={{ padding: "8%", fontSize: 13 }}>
-            Enabled
-          </Tag>
-        )}
-      </>
-    ),
-  },
-  {
-    title: "Action",
-    key: "action",
-    align: "center",
-    render: (_, record) => (
-      <Space size="middle">
-        <Button danger>Delete</Button>
-        {record.status === "Unapproved" && (
-          <Button type="primary">Approve</Button>
-        )}
-        {record.status === "Enabled" && <Button type="primary">Disable</Button>}
-        {record.status === "Disabled" && <Button type="primary">Enable</Button>}
-      </Space>
-    ),
-  },
-];
-
 const ManageAffiliate = () => {
   const [uploaded, setUploaded] = useState(false);
   const [extensionDate, setExtensionDate] = useState(0);
@@ -130,14 +63,100 @@ const ManageAffiliate = () => {
     },
   });
 
-  const [
-    setAdminConfig,
+  const columns: ColumnsType<DataType> = [
     {
-      data: setAdminConfigData,
-      loading: setAdminConfigLoading,
-      error: setAdminConfigErrorr,
+      title: "Name",
+      dataIndex: "name",
+      key: "name",
+      align: "center",
+      // render: (text) => <a>{text}</a>,
     },
-  ] = useMutation(SET_ADMIN_MUTATION);
+    {
+      title: "Email",
+      dataIndex: "email",
+      key: "email",
+      align: "center",
+      // render: (text) => <a>{text}</a>,
+    },
+    {
+      title: "Site URL",
+      dataIndex: "siteURL",
+      key: "siteURL",
+      align: "center",
+      render: (text) => (
+        <a href={text} target="_blank">
+          {text}
+        </a>
+      ),
+    },
+
+    {
+      title: "Status",
+      key: "status",
+      dataIndex: "status",
+      align: "center",
+      render: (_, record) => (
+        <>
+          {record.status === "Unapproved" && (
+            <Tag style={{ padding: "8%", fontSize: 13 }} color="geekblue">
+              Unapproved
+            </Tag>
+          )}
+
+          {record.status === "Disabled" && (
+            <Tag color="volcano" style={{ padding: "8%", fontSize: 13 }}>
+              Disabled
+            </Tag>
+          )}
+          {record.status === "Enabled" && (
+            <Tag color="green" style={{ padding: "8%", fontSize: 13 }}>
+              Enabled
+            </Tag>
+          )}
+        </>
+      ),
+    },
+    {
+      title: "Action",
+      key: "action",
+      align: "center",
+      render: (_, record) => (
+        <Space size="middle">
+          <Button danger>Delete</Button>
+          {record.status === "Unapproved" && (
+            <Button type="primary" onClick={() => approveAffiliate(record)}>
+              Approve
+            </Button>
+          )}
+          {record.status === "Enabled" && (
+            <Button type="primary">Disable</Button>
+          )}
+          {record.status === "Disabled" && (
+            <Button type="primary">Enable</Button>
+          )}
+        </Space>
+      ),
+    },
+  ];
+
+  const [
+    approveAffiliateRequest,
+    {
+      data: approveAffiliateRequestData,
+      loading: approveAffiliateRequestLoading,
+      error: approveAffiliateRequestError,
+    },
+  ] = useMutation(APPROVE_AFFILIATE);
+
+  const approveAffiliate = (record: DataType) => {
+    approveAffiliateRequest({
+      variables: {
+        input: {
+          id: record.id,
+        },
+      },
+    });
+  };
 
   if (loading) {
     return <h2>Loading...</h2>;

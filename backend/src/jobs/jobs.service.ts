@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 import { Model } from 'mongoose';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
@@ -19,11 +20,9 @@ import { CreateAffiliateInputParams } from './interfaces/affiliate.getCreateAffi
 import { GetAllAffiliatesInputParams } from './interfaces/affiliate.getAllAffiliatesInput';
 import { ApproveAffiliatesInputParams } from './interfaces/affiliate.approveAffiliatesInput';
 import { auth } from 'env/nodeMailerCredentials';
-// eslint-disable-next-line @typescript-eslint/no-var-requires
+import { GetJobAffiliatesInputParams } from './interfaces/affiliate.getJobsInput';
 const jsonfile = require('jsonfile');
-// eslint-disable-next-line no-var
 const nodemailer = require('nodemailer');
-// import nodemailer from 'nodemailer';
 
 @Injectable()
 export class JobsService {
@@ -326,5 +325,40 @@ export class JobsService {
       }
     });
     return approvedAffiliate;
+  }
+
+  async getJobsAffiliate(
+    input: GetJobAffiliatesInputParams,
+  ): Promise<Job[] | HttpException> {
+    console.log(`getJobsAffiliate`);
+    console.log(input);
+    const isAuthorized = await this.affiliateModel.findOne({
+      affiliateToken: input.affiliateToken,
+    });
+
+    // this is basically check for status unapproved, as the Affiliate won't have a Afiliate Token until the Admin has approved it
+    if (!isAuthorized) {
+      const err = new HttpException(
+        'Invalid Affiliate token',
+        HttpStatus.BAD_REQUEST,
+      );
+      return err;
+    }
+
+    // check for status disabled
+    if (isAuthorized.status !== 'Enabled') {
+      const err = new HttpException(
+        'Looks like the Admin has disabled your Access at this moment',
+        HttpStatus.BAD_REQUEST,
+      );
+      return err;
+    }
+    const result = await this.find({
+      categories: input.categories,
+      limit: input.limit,
+    } as GetJobInputParams);
+    console.log('`````````````');
+    console.log(result);
+    return result.slice(0, input.limit);
   }
 }
