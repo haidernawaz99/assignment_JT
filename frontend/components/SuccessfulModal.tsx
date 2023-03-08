@@ -9,6 +9,7 @@ type Props = {
   isUpdating?: boolean;
   editToken?: string;
   redirectTo: string;
+  modalTitle?: string;
 };
 
 const SuccessfulModal = ({
@@ -16,10 +17,12 @@ const SuccessfulModal = ({
   redirectTo,
   isUpdating,
   editToken,
+  modalTitle,
 }: Props) => {
   const [modal, contextHolder] = Modal.useModal();
 
-  let title = `Job ${isUpdating ? `updated` : `added`} successfully!`;
+  let title =
+    modalTitle || `Job ${isUpdating ? `updated` : `added`} successfully!`;
   let content = "";
 
   const countDown = () => {

@@ -30,6 +30,7 @@ import type { RcFile, UploadFile } from "antd/es/upload/interface";
 import Router from "next/router";
 import client from "../../graphql/apollo-client";
 import Layout from "../../components/Layout";
+import SuccessfulModal from "../../components/SuccessfulModal";
 
 type Props = {};
 
@@ -165,16 +166,14 @@ const BecomeAffiliate = () => {
                 Submit
               </Button>
             </Form.Item>
-            {/* {data && (
-            <SuccessfulModal
-              showModal={showModal}
-              isUpdating={isUpdating}
-              redirectTo={`/jobdetails?jobID=${
-                data?.createJob?.id || data?.id
-              }`}
-              editToken={data?.createJob?.editToken}
-            />
-          )} */}
+            {data && (
+              <SuccessfulModal
+                showModal={showModal}
+                isUpdating={true}
+                redirectTo={`/`}
+                modalTitle={"Affiliate Application Submitted"}
+              />
+            )}
           </Col>
         </Row>
       </Form>
