@@ -38,11 +38,33 @@ type JobPaginationReturn {
   jobCount: Int!
 }
 
+type AdminConfigReturn {
+  days: Float!
+}
+
+type CreateAffiliateReturn {
+  name: String!
+  email: String!
+  siteURL: String!
+}
+
+type AdminAffiliateReturn {
+  id: String!
+  name: String!
+  email: String!
+  siteURL: String!
+  affiliateToken: String!
+  status: String!
+  createdAt: DateTime!
+}
+
 type Query {
   hello123: String!
   cats: [CatReturn!]!
   jobs(input: GetJobInputParams): [JobReturn!]!
   getJobByPagination(input: GetJobPaginationInputParams): JobPaginationReturn!
+  getAdminConfig(input: GetAdminConfigInputParams!): AdminConfigReturn!
+  getAllAffiliates(input: GetAllAffiliatesInputParams!): [AdminAffiliateReturn!]!
 }
 
 input GetJobInputParams {
@@ -62,11 +84,22 @@ input GetJobPaginationInputParams {
   skip: Int
 }
 
+input GetAdminConfigInputParams {
+  authToken: String
+}
+
+input GetAllAffiliatesInputParams {
+  authToken: String
+}
+
 type Mutation {
   createCat(input: CatInput!): CatReturn!
   createJob(input: JobCreateInput!): JobReturn!
   editJob(input: JobUpdateInput!): JobReturn!
   extendExpiresAt(input: JobExtendInput!): JobReturn!
+  updateAdminConfig(input: SetAdminConfigInputParams!): AdminConfigReturn!
+  createAffiliate(input: CreateAffiliateInputParams!): CreateAffiliateReturn!
+  approveAffiliate(input: ApproveAffiliatesInputParams!): AdminAffiliateReturn!
 }
 
 input CatInput {
@@ -111,4 +144,20 @@ input JobUpdateInput {
 
 input JobExtendInput {
   editToken: String!
+}
+
+input SetAdminConfigInputParams {
+  authToken: String
+  days: Int
+}
+
+input CreateAffiliateInputParams {
+  name: String!
+  email: String!
+  siteURL: String!
+}
+
+input ApproveAffiliatesInputParams {
+  authToken: String
+  id: ID!
 }

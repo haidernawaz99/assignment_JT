@@ -2,11 +2,19 @@ import { Mutation, Query, ResolveField, Resolver, Args } from '@nestjs/graphql';
 import { JobsService } from './jobs.service';
 import { JobReturn } from './interfaces/job.return';
 import { JobCreateInput } from './interfaces/job.createInput';
-import { GetJobPaginationInputParams } from './interfaces/jobs.getJobInputPagination';
+import { GetJobPaginationInputParams } from './interfaces/job.getJobInputPagination';
 import { JobPaginationReturn } from './interfaces/job.pagination.return';
 import { GetJobInputParams } from './interfaces/job.getJobInput';
 import { JobUpdateInput } from './interfaces/job.updateInput';
 import { JobExtendInput } from './interfaces/job.extendInput';
+import { AdminConfigReturn } from './interfaces/admin.configuation.return';
+import { GetAdminConfigInputParams } from './interfaces/admin.getAdminConfigInput';
+import { SetAdminConfigInputParams } from './interfaces/admin.setAdminConfigInput';
+import { CreateAffiliateInputParams } from './interfaces/affiliate.getCreateAffiliateInput';
+import { CreateAffiliateReturn } from './interfaces/affiliate.createAffiliate.return';
+import { AdminAffiliateReturn } from './interfaces/affiliate.adminAffiliates.return';
+import { GetAllAffiliatesInputParams } from './interfaces/affiliate.getAllAffiliatesInput';
+import { ApproveAffiliatesInputParams } from './interfaces/affiliate.approveAffiliatesInput';
 
 @Resolver()
 export class JobsResolver {
@@ -52,6 +60,34 @@ export class JobsResolver {
   @Mutation(() => JobReturn)
   async extendExpiresAt(@Args('input') input: JobExtendInput) {
     return this.jobsService.extendExpiresAt(input);
+  }
+
+  @Query(() => AdminConfigReturn)
+  async getAdminConfig(@Args('input') input: GetAdminConfigInputParams) {
+    // return this.jobsService.pagination(input);
+    return this.jobsService.getAdminConfig(input);
+  }
+
+  @Mutation(() => AdminConfigReturn)
+  async updateAdminConfig(@Args('input') input: SetAdminConfigInputParams) {
+    return this.jobsService.setAdminConfig(input);
+  }
+
+  @Mutation(() => CreateAffiliateReturn)
+  async createAffiliate(@Args('input') input: CreateAffiliateInputParams) {
+    console.log('Create Affiliate: ', input);
+    return this.jobsService.createAffiliate(input);
+  }
+
+  @Query(() => [AdminAffiliateReturn])
+  async getAllAffiliates(@Args('input') input: GetAllAffiliatesInputParams) {
+    return this.jobsService.getAllAffiliates(input);
+  }
+
+  @Mutation(() => AdminAffiliateReturn)
+  async approveAffiliate(@Args('input') input: ApproveAffiliatesInputParams) {
+    console.log('Manage Affiliate: ', input);
+    return this.jobsService.approveAffiliate(input);
   }
 
   //   @ResolveField()

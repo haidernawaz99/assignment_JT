@@ -5,25 +5,38 @@ import { Job } from './interfaces/job.interface';
 import { JobCreateInput } from './interfaces/job.createInput';
 import { createWriteStream } from 'fs';
 import { join } from 'path';
-import { GetJobPaginationInputParams } from './interfaces/jobs.getJobInputPagination';
+import { GetJobPaginationInputParams } from './interfaces/job.getJobInputPagination';
 import { JobPagination } from './interfaces/job.pagination.interface';
 import { GetJobInputParams } from './interfaces/job.getJobInput';
 import { v4 as uuidv4 } from 'uuid';
 import { JobUpdateInput } from './interfaces/job.updateInput';
 import { JobExtendInput } from './interfaces/job.extendInput';
+import { GetAdminConfigInputParams } from './interfaces/admin.getAdminConfigInput';
+import { AdminConfig } from './interfaces/admin.config.interface';
+import { SetAdminConfigInputParams } from './interfaces/admin.setAdminConfigInput';
+import { Affiliate } from './interfaces/affiliate.interface';
+import { CreateAffiliateInputParams } from './interfaces/affiliate.getCreateAffiliateInput';
+import { GetAllAffiliatesInputParams } from './interfaces/affiliate.getAllAffiliatesInput';
+import { ApproveAffiliatesInputParams } from './interfaces/affiliate.approveAffiliatesInput';
+import { auth } from 'env/nodeMailerCredentials';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const jsonfile = require('jsonfile');
+// eslint-disable-next-line no-var
+const nodemailer = require('nodemailer');
+// import nodemailer from 'nodemailer';
 
 @Injectable()
 export class JobsService {
-  constructor(@InjectModel('Job') private jobModel: Model<Job>) {}
+  constructor(
+    @InjectModel('Job') private jobModel: Model<Job>,
+    @InjectModel('Affiliate') private affiliateModel: Model<Affiliate>,
+  ) {}
 
+  file = './src/jobs/jobsConfig.json';
   async getExtensionPeriod() {
-    const file = './src/jobs/jobsConfig.json';
-
     // read from File the extension period
     const expiresAtDays = await jsonfile
-      .readFile(file)
+      .readFile(this.file)
       .then((obj) => {
         const expiresAtDays = 1000 * 60 * 60 * 24 * obj.days; // 1000ms * 60s * 60m * 24h * days
         return expiresAtDays;
@@ -233,5 +246,85 @@ export class JobsService {
       { new: true },
     );
     return updatedJob;
+  }
+
+  async getAdminConfig(input: GetAdminConfigInputParams): Promise<AdminConfig> {
+    //TODO: Protect the route
+    console.log(await this.getExtensionPeriod());
+    return { days: (await this.getExtensionPeriod()) / 1000 / 60 / 60 / 24 };
+  }
+
+  async setAdminConfig(input: SetAdminConfigInputParams): Promise<AdminConfig> {
+    //TODO: Protect the route
+
+    const updatedConfig = { ...input };
+
+    jsonfile.writeFileSync(this.file, updatedConfig);
+    return { days: (await this.getExtensionPeriod()) / 1000 / 60 / 60 / 24 };
+  }
+
+  async createAffiliate(input: CreateAffiliateInputParams): Promise<Affiliate> {
+    const createdAffiliate = new this.affiliateModel(input);
+    return createdAffiliate.save();
+  }
+
+  async getAllAffiliates(
+    input: GetAllAffiliatesInputParams,
+  ): Promise<Affiliate[]> {
+    return await this.affiliateModel.find().sort({ createdAt: -1 });
+  }
+
+  async approveAffiliate(
+    input: ApproveAffiliatesInputParams,
+  ): Promise<Affiliate> {
+    const affiliateToken = uuidv4();
+
+    const approvedAffiliate = await this.affiliateModel.findByIdAndUpdate(
+      input.id,
+      {
+        status: 'Enabled',
+        affiliateToken,
+      },
+      {
+        new: true,
+      },
+    );
+
+    const mail = nodemailer.createTransport({
+      service: 'gmail',
+      auth, //auth is an object with user and pass, being fetched from the /env/nodeMailerCredentials
+    });
+
+    const mailOptions = {
+      from: 'plantdoctor321@gmail.com',
+      to: approvedAffiliate.email,
+      subject: 'Affiliate Approved- Jobeet',
+      html: `<div style="font-family: Helvetica,Arial,sans-serif;min-width:1000px;overflow:auto;line-height:2">
+      <div style="margin:50px auto;width:70%;padding:20px 0">
+        <div style="border-bottom:1px solid #eee">
+          <img src='https://i.imgur.com/LK9sucd.png' width="50" >
+          <a href="" style="font-size:1.4em;color: lightblue;text-decoration:none;font-weight:600">&nbsp; Jobeet</a>
+        </div>
+        <p style="font-size:1.1em">Hi,</p>
+        <p>Thank you for choosing Jobeet. Here's your affiliate token 👇 </p>
+        <h2 style="background: darkblue;margin: 0 auto;width: max-content;padding: 0 10px;color: #fff;border-radius: 4px;">${affiliateToken}</h2>
+        <p style="font-size:0.9em;">Regards,<br />Jobeet</p>
+        <hr style="border:none;border-top:1px solid #eee" />
+        <div style="float:right;padding:8px 0;color:#aaa;font-size:0.8em;line-height:1;font-weight:300">
+          <p>Jobeet</p>
+          <p>JinTech, Islamabad</p>
+          <p>44000</p>
+        </div>
+      </div>
+    </div>`,
+    };
+    mail.sendMail(mailOptions, function (error, info) {
+      if (error) {
+        return 1;
+      } else {
+        return 0;
+      }
+    });
+    return approvedAffiliate;
   }
 }
