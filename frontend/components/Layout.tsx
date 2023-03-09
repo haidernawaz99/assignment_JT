@@ -135,8 +135,8 @@ const Layout = ({
         <hr />
         <Link href="/">About Jobeet</Link> |{" "}
         <Link href="/about">Full RSS Feed</Link> |{" "}
-        <Link href="/users">Jobeet API</Link> |{" "}
-        <a href="/api/users">Affiliates</a>
+        <Link href="/admin/manage/affiliates/view">Jobeet API</Link> |{" "}
+        <Link href="/admin/manage/affiliates/view">Affiliates</Link> |{" "}
       </footer>
     </div>
   );

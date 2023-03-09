@@ -18,10 +18,11 @@ import { SetAdminConfigInputParams } from './interfaces/admin.setAdminConfigInpu
 import { Affiliate } from './interfaces/affiliate.interface';
 import { CreateAffiliateInputParams } from './interfaces/affiliate.getCreateAffiliateInput';
 import { GetAllAffiliatesInputParams } from './interfaces/affiliate.getAllAffiliatesInput';
-import { ApproveAffiliatesInputParams } from './interfaces/affiliate.approveAffiliatesInput';
+import { ApproveAffiliatesInputParams } from './interfaces/admin.approveAffiliatesInput';
 import { auth } from 'env/nodeMailerCredentials';
 import { GetJobAffiliatesInputParams } from './interfaces/affiliate.getJobsInput';
 import { GetJobAffiliatesInputParamsREST } from './interfaces/affiliate.getJobsInputREST';
+import { DeleteAffiliatesInputParams } from './interfaces/admin.deleteAffiliateInput';
 const jsonfile = require('jsonfile');
 const nodemailer = require('nodemailer');
 
@@ -367,5 +368,11 @@ export class JobsService {
     });
 
     return result.slice(0, input.limit);
+  }
+
+  async deleteAffiliate(
+    input: DeleteAffiliatesInputParams,
+  ): Promise<Affiliate[]> {
+    return await this.affiliateModel.findByIdAndDelete(input.id);
   }
 }

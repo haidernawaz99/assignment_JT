@@ -124,6 +124,7 @@ type Mutation {
   updateAdminConfig(input: SetAdminConfigInputParams!): AdminConfigReturn!
   createAffiliate(input: CreateAffiliateInputParams!): CreateAffiliateReturn!
   approveAffiliate(input: ApproveAffiliatesInputParams!): AdminAffiliateReturn!
+  deleteAffiliate(input: DeleteAffiliatesInputParams!): AdminAffiliateReturn!
 }
 
 input CatInput {
@@ -182,6 +183,11 @@ input CreateAffiliateInputParams {
 }
 
 input ApproveAffiliatesInputParams {
+  authToken: String
+  id: ID!
+}
+
+input DeleteAffiliatesInputParams {
   authToken: String
   id: ID!
 }

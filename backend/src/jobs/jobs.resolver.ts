@@ -14,9 +14,10 @@ import { CreateAffiliateInputParams } from './interfaces/affiliate.getCreateAffi
 import { CreateAffiliateReturn } from './interfaces/affiliate.createAffiliate.return';
 import { AdminAffiliateReturn } from './interfaces/affiliate.adminAffiliates.return';
 import { GetAllAffiliatesInputParams } from './interfaces/affiliate.getAllAffiliatesInput';
-import { ApproveAffiliatesInputParams } from './interfaces/affiliate.approveAffiliatesInput';
+import { ApproveAffiliatesInputParams } from './interfaces/admin.approveAffiliatesInput';
 import { GetJobAffiliatesInputParams } from './interfaces/affiliate.getJobsInput';
 import { AffiliateJobReturn } from './interfaces/affiliate.getJobsAffiliate.return';
+import { DeleteAffiliatesInputParams } from './interfaces/admin.deleteAffiliateInput';
 
 @Resolver()
 export class JobsResolver {
@@ -97,6 +98,12 @@ export class JobsResolver {
     @Args('input', { nullable: true }) input: GetJobAffiliatesInputParams,
   ) {
     return this.jobsService.getJobsAffiliate(input);
+  }
+
+  @Mutation(() => AdminAffiliateReturn)
+  async deleteAffiliate(@Args('input') input: DeleteAffiliatesInputParams) {
+    console.log('Delete Affiliate: ', input);
+    return this.jobsService.deleteAffiliate(input);
   }
 
   //   @ResolveField()

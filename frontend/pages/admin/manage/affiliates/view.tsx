@@ -14,6 +14,7 @@ import {
 } from "antd";
 import { ColumnsType } from "antd/es/table";
 import Link from "next/link";
+import Router from "next/router";
 import { useState } from "react";
 import Layout from "../../../../components/Layout";
 import client from "../../../../graphql/apollo-client";
@@ -34,6 +35,17 @@ const GET_ALL_AFFILIATES = gql`
 const APPROVE_AFFILIATE = gql`
   mutation approveAffiliate($input: ApproveAffiliatesInputParams!) {
     approveAffiliate(input: $input) {
+      email
+      status
+      name
+      id
+    }
+  }
+`;
+
+const DELETE_AFFILIATE = gql`
+  mutation ($input: DeleteAffiliatesInputParams!) {
+    deleteAffiliate(input: $input) {
       email
       status
       name
@@ -122,7 +134,15 @@ const ManageAffiliate = () => {
       align: "center",
       render: (_, record) => (
         <Space size="middle">
-          <Button danger>Delete</Button>
+          <Button
+            danger
+            onClick={() => {
+              deleteAffiliate(record);
+              refetch();
+            }}
+          >
+            Delete
+          </Button>
           {record.status === "Unapproved" && (
             <Button type="primary" onClick={() => approveAffiliate(record)}>
               Approve
@@ -148,8 +168,27 @@ const ManageAffiliate = () => {
     },
   ] = useMutation(APPROVE_AFFILIATE);
 
+  const [
+    deleteAffiliateRequest,
+    {
+      data: deleteAffiliateRequestData,
+      loading: deleteAffiliateRequestLoading,
+      error: deleteAffiliateRequestError,
+    },
+  ] = useMutation(DELETE_AFFILIATE);
+
   const approveAffiliate = (record: DataType) => {
     approveAffiliateRequest({
+      variables: {
+        input: {
+          id: record.id,
+        },
+      },
+    });
+  };
+
+  const deleteAffiliate = (record: DataType) => {
+    deleteAffiliateRequest({
       variables: {
         input: {
           id: record.id,
