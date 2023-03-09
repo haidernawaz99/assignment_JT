@@ -34,7 +34,10 @@ export const JobSchema = new mongoose.Schema({
   updatedAt: {
     type: Date,
   },
-  editToken: stringAndRequired,
+  editToken: {
+    ...stringAndRequired,
+    select: false,
+  },
   expiresAt: {
     type: Date,
   },

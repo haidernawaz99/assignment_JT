@@ -15,4 +15,5 @@ export interface Job extends Document {
   readonly createdAt: Date;
   readonly updatedAt: Date;
   readonly image: string;
+  readonly editToken: string;
 }

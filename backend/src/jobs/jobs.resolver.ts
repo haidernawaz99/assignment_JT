@@ -16,6 +16,7 @@ import { AdminAffiliateReturn } from './interfaces/affiliate.adminAffiliates.ret
 import { GetAllAffiliatesInputParams } from './interfaces/affiliate.getAllAffiliatesInput';
 import { ApproveAffiliatesInputParams } from './interfaces/affiliate.approveAffiliatesInput';
 import { GetJobAffiliatesInputParams } from './interfaces/affiliate.getJobsInput';
+import { AffiliateJobReturn } from './interfaces/affiliate.getJobsAffiliate.return';
 
 @Resolver()
 export class JobsResolver {
@@ -91,7 +92,7 @@ export class JobsResolver {
     return this.jobsService.approveAffiliate(input);
   }
 
-  @Query(() => [JobReturn])
+  @Query(() => [AffiliateJobReturn])
   async getJobsAffiliate(
     @Args('input', { nullable: true }) input: GetJobAffiliatesInputParams,
   ) {

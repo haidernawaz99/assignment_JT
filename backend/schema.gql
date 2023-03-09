@@ -24,7 +24,7 @@ type JobReturn {
   category: String!
   createdAt: DateTime!
   updatedAt: DateTime!
-  editToken: String!
+  editToken: String
   expiresAt: DateTime!
 }
 
@@ -58,6 +58,23 @@ type AdminAffiliateReturn {
   createdAt: DateTime!
 }
 
+type AffiliateJobReturn {
+  id: ID!
+  company: String!
+  position: String!
+  location: String!
+  jobDescription: String!
+  howToApply: String!
+  email: String!
+  url: String
+  logo: String
+  type: String!
+  category: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  expiresAt: DateTime!
+}
+
 type Query {
   hello123: String!
   cats: [CatReturn!]!
@@ -65,7 +82,7 @@ type Query {
   getJobByPagination(input: GetJobPaginationInputParams): JobPaginationReturn!
   getAdminConfig(input: GetAdminConfigInputParams!): AdminConfigReturn!
   getAllAffiliates(input: GetAllAffiliatesInputParams!): [AdminAffiliateReturn!]!
-  getJobsAffiliate(input: GetJobAffiliatesInputParams): [JobReturn!]!
+  getJobsAffiliate(input: GetJobAffiliatesInputParams): [AffiliateJobReturn!]!
 }
 
 input GetJobInputParams {

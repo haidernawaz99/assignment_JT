@@ -19,7 +19,7 @@ import { join } from 'path';
     MongooseModule.forRoot('mongodb://localhost/assignment'),
     JobsModule,
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'src/upload'),
+      rootPath: join(__dirname, '..', '/../src/upload'),
     }),
   ],
   controllers: [AppController],

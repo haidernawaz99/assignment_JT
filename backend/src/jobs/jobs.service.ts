@@ -21,6 +21,7 @@ import { GetAllAffiliatesInputParams } from './interfaces/affiliate.getAllAffili
 import { ApproveAffiliatesInputParams } from './interfaces/affiliate.approveAffiliatesInput';
 import { auth } from 'env/nodeMailerCredentials';
 import { GetJobAffiliatesInputParams } from './interfaces/affiliate.getJobsInput';
+import { GetJobAffiliatesInputParamsREST } from './interfaces/affiliate.getJobsInputREST';
 const jsonfile = require('jsonfile');
 const nodemailer = require('nodemailer');
 
@@ -328,7 +329,7 @@ export class JobsService {
   }
 
   async getJobsAffiliate(
-    input: GetJobAffiliatesInputParams,
+    input: GetJobAffiliatesInputParams | GetJobAffiliatesInputParamsREST,
   ): Promise<Job[] | HttpException> {
     console.log(`getJobsAffiliate`);
     console.log(input);
@@ -357,8 +358,14 @@ export class JobsService {
       categories: input.categories,
       limit: input.limit,
     } as GetJobInputParams);
-    console.log('`````````````');
-    console.log(result);
+
+    // sort the array by createdAt date object
+    result.sort(function (a, b) {
+      // Turn your strings into dates, and then subtract them
+      // to get a value that is either negative, positive, or zero.
+      return +b.createdAt - +a.createdAt;
+    });
+
     return result.slice(0, input.limit);
   }
 }

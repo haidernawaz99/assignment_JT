@@ -4,6 +4,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { JobsService } from './jobs.service';
 import { JobsResolver } from './jobs.resolver';
 import { AffiliateSchema } from './interfaces/affiliate.schema';
+import { AffiliateController } from './affiliate.controller';
 
 @Module({
   imports: [
@@ -13,5 +14,6 @@ import { AffiliateSchema } from './interfaces/affiliate.schema';
     ]),
   ],
   providers: [JobsResolver, JobsService],
+  controllers: [AffiliateController],
 })
 export class JobsModule {}

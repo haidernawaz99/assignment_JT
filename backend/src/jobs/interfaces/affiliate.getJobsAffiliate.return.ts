@@ -1,7 +1,7 @@
 import { ObjectType, Field, ID } from '@nestjs/graphql';
 
 @ObjectType()
-export class JobReturn {
+export class AffiliateJobReturn {
   @Field(() => ID)
   id: string;
   @Field()
@@ -14,8 +14,7 @@ export class JobReturn {
   jobDescription: string;
   @Field()
   howToApply: string;
-  @Field()
-  public: boolean;
+
   @Field()
   email: string;
   @Field({ nullable: true })
@@ -30,8 +29,6 @@ export class JobReturn {
   createdAt: Date;
   @Field()
   updatedAt: Date;
-  @Field({ nullable: true })
-  editToken: string;
   @Field()
   expiresAt: Date;
 }
