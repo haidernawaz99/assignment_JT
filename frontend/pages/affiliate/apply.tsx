@@ -50,6 +50,14 @@ const BecomeAffiliate = () => {
     {
       //TODO: make this work!
       // refetchQueries: ["QUERY"],
+      errorPolicy: "none",
+      onError(error, clientOptions) {
+        console.log(error);
+        message.error(
+          "Looks like we have already received your application. Please wait for our response.",
+          10 // 10 seconds
+        );
+      },
     }
   );
   const [uploading, setUploading] = useState(false);
@@ -57,7 +65,7 @@ const BecomeAffiliate = () => {
   const [addonBefore, setAddonBefore] = useState("http://");
   const [addonAfter, setAddonAfter] = useState(".com");
 
-  const onFinish = (values: any) => {
+  const onFinish = async (values: any) => {
     setShowModal(false);
     setUploading(true);
     const input = {
@@ -65,11 +73,11 @@ const BecomeAffiliate = () => {
       name: values.name,
       siteURL: `${addonBefore}${values.url}${addonAfter}`,
     };
-    console.log(input);
 
     uploadAffiliateFormdata({
       variables: { input },
     });
+
     // update the cache store
     client.resetStore();
     setUploading(false);
@@ -152,7 +160,7 @@ const BecomeAffiliate = () => {
               <Input
                 addonBefore={URLSelectBefore}
                 addonAfter={URLSelectAfter}
-                placeholder="Enter Custom URL Here"
+                placeholder="Enter Site URL Here"
               />
             </Form.Item>
 
