@@ -69,6 +69,7 @@ const RecentJobTable = ({
         dataSource={data}
         pagination={{
           hideOnSinglePage: true,
+          current: currentPage,
           pageSize: 20,
           onChange: (page) => setCurrentPage(page),
           total: totalDataCount,

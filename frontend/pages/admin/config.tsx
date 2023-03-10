@@ -1,7 +1,8 @@
 import { gql, useMutation, useQuery } from "@apollo/client";
 import { Alert, Button, Form, InputNumber, Typography } from "antd";
 import { useState } from "react";
-import Layout from "../../components/Layout";
+import AdminLayout from "../../components/admin/AdminLayout";
+
 import client from "../../graphql/apollo-client";
 const { Title, Paragraph, Text } = Typography;
 
@@ -51,7 +52,7 @@ const Config = () => {
   }
 
   return (
-    <Layout title="Website Configuration" enableLocalSearch={false}>
+    <AdminLayout title="Website Configuration" enableLocalSearch={false}>
       <Title level={3} style={{ marginBottom: 0 }}>
         Website Configuration
       </Title>
@@ -112,7 +113,7 @@ const Config = () => {
           </Button>
         </Form.Item>
       </Form>
-    </Layout>
+    </AdminLayout>
   );
 };
 

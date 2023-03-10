@@ -125,6 +125,9 @@ type Mutation {
   createAffiliate(input: CreateAffiliateInputParams!): CreateAffiliateReturn!
   approveAffiliate(input: ApproveAffiliatesInputParams!): AdminAffiliateReturn!
   deleteAffiliate(input: DeleteAffiliatesInputParams!): AdminAffiliateReturn!
+  disableAffiliate(input: DisableAffiliatesInputParams!): AdminAffiliateReturn!
+  enableAffiliate(input: EnableAffiliatesInputParams!): AdminAffiliateReturn!
+  deleteJob(input: DeleteJobInputParams!): JobReturn!
 }
 
 input CatInput {
@@ -188,6 +191,21 @@ input ApproveAffiliatesInputParams {
 }
 
 input DeleteAffiliatesInputParams {
+  authToken: String
+  id: ID!
+}
+
+input DisableAffiliatesInputParams {
+  authToken: String
+  id: ID!
+}
+
+input EnableAffiliatesInputParams {
+  authToken: String
+  id: ID!
+}
+
+input DeleteJobInputParams {
   authToken: String
   id: ID!
 }

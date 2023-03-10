@@ -73,6 +73,7 @@ const Post = () => {
         data={getJobsandCount().jobs}
         setCurrentPage={setCurrentPage}
         totalDataCount={getJobsandCount().jobCount}
+        currentPage={currentPage}
       />
     </Layout>
   );

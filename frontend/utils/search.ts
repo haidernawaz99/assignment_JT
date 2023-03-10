@@ -1,8 +1,18 @@
 import { SearchBarQuery } from "../interfaces/searchBarQuery";
 
-type Data = [Object];
+interface DataType {
+  __typename: string;
+  location: string;
+  position: string;
+  company: string;
+  category: string;
+  id: string;
+}
+
+type Data = [DataType];
 
 export default function search(data: Data, query: SearchBarQuery) {
+  console.log(data, query);
   const result = data.filter((obj) =>
     obj[query.option.toLowerCase()]
       .toLowerCase()

@@ -23,6 +23,9 @@ import { auth } from 'env/nodeMailerCredentials';
 import { GetJobAffiliatesInputParams } from './interfaces/affiliate.getJobsInput';
 import { GetJobAffiliatesInputParamsREST } from './interfaces/affiliate.getJobsInputREST';
 import { DeleteAffiliatesInputParams } from './interfaces/admin.deleteAffiliateInput';
+import { DisableAffiliatesInputParams } from './interfaces/admin.disableAffiliateInput';
+import { EnableAffiliatesInputParams } from './interfaces/admin.enableAffiliateInput';
+import { DeleteJobInputParams } from './interfaces/admin.deleteJobInput';
 const jsonfile = require('jsonfile');
 const nodemailer = require('nodemailer');
 
@@ -182,17 +185,34 @@ export class JobsService {
   async pagination(input: GetJobPaginationInputParams): Promise<JobPagination> {
     console.log(input);
 
-    const job = await this.jobModel
-      .find({ category: input.category })
-      .limit(input.limit)
-      // .skip((input.skip - 1) * 20) // (input.skip - 1) corrects for the fact that the first page is page 1, not page 0. 20 is the number of items per page.
-      .skip(input.skip)
+    let job;
+    let jobCount;
 
-      .sort({ createdAt: -1 });
+    // if category is not specified (like Admin Dashboard)
 
-    const jobCount = await this.jobModel
-      .find({ category: input.category })
-      .countDocuments();
+    if (input?.category) {
+      job = await this.jobModel
+        .find({ category: input.category })
+        .limit(input.limit)
+        // .skip((input.skip - 1) * 20) // (input.skip - 1) corrects for the fact that the first page is page 1, not page 0. 20 is the number of items per page.
+        .skip(input.skip)
+
+        .sort({ createdAt: -1 });
+
+      jobCount = await this.jobModel
+        .find({ category: input.category })
+        .countDocuments();
+    } else {
+      job = await this.jobModel
+        .find()
+        .limit(input.limit)
+        // .skip((input.skip - 1) * 20) // (input.skip - 1) corrects for the fact that the first page is page 1, not page 0. 20 is the number of items per page.
+        .skip(input.skip)
+
+        .sort({ createdAt: -1 });
+
+      jobCount = await this.jobModel.find().countDocuments();
+    }
 
     console.log({ job, jobCount });
     return { jobCount, job };
@@ -374,5 +394,33 @@ export class JobsService {
     input: DeleteAffiliatesInputParams,
   ): Promise<Affiliate[]> {
     return await this.affiliateModel.findByIdAndDelete(input.id);
+  }
+
+  async disableAffiliate(
+    input: DisableAffiliatesInputParams,
+  ): Promise<Affiliate[]> {
+    return await this.affiliateModel.findByIdAndUpdate(
+      input.id,
+      {
+        status: 'Disabled',
+      },
+      { new: true },
+    );
+  }
+
+  async enableAffiliate(
+    input: EnableAffiliatesInputParams,
+  ): Promise<Affiliate[]> {
+    return await this.affiliateModel.findByIdAndUpdate(
+      input.id,
+      {
+        status: 'Enabled',
+      },
+      { new: true },
+    );
+  }
+
+  async deleteJob(input: DeleteJobInputParams): Promise<Job> {
+    return await this.jobModel.findByIdAndDelete(input.id);
   }
 }

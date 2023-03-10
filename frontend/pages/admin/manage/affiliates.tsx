@@ -16,8 +16,9 @@ import { ColumnsType } from "antd/es/table";
 import Link from "next/link";
 import Router from "next/router";
 import { useState } from "react";
-import Layout from "../../../../components/Layout";
-import client from "../../../../graphql/apollo-client";
+import AdminLayout from "../../../components/admin/AdminLayout";
+
+import client from "../../../graphql/apollo-client";
 const { Title, Paragraph, Text } = Typography;
 
 const GET_ALL_AFFILIATES = gql`
@@ -46,6 +47,28 @@ const APPROVE_AFFILIATE = gql`
 const DELETE_AFFILIATE = gql`
   mutation ($input: DeleteAffiliatesInputParams!) {
     deleteAffiliate(input: $input) {
+      email
+      status
+      name
+      id
+    }
+  }
+`;
+
+const DISABLE_AFFILIATE = gql`
+  mutation ($input: DisableAffiliatesInputParams!) {
+    disableAffiliate(input: $input) {
+      email
+      status
+      name
+      id
+    }
+  }
+`;
+
+const ENABLE_AFFILIATE = gql`
+  mutation ($input: EnableAffiliatesInputParams!) {
+    enableAffiliate(input: $input) {
       email
       status
       name
@@ -134,13 +157,7 @@ const ManageAffiliate = () => {
       align: "center",
       render: (_, record) => (
         <Space size="middle">
-          <Button
-            danger
-            onClick={() => {
-              deleteAffiliate(record);
-              refetch();
-            }}
-          >
+          <Button danger onClick={() => deleteAffiliate(record)}>
             Delete
           </Button>
           {record.status === "Unapproved" && (
@@ -149,10 +166,14 @@ const ManageAffiliate = () => {
             </Button>
           )}
           {record.status === "Enabled" && (
-            <Button type="primary">Disable</Button>
+            <Button type="primary" onClick={() => disableAffiliate(record)}>
+              Disable
+            </Button>
           )}
           {record.status === "Disabled" && (
-            <Button type="primary">Enable</Button>
+            <Button type="primary" onClick={() => enableAffiliate(record)}>
+              Enable
+            </Button>
           )}
         </Space>
       ),
@@ -177,6 +198,24 @@ const ManageAffiliate = () => {
     },
   ] = useMutation(DELETE_AFFILIATE);
 
+  const [
+    disableAffiliateRequest,
+    {
+      data: disableAffiliateRequestData,
+      loading: disableAffiliateRequestLoading,
+      error: disableAffiliateRequestError,
+    },
+  ] = useMutation(DISABLE_AFFILIATE);
+
+  const [
+    enableAffiliateRequest,
+    {
+      data: enableAffiliateRequestData,
+      loading: enableAffiliateRequestLoading,
+      error: enableAffiliateRequestError,
+    },
+  ] = useMutation(ENABLE_AFFILIATE);
+
   const approveAffiliate = (record: DataType) => {
     approveAffiliateRequest({
       variables: {
@@ -195,6 +234,29 @@ const ManageAffiliate = () => {
         },
       },
     });
+    refetch();
+  };
+
+  const disableAffiliate = (record: DataType) => {
+    disableAffiliateRequest({
+      variables: {
+        input: {
+          id: record.id,
+        },
+      },
+    });
+    refetch();
+  };
+
+  const enableAffiliate = (record: DataType) => {
+    enableAffiliateRequest({
+      variables: {
+        input: {
+          id: record.id,
+        },
+      },
+    });
+    refetch();
   };
 
   if (loading) {
@@ -211,7 +273,7 @@ const ManageAffiliate = () => {
   }
 
   return (
-    <Layout title="Website Configuration" enableLocalSearch={false}>
+    <AdminLayout title="Manage Affiliates -- Jobeet" enableLocalSearch={false}>
       <Title level={3} style={{ marginBottom: 0 }}>
         Manage Affiliate
       </Title>
@@ -240,7 +302,7 @@ const ManageAffiliate = () => {
           }}
         />
       </Divider>
-    </Layout>
+    </AdminLayout>
   );
 };
 

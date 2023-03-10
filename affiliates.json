@@ -1,15 +1,16 @@
 [{
   "_id": {
-    "$oid": "64081fb8c0251a064af7b660"
+    "$oid": "64083d875e57bcd26e3db9d7"
   },
-  "name": "haider",
+  "name": "haider nawaz",
   "email": "haidernawaz99@gmail.com",
-  "siteURL": "dasdasdas",
-  "status": "Unapproved",
+  "siteURL": "https://3123123.pk",
+  "status": "Enabled",
   "createdAt": {
     "$date": {
-      "$numberLong": "1678254008496"
+      "$numberLong": "1678261639060"
     }
   },
-  "__v": 0
+  "__v": 0,
+  "affiliateToken": "7b2e6bdb-124d-44ea-be52-e7b855d1bb72"
 }]

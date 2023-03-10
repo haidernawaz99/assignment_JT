@@ -18,6 +18,9 @@ import { ApproveAffiliatesInputParams } from './interfaces/admin.approveAffiliat
 import { GetJobAffiliatesInputParams } from './interfaces/affiliate.getJobsInput';
 import { AffiliateJobReturn } from './interfaces/affiliate.getJobsAffiliate.return';
 import { DeleteAffiliatesInputParams } from './interfaces/admin.deleteAffiliateInput';
+import { DisableAffiliatesInputParams } from './interfaces/admin.disableAffiliateInput';
+import { EnableAffiliatesInputParams } from './interfaces/admin.enableAffiliateInput';
+import { DeleteJobInputParams } from './interfaces/admin.deleteJobInput';
 
 @Resolver()
 export class JobsResolver {
@@ -104,6 +107,23 @@ export class JobsResolver {
   async deleteAffiliate(@Args('input') input: DeleteAffiliatesInputParams) {
     console.log('Delete Affiliate: ', input);
     return this.jobsService.deleteAffiliate(input);
+  }
+
+  @Mutation(() => AdminAffiliateReturn)
+  async disableAffiliate(@Args('input') input: DisableAffiliatesInputParams) {
+    console.log('Disable Affiliate: ', input);
+    return this.jobsService.disableAffiliate(input);
+  }
+
+  @Mutation(() => AdminAffiliateReturn)
+  async enableAffiliate(@Args('input') input: EnableAffiliatesInputParams) {
+    console.log('Enable Affiliate: ', input);
+    return this.jobsService.enableAffiliate(input);
+  }
+
+  @Mutation(() => JobReturn)
+  async deleteJob(@Args('input') input: DeleteJobInputParams) {
+    return this.jobsService.deleteJob(input);
   }
 
   //   @ResolveField()

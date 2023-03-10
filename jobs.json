@@ -1,25 +1,5 @@
 [{
   "_id": {
-    "$oid": "63fd8d51dd0eb78cc3c7f11a"
-  },
-  "company": "ABC",
-  "position": "Product Manager",
-  "location": "LHR",
-  "jobDescription": "Some random description here",
-  "howToApply": "",
-  "public": true,
-  "email": "null@null.com",
-  "type": "Full Time",
-  "category": "Product",
-  "createdAt": {
-    "$date": {
-      "$numberLong": "1677561169717"
-    }
-  },
-  "__v": 0,
-  "expiresAt": "2023-04-06T07:43:31.191+00:00"
-},{
-  "_id": {
     "$oid": "63fd8d68dd0eb78cc3c7f11c"
   },
   "company": "DEF",
@@ -34,27 +14,6 @@
   "createdAt": {
     "$date": {
       "$numberLong": "1677561192811"
-    }
-  },
-  "__v": 0,
-  "expiresAt": "2023-04-06T07:43:31.191+00:00"
-},{
-  "_id": {
-    "$oid": "63fd8d85dd0eb78cc3c7f11e"
-  },
-  "company": "EFG",
-  "position": "Administrator",
-  "location": "KHI",
-  "jobDescription": "Some random description here",
-  "howToApply": "",
-  "public": true,
-  "email": "null@null.com",
-  "logo": "catto.jpg",
-  "type": "Part Time",
-  "category": "Other",
-  "createdAt": {
-    "$date": {
-      "$numberLong": "1677561221993"
     }
   },
   "__v": 0,
@@ -76,69 +35,6 @@
   "createdAt": {
     "$date": {
       "$numberLong": "1677561310935"
-    }
-  },
-  "__v": 0,
-  "expiresAt": "2023-04-06T07:43:31.191+00:00"
-},{
-  "_id": {
-    "$oid": "63fd8e00dd0eb78cc3c7f122"
-  },
-  "company": "PQR",
-  "position": "Electrician",
-  "location": "LHR",
-  "jobDescription": "*Some Job Description here*",
-  "howToApply": "",
-  "public": true,
-  "email": "null@null.com",
-  "logo": "istockphoto-105097179-612x612.jpg",
-  "type": "Full Time",
-  "category": "Other",
-  "createdAt": {
-    "$date": {
-      "$numberLong": "1677561344679"
-    }
-  },
-  "__v": 0,
-  "expiresAt": "2023-04-06T07:43:31.191+00:00"
-},{
-  "_id": {
-    "$oid": "63fd8e16dd0eb78cc3c7f124"
-  },
-  "company": "Jin Tech",
-  "position": "Senior Product Designer",
-  "location": "MLT",
-  "jobDescription": "*Some Job Description here*",
-  "howToApply": "",
-  "public": true,
-  "email": "null@null.com",
-  "logo": "istockphoto-105097179-612x612.jpg",
-  "type": "Full Time",
-  "category": "Design",
-  "createdAt": {
-    "$date": {
-      "$numberLong": "1677561366965"
-    }
-  },
-  "__v": 0,
-  "expiresAt": "2023-04-06T07:43:31.191+00:00"
-},{
-  "_id": {
-    "$oid": "63fd8e30dd0eb78cc3c7f126"
-  },
-  "company": "Microsoft",
-  "position": "CEO",
-  "location": "Washington, USA",
-  "jobDescription": "*Some Job Description here*",
-  "howToApply": "",
-  "public": true,
-  "email": "null@null.com",
-  "logo": "istockphoto-105097179-612x612.jpg",
-  "type": "Full Time",
-  "category": "Other",
-  "createdAt": {
-    "$date": {
-      "$numberLong": "1677561392717"
     }
   },
   "__v": 0,
@@ -249,27 +145,6 @@
   "expiresAt": "2023-04-06T07:43:31.191+00:00"
 },{
   "_id": {
-    "$oid": "63fdb268e5d0f52fa0e182fd"
-  },
-  "company": "Netflix",
-  "position": "Senior Software Engineer",
-  "location": "TX, USA",
-  "jobDescription": "We need a....",
-  "howToApply": "",
-  "public": true,
-  "email": "null@null.com",
-  "logo": "istockphoto-105097179-612x612.jpg",
-  "type": "Contract",
-  "category": "Development",
-  "createdAt": {
-    "$date": {
-      "$numberLong": "1677570664540"
-    }
-  },
-  "__v": 0,
-  "expiresAt": "2023-04-06T07:43:31.191+00:00"
-},{
-  "_id": {
     "$oid": "63fdb2a5e5d0f52fa0e18300"
   },
   "company": "Netflix",
@@ -284,46 +159,6 @@
   "createdAt": {
     "$date": {
       "$numberLong": "1677570725029"
-    }
-  },
-  "__v": 0,
-  "expiresAt": "2023-04-06T07:43:31.191+00:00"
-},{
-  "_id": {
-    "$oid": "63fdc59be5d0f52fa0e18308"
-  },
-  "company": "JTPL",
-  "position": "Software Engineer",
-  "location": "ISB",
-  "jobDescription": "Apply ....",
-  "howToApply": "",
-  "public": true,
-  "email": "null@null.com",
-  "type": "Full Time",
-  "category": "Development",
-  "createdAt": {
-    "$date": {
-      "$numberLong": "1677575579728"
-    }
-  },
-  "__v": 0,
-  "expiresAt": "2023-04-06T07:43:31.191+00:00"
-},{
-  "_id": {
-    "$oid": "63fdef9735c9e9495edb41f9"
-  },
-  "company": "hghgh",
-  "position": "hghg",
-  "location": "tyrtyr",
-  "jobDescription": "rtyrtyrty",
-  "howToApply": "",
-  "public": true,
-  "email": "null@null.com",
-  "type": "Full Time",
-  "category": "Development",
-  "createdAt": {
-    "$date": {
-      "$numberLong": "1677586327637"
     }
   },
   "__v": 0,
@@ -456,27 +291,6 @@
   "expiresAt": "2023-04-06T07:43:31.191+00:00"
 },{
   "_id": {
-    "$oid": "63fee72323a0e45621b871d4"
-  },
-  "company": "COMSATS University",
-  "position": "Product Designer",
-  "location": "Islamabad",
-  "jobDescription": "Please apply, we need a highly talented .....",
-  "howToApply": "",
-  "public": true,
-  "email": "null@null.com",
-  "logo": "640px-COMSATS_new_logo.jpg",
-  "type": "Full Time",
-  "category": "Product",
-  "createdAt": {
-    "$date": {
-      "$numberLong": "1677649270975"
-    }
-  },
-  "__v": 0,
-  "expiresAt": "2023-04-06T07:43:31.191+00:00"
-},{
-  "_id": {
     "$oid": "63fee72b23a0e45621b871d5"
   },
   "company": "Google",
@@ -553,27 +367,6 @@
   "createdAt": {
     "$date": {
       "$numberLong": "1677570725029"
-    }
-  },
-  "__v": 0,
-  "expiresAt": "2023-04-06T07:43:31.191+00:00"
-},{
-  "_id": {
-    "$oid": "63fee74123a0e45621b871d9"
-  },
-  "company": "COMSATS University",
-  "position": "Product Designer",
-  "location": "Islamabad",
-  "jobDescription": "Please apply, we need a highly talented .....",
-  "howToApply": "",
-  "public": true,
-  "email": "null@null.com",
-  "logo": "640px-COMSATS_new_logo.jpg",
-  "type": "Full Time",
-  "category": "Product",
-  "createdAt": {
-    "$date": {
-      "$numberLong": "1677649270975"
     }
   },
   "__v": 0,
@@ -658,26 +451,6 @@
   "createdAt": {
     "$date": {
       "$numberLong": "1677561468750"
-    }
-  },
-  "__v": 0,
-  "expiresAt": "2023-04-06T07:43:31.191+00:00"
-},{
-  "_id": {
-    "$oid": "63fee7b723a0e45621b871de"
-  },
-  "company": "Netflix",
-  "position": "Product Manager",
-  "location": "TX, USA",
-  "jobDescription": "Please apply via .......",
-  "howToApply": "",
-  "public": true,
-  "email": "null@null.com",
-  "type": "Full Time",
-  "category": "Product",
-  "createdAt": {
-    "$date": {
-      "$numberLong": "1677570725029"
     }
   },
   "__v": 0,
@@ -825,166 +598,6 @@
   "expiresAt": "2023-04-06T07:43:31.191+00:00"
 },{
   "_id": {
-    "$oid": "63ff2aeb64092092e9c36038"
-  },
-  "company": "University",
-  "position": "Software Developer",
-  "location": "Worldwide",
-  "jobDescription": "Please.....",
-  "howToApply": "",
-  "public": true,
-  "email": "null@null.com",
-  "type": "Contract",
-  "category": "Development",
-  "createdAt": {
-    "$date": {
-      "$numberLong": "1677667051073"
-    }
-  },
-  "__v": 0,
-  "expiresAt": "2023-04-06T07:43:31.191+00:00"
-},{
-  "_id": {
-    "$oid": "63ff2af264092092e9c3603a"
-  },
-  "company": "University",
-  "position": "Software Developer",
-  "location": "Worldwide",
-  "jobDescription": "Please.....",
-  "howToApply": "",
-  "public": true,
-  "email": "null@null.com",
-  "type": "Contract",
-  "category": "Development",
-  "createdAt": {
-    "$date": {
-      "$numberLong": "1677667058400"
-    }
-  },
-  "__v": 0,
-  "expiresAt": "2023-04-06T07:43:31.191+00:00"
-},{
-  "_id": {
-    "$oid": "63ff2af264092092e9c3603c"
-  },
-  "company": "University",
-  "position": "Software Developer",
-  "location": "Worldwide",
-  "jobDescription": "Please.....",
-  "howToApply": "",
-  "public": true,
-  "email": "null@null.com",
-  "type": "Contract",
-  "category": "Development",
-  "createdAt": {
-    "$date": {
-      "$numberLong": "1677667058748"
-    }
-  },
-  "__v": 0,
-  "expiresAt": "2023-04-06T07:43:31.191+00:00"
-},{
-  "_id": {
-    "$oid": "63ff2af364092092e9c3603e"
-  },
-  "company": "University",
-  "position": "Software Developer",
-  "location": "Worldwide",
-  "jobDescription": "Please.....",
-  "howToApply": "",
-  "public": true,
-  "email": "null@null.com",
-  "type": "Contract",
-  "category": "Development",
-  "createdAt": {
-    "$date": {
-      "$numberLong": "1677667059081"
-    }
-  },
-  "__v": 0,
-  "expiresAt": "2023-04-06T07:43:31.191+00:00"
-},{
-  "_id": {
-    "$oid": "63ff2afb64092092e9c36040"
-  },
-  "company": "University",
-  "position": "Software Developer",
-  "location": "Worldwide",
-  "jobDescription": "Please.....",
-  "howToApply": "",
-  "public": true,
-  "email": "null@null.com",
-  "type": "Contract",
-  "category": "Development",
-  "createdAt": {
-    "$date": {
-      "$numberLong": "1677667067097"
-    }
-  },
-  "__v": 0,
-  "expiresAt": "2023-04-06T07:43:31.191+00:00"
-},{
-  "_id": {
-    "$oid": "63ff2b0864092092e9c36042"
-  },
-  "company": "University",
-  "position": "Software Developer",
-  "location": "Worldwide",
-  "jobDescription": "Please.....",
-  "howToApply": "",
-  "public": true,
-  "email": "null@null.com",
-  "type": "Contract",
-  "category": "Development",
-  "createdAt": {
-    "$date": {
-      "$numberLong": "1677667080765"
-    }
-  },
-  "__v": 0,
-  "expiresAt": "2023-04-06T07:43:31.191+00:00"
-},{
-  "_id": {
-    "$oid": "63ff3404e1d52f26514c5c18"
-  },
-  "company": "Sam's Hardware Store",
-  "position": "Intern Designer ",
-  "location": "MA, US",
-  "jobDescription": "We need a freshly graduated ....",
-  "howToApply": "",
-  "public": true,
-  "email": "null@null.com",
-  "type": "Internship",
-  "category": "Design",
-  "createdAt": {
-    "$date": {
-      "$numberLong": "1677669380919"
-    }
-  },
-  "__v": 0,
-  "expiresAt": "2023-04-06T07:43:31.191+00:00"
-},{
-  "_id": {
-    "$oid": "64003ea0e1d52f26514c5c8d"
-  },
-  "company": "Meta",
-  "position": "Intern Developer",
-  "location": "US",
-  "jobDescription": "Please apply ...",
-  "howToApply": "",
-  "public": true,
-  "email": "null@null.com",
-  "type": "Internship",
-  "category": "Development",
-  "createdAt": {
-    "$date": {
-      "$numberLong": "1677737632218"
-    }
-  },
-  "__v": 0,
-  "expiresAt": "2023-04-06T07:43:31.191+00:00"
-},{
-  "_id": {
     "$oid": "6401e6bcb52e54655313f799"
   },
   "company": "Broadcom",
@@ -1029,28 +642,229 @@
   "url": ""
 },{
   "_id": {
-    "$oid": "640701c9e6f0969844c34bae"
+    "$oid": "640b07e5658feeaf20b374f3"
   },
-  "company": "`qqqqq`",
-  "position": "`qqqqq`",
-  "location": "`qqqqq`",
-  "jobDescription": "`qqqqq`",
+  "company": "ABC",
+  "position": "Product Manager",
+  "location": "LHR",
+  "jobDescription": "Some random description here",
+  "howToApply": "",
+  "public": true,
+  "email": "null@null.com",
+  "type": "Full Time",
+  "category": "Product",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1677561169717"
+    }
+  },
+  "__v": 0,
+  "expiresAt": "2023-04-06T07:43:31.191+00:00"
+},{
+  "_id": {
+    "$oid": "640b08ac658feeaf20b374f6"
+  },
+  "company": "ABC",
+  "position": "Product Manager",
+  "location": "LHR",
+  "jobDescription": "Some random description here",
+  "howToApply": "",
+  "public": true,
+  "email": "null@null.com",
+  "type": "Full Time",
+  "category": "Product",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1677561169717"
+    }
+  },
+  "__v": 0,
+  "expiresAt": "2023-04-06T07:43:31.191+00:00"
+},{
+  "_id": {
+    "$oid": "640b151d658feeaf20b37512"
+  },
+  "company": "ABC",
+  "position": "Product Manager",
+  "location": "LHR",
+  "jobDescription": "Some random description here",
+  "howToApply": "",
+  "public": true,
+  "email": "null@null.com",
+  "type": "Full Time",
+  "category": "Product",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1677561169717"
+    }
+  },
+  "__v": 0,
+  "expiresAt": "2023-04-06T07:43:31.191+00:00"
+},{
+  "_id": {
+    "$oid": "640b151f658feeaf20b37513"
+  },
+  "company": "ABC",
+  "position": "Product Manager",
+  "location": "LHR",
+  "jobDescription": "Some random description here",
+  "howToApply": "",
+  "public": true,
+  "email": "null@null.com",
+  "type": "Full Time",
+  "category": "Product",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1677561169717"
+    }
+  },
+  "__v": 0,
+  "expiresAt": "2023-04-06T07:43:31.191+00:00"
+},{
+  "_id": {
+    "$oid": "640b1521658feeaf20b37514"
+  },
+  "company": "ABC",
+  "position": "Product Manager",
+  "location": "LHR",
+  "jobDescription": "Some random description here",
+  "howToApply": "",
+  "public": true,
+  "email": "null@null.com",
+  "type": "Full Time",
+  "category": "Product",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1677561169717"
+    }
+  },
+  "__v": 0,
+  "expiresAt": "2023-04-06T07:43:31.191+00:00"
+},{
+  "_id": {
+    "$oid": "640b1523658feeaf20b37515"
+  },
+  "company": "ABC",
+  "position": "Product Manager",
+  "location": "LHR",
+  "jobDescription": "Some random description here",
+  "howToApply": "",
+  "public": true,
+  "email": "null@null.com",
+  "type": "Full Time",
+  "category": "Product",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1677561169717"
+    }
+  },
+  "__v": 0,
+  "expiresAt": "2023-04-06T07:43:31.191+00:00"
+},{
+  "_id": {
+    "$oid": "640b1527658feeaf20b37516"
+  },
+  "company": "ABC",
+  "position": "Product Manager",
+  "location": "LHR",
+  "jobDescription": "Some random description here",
+  "howToApply": "",
+  "public": true,
+  "email": "null@null.com",
+  "type": "Full Time",
+  "category": "Product",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1677561169717"
+    }
+  },
+  "__v": 0,
+  "expiresAt": "2023-04-06T07:43:31.191+00:00"
+},{
+  "_id": {
+    "$oid": "640b1529658feeaf20b37517"
+  },
+  "company": "ABC",
+  "position": "Product Manager",
+  "location": "LHR",
+  "jobDescription": "Some random description here",
+  "howToApply": "",
+  "public": true,
+  "email": "null@null.com",
+  "type": "Full Time",
+  "category": "Product",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1677561169717"
+    }
+  },
+  "__v": 0,
+  "expiresAt": "2023-04-06T07:43:31.191+00:00"
+},{
+  "_id": {
+    "$oid": "640b187012ba960d875b1071"
+  },
+  "company": "sdasddasdasdas",
+  "position": "sdadas",
+  "location": "asdasd",
+  "jobDescription": "asdasd",
   "howToApply": "",
   "public": true,
   "email": "null@null.com",
   "url": "",
+  "logo": null,
   "type": "Full Time",
-  "category": "Design",
-  "editToken": "0b7108d9-0cf7-4c39-be19-1f8ad516cee8",
+  "category": "Development",
+  "editToken": "73b35d6e-e26d-4d0e-a075-b0f21afcee6b",
   "expiresAt": {
     "$date": {
-      "$numberLong": "1677932491728"
+      "$numberLong": "1681040752940"
     }
   },
   "createdAt": {
     "$date": {
-      "$numberLong": "1678180809235"
+      "$numberLong": "1678448752950"
     }
   },
   "__v": 0
+},{
+  "_id": {
+    "$oid": "640b1e8b658feeaf20b37527"
+  },
+  "company": "ABC",
+  "position": "Product Manager",
+  "location": "LHR",
+  "jobDescription": "Some random description here",
+  "howToApply": "",
+  "public": true,
+  "email": "null@null.com",
+  "type": "Full Time",
+  "category": "Product",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1677561169717"
+    }
+  },
+  "__v": 0,
+  "expiresAt": "2023-04-06T07:43:31.191+00:00"
+},{
+  "_id": {
+    "$oid": "640b1e8e658feeaf20b37528"
+  },
+  "company": "ABC",
+  "position": "Product Manager",
+  "location": "LHR",
+  "jobDescription": "Some random description here",
+  "howToApply": "",
+  "public": true,
+  "email": "null@null.com",
+  "type": "Full Time",
+  "category": "Product",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1677561169717"
+    }
+  },
+  "__v": 0,
+  "expiresAt": "2023-04-06T07:43:31.191+00:00"
 }]
