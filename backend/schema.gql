@@ -83,6 +83,7 @@ type Query {
   getAdminConfig(input: GetAdminConfigInputParams!): AdminConfigReturn!
   getAllAffiliates(input: GetAllAffiliatesInputParams!): [AdminAffiliateReturn!]!
   getJobsAffiliate(input: GetJobAffiliatesInputParams): [AffiliateJobReturn!]!
+  getJobByPaginationAdmin(input: GetJobPaginationAdminInputParams): JobPaginationReturn!
 }
 
 input GetJobInputParams {
@@ -114,6 +115,12 @@ input GetJobAffiliatesInputParams {
   affiliateToken: String!
   limit: Int
   categories: [String!]
+}
+
+input GetJobPaginationAdminInputParams {
+  authToken: String
+  limit: Int
+  skip: Int
 }
 
 type Mutation {

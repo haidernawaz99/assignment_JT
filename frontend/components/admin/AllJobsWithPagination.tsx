@@ -11,9 +11,9 @@ type Props = {
   searchBar: SearchBarQuery;
 };
 
-const GET_JOBS_BY_PAGINATION = gql`
-  query getJobByPagination($input: GetJobPaginationInputParams!) {
-    getJobByPagination(input: $input) {
+const GET_JOBS_BY_PAGINATION_ADMIN = gql`
+  query getJobByPaginationAdmin($input: GetJobPaginationAdminInputParams!) {
+    getJobByPaginationAdmin(input: $input) {
       job {
         location
         position
@@ -23,6 +23,7 @@ const GET_JOBS_BY_PAGINATION = gql`
         expiresAt
         createdAt
         type
+        editToken
       }
       jobCount
     }
@@ -31,17 +32,20 @@ const GET_JOBS_BY_PAGINATION = gql`
 
 const AllJobsWithPagination = ({ searchBar }: Props) => {
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const { data, loading, error, refetch } = useQuery(GET_JOBS_BY_PAGINATION, {
-    variables: {
-      input: {
-        limit: 20,
-        skip: (currentPage - 1) * 20,
+  const { data, loading, error, refetch } = useQuery(
+    GET_JOBS_BY_PAGINATION_ADMIN,
+    {
+      variables: {
+        input: {
+          limit: 20,
+          skip: (currentPage - 1) * 20,
+        },
       },
-    },
-  });
+    }
+  );
 
   // if user deletes a job, and current page is the last page, and the last job on the page is deleted, then the page will be empty. Thus show second last page now.
-  if (data?.getJobByPagination?.job?.length <= 0 && currentPage > 1)
+  if (data?.getJobByPaginationAdmin?.job?.length <= 0 && currentPage > 1)
     setCurrentPage(currentPage - 1);
 
   if (loading) {
@@ -56,11 +60,11 @@ const AllJobsWithPagination = ({ searchBar }: Props) => {
   return (
     <>
       <div>
-        {search(data.getJobByPagination.job, searchBar).length > 0 && (
+        {search(data.getJobByPaginationAdmin.job, searchBar).length > 0 && (
           <PaginationTable
-            data={search(data.getJobByPagination.job, searchBar)}
+            data={search(data.getJobByPaginationAdmin.job, searchBar) as any}
             setCurrentPage={setCurrentPage}
-            totalDataCount={data.getJobByPagination.jobCount}
+            totalDataCount={data.getJobByPaginationAdmin.jobCount}
             currentPage={currentPage}
           />
         )}

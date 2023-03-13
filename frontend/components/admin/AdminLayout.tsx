@@ -121,7 +121,7 @@ const AdminLayout = ({
               <Button
                 type="primary"
                 onClick={() => {
-                  Router.push("/postjob");
+                  Router.push("/admin/manage/job/add");
                 }}
               >
                 Post a Job

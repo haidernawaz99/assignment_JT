@@ -19,6 +19,7 @@ interface DataType {
   company: string;
   category: string;
   id: string;
+  editToken: string;
 }
 
 const DELETE_JOB = gql`
@@ -169,7 +170,14 @@ const PaginationTable = ({
             Delete
           </Button>
 
-          <Button type="primary" onClick={() => {}}>
+          <Button
+            type="primary"
+            onClick={() => {
+              Router.push(
+                `/admin/manage/job/edit?editToken=${record.editToken}`
+              );
+            }}
+          >
             Edit
           </Button>
         </Space>
@@ -187,7 +195,7 @@ const PaginationTable = ({
     });
     client.cache.evict({
       id: "ROOT_QUERY",
-      fieldName: "getJobByPagination",
+      fieldName: "getJobByPaginationAdmin",
       broadcast: true,
     });
 

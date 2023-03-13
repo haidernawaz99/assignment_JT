@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React, { useState } from "react";
 import type { RadioChangeEvent, UploadProps } from "antd";
-import Layout from "./Layout";
+
 import {
   Divider,
   Typography,
@@ -27,9 +27,10 @@ const { Option } = Select;
 const { TextArea } = Input;
 import { useMutation, gql } from "@apollo/client";
 import type { RcFile, UploadFile } from "antd/es/upload/interface";
-import client from "../graphql/apollo-client";
-import SuccessfulModal from "./SuccessfulModal";
+
 import Router from "next/router";
+import client from "../../graphql/apollo-client";
+import SuccessfulModal from "../SuccessfulModal";
 
 type Props = {
   uploadFormdata: (input: any) => void;

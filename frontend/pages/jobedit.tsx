@@ -1,5 +1,5 @@
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import Layout from "../components/Layout";
 import { Alert, Button, Typography } from "antd";
 import JobForm from "../components/JobForm";
@@ -82,6 +82,10 @@ const EditJob = () => {
 
   if (loading) {
     return <h2>Loading...</h2>;
+  }
+  if (editToken === null) {
+    console.log(editToken);
+    return <h2>Invalid Job Edit Token</h2>;
   }
   if (error) {
     console.error(error);

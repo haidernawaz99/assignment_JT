@@ -21,6 +21,7 @@ import { DeleteAffiliatesInputParams } from './interfaces/admin.deleteAffiliateI
 import { DisableAffiliatesInputParams } from './interfaces/admin.disableAffiliateInput';
 import { EnableAffiliatesInputParams } from './interfaces/admin.enableAffiliateInput';
 import { DeleteJobInputParams } from './interfaces/admin.deleteJobInput';
+import { GetJobPaginationAdminInputParams } from './interfaces/admin.getJobInputPagination';
 
 @Resolver()
 export class JobsResolver {
@@ -124,6 +125,14 @@ export class JobsResolver {
   @Mutation(() => JobReturn)
   async deleteJob(@Args('input') input: DeleteJobInputParams) {
     return this.jobsService.deleteJob(input);
+  }
+
+  @Query(() => JobPaginationReturn)
+  async getJobByPaginationAdmin(
+    @Args('input', { nullable: true }) input: GetJobPaginationAdminInputParams,
+  ) {
+    // return this.jobsService.pagination(input);
+    return this.jobsService.paginationAdmin(input);
   }
 
   //   @ResolveField()

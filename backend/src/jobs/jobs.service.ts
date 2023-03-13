@@ -26,6 +26,7 @@ import { DeleteAffiliatesInputParams } from './interfaces/admin.deleteAffiliateI
 import { DisableAffiliatesInputParams } from './interfaces/admin.disableAffiliateInput';
 import { EnableAffiliatesInputParams } from './interfaces/admin.enableAffiliateInput';
 import { DeleteJobInputParams } from './interfaces/admin.deleteJobInput';
+import { GetJobPaginationAdminInputParams } from './interfaces/admin.getJobInputPagination';
 const jsonfile = require('jsonfile');
 const nodemailer = require('nodemailer');
 
@@ -189,6 +190,7 @@ export class JobsService {
     let jobCount;
 
     // if category is not specified (like Admin Dashboard)
+    // TODO: Remove the admin exception, since a seperate route has been provided
 
     if (input?.category) {
       job = await this.jobModel
@@ -422,5 +424,22 @@ export class JobsService {
 
   async deleteJob(input: DeleteJobInputParams): Promise<Job> {
     return await this.jobModel.findByIdAndDelete(input.id);
+  }
+
+  async paginationAdmin(
+    input: GetJobPaginationAdminInputParams,
+  ): Promise<JobPagination> {
+    const job = await this.jobModel
+      .find()
+      .select('+editToken')
+      .limit(input.limit)
+      // .skip((input.skip - 1) * 20) // (input.skip - 1) corrects for the fact that the first page is page 1, not page 0. 20 is the number of items per page.
+      .skip(input.skip)
+
+      .sort({ createdAt: -1 });
+
+    const jobCount = await this.jobModel.find().countDocuments();
+    console.log({ job, jobCount });
+    return { jobCount, job };
   }
 }
