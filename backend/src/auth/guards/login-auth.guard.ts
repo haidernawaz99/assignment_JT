@@ -2,7 +2,7 @@ import { ExecutionContext } from '@nestjs/common';
 import { GqlExecutionContext } from '@nestjs/graphql';
 import { AuthGuard } from '@nestjs/passport';
 
-export class GqlAuthGuard extends AuthGuard('local') {
+export class LoginAuthGuard extends AuthGuard('local') {
   // Override this method so it can be used in graphql
   // Passport by default uses the request object
   // But graphql doesn't work like HTTP, and thus has no request object
