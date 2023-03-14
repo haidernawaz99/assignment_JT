@@ -5,6 +5,7 @@ import { JobsService } from './jobs.service';
 import { JobsResolver } from './jobs.resolver';
 import { AffiliateSchema } from './interfaces/affiliate.schema';
 import { AffiliateController } from './affiliate.controller';
+import { JwtStrategy } from 'src/auth/jwt.strategy';
 
 @Module({
   imports: [
@@ -13,7 +14,7 @@ import { AffiliateController } from './affiliate.controller';
       { name: 'Affiliate', schema: AffiliateSchema },
     ]),
   ],
-  providers: [JobsResolver, JobsService],
+  providers: [JobsResolver, JobsService, JwtStrategy],
   controllers: [AffiliateController],
 })
 export class JobsModule {}

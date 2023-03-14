@@ -1,1 +1,2 @@
 /backend/env/nodeMailerCredentials.ts
+/backend/env/jwtSecret.constants.ts

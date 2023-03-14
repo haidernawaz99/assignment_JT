@@ -75,6 +75,10 @@ type AffiliateJobReturn {
   expiresAt: DateTime!
 }
 
+type AuthLoginReturn {
+  accessToken: String!
+}
+
 type Query {
   hello123: String!
   cats: [CatReturn!]!
@@ -135,6 +139,8 @@ type Mutation {
   disableAffiliate(input: DisableAffiliatesInputParams!): AdminAffiliateReturn!
   enableAffiliate(input: EnableAffiliatesInputParams!): AdminAffiliateReturn!
   deleteJob(input: DeleteJobInputParams!): JobReturn!
+  login(loginCredentials: AuthLoginInput!): AuthLoginReturn!
+  logout: String!
 }
 
 input CatInput {
@@ -215,4 +221,9 @@ input EnableAffiliatesInputParams {
 input DeleteJobInputParams {
   authToken: String
   id: ID!
+}
+
+input AuthLoginInput {
+  username: String!
+  password: String!
 }
