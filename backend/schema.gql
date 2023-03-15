@@ -75,11 +75,12 @@ type AffiliateJobReturn {
   expiresAt: DateTime!
 }
 
-type User {
+type UserReturn {
   id: Int
   username: String!
   password: String
   isAdmin: Boolean!
+  accessToken: String!
 }
 
 type AuthLoginReturn {
@@ -147,7 +148,7 @@ type Mutation {
   enableAffiliate(input: EnableAffiliatesInputParams!): AdminAffiliateReturn!
   deleteJob(input: DeleteJobInputParams!): JobReturn!
   login(loginCredentials: AuthLoginInput!): AuthLoginReturn!
-  logout: User!
+  logout: UserReturn!
 }
 
 input CatInput {

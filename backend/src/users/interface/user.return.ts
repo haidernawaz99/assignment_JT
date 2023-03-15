@@ -1,7 +1,7 @@
 import { Field, ID, Int, ObjectType } from '@nestjs/graphql';
 
 @ObjectType()
-export class User {
+export class UserReturn {
   @Field(() => Int, { nullable: true })
   id: number;
 
@@ -13,4 +13,7 @@ export class User {
 
   @Field(() => Boolean)
   isAdmin?: boolean;
+
+  @Field()
+  accessToken: string;
 }

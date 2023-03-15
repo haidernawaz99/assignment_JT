@@ -14,7 +14,7 @@ import { JwtStrategy } from 'src/auth/jwt.strategy';
       { name: 'Affiliate', schema: AffiliateSchema },
     ]),
   ],
-  providers: [JobsResolver, JobsService, JwtStrategy],
+  providers: [JobsResolver, JobsService],
   controllers: [AffiliateController],
 })
 export class JobsModule {}

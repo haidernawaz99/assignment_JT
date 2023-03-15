@@ -1,7 +1,7 @@
 import { UseGuards } from '@nestjs/common';
 import { Args, Mutation, Resolver } from '@nestjs/graphql';
 
-import { User } from 'src/users/models/user';
+import { UserReturn } from 'src/users/interface/user.return';
 import { UsersService } from 'src/users/users.service';
 import { AuthService } from './auth.service';
 import { CurrentUser } from './current-user.decorator';
@@ -22,14 +22,14 @@ export class AuthResolver {
   async login(
     @Args('loginCredentials')
     _loginCredentials: AuthLoginInput,
-    @CurrentUser() user: User,
+    @CurrentUser() user: UserReturn,
   ) {
     return this.authService.login(user);
   }
 
   @UseGuards(JwtAuthGuard)
-  @Mutation(() => User)
-  async logout(@CurrentUser() user: User) {
+  @Mutation(() => UserReturn)
+  async logout(@CurrentUser() user: UserReturn) {
     return user;
   }
 }

@@ -11,6 +11,7 @@ import { join } from 'path';
 import { AuthModule } from './auth/auth.module';
 
 import { UsersModule } from './users/users.module';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   imports: [

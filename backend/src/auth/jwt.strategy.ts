@@ -2,7 +2,8 @@ import { ExtractJwt, Strategy } from 'passport-jwt';
 import { PassportStrategy } from '@nestjs/passport';
 import { Injectable } from '@nestjs/common';
 import { jwtSecretKey } from 'env/jwtSecret.constants';
-
+import { sign } from 'jsonwebtoken';
+import { JwtService } from '@nestjs/jwt';
 // The validate() method deserves some discussion.
 // For the jwt-strategy, Passport first verifies the JWT's signature and decodes the JSON.
 // It then invokes our validate() method passing the decoded JSON as its single parameter.
@@ -13,15 +14,24 @@ import { jwtSecretKey } from 'env/jwtSecret.constants';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
-  constructor() {
+  constructor(private readonly jwtService: JwtService) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      ignoreExpiration: true,
+      ignoreExpiration: false,
       secretOrKey: jwtSecretKey,
     });
   }
 
   async validate(payload: any) {
-    return { id: payload.sub, username: payload.username };
+    //TODO: This is also the place we may decide to do further token validation, such as looking up the userId in a list of revoked tokens, enabling us to perform token revocation.
+
+    // Add a new token to be returned to the user
+
+    return {
+      id: payload.sub,
+      username: payload.username,
+      accessToken: this.jwtService.sign({ username: payload.username }),
+      // accessToken: sign(payload, jwtSecretKey, { expiresIn: '60s' }),
+    };
   }
 }
