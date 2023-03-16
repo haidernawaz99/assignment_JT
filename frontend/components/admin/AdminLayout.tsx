@@ -12,7 +12,7 @@ import {
   Switch,
 } from "antd";
 import { ApolloProvider } from "@apollo/client";
-
+import { useSession } from "next-auth/react";
 const { Paragraph } = Typography;
 const { Option } = Select;
 import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
@@ -40,11 +40,17 @@ const AdminLayout = ({
   const [globalSearch, setGlobalSearch] = useState(true);
   const [searchBarOption, setSearchBarOption] = useState<String>("Category");
   const router = useRouter();
+  const { data: session, status } = useSession();
 
   const onSwitchChange = (checked: boolean) => {
     setGlobalSearch(checked);
     console.log(`switch to ${checked}`);
   };
+
+  if (status !== "authenticated") {
+    return <a href="/api/auth/signin">Sign in</a>;
+  }
+
   return (
     <div>
       <Head>

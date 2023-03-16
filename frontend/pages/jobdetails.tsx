@@ -6,6 +6,11 @@ import Layout from "../components/Layout";
 import { SearchBarQuery } from "../interfaces/searchBarQuery";
 import Error from "next/error";
 
+const reloadSession = () => {
+  const event = new Event("visibilitychange");
+  document.dispatchEvent(event);
+};
+
 const FETCH_JOB_DETAILS = gql`
   query fetchJobs($input: GetJobInputParams!) {
     jobs(input: $input) {
@@ -37,6 +42,10 @@ export default function GlobalSearch() {
 
   const [getJobDetails, { data, loading, error, refetch }] =
     useLazyQuery(FETCH_JOB_DETAILS);
+
+  useEffect(() => {
+    reloadSession();
+  }, []);
 
   useLayoutEffect(() => {
     // I could've used useQuery and no useEffect, but it was fetching all the data on component mount.

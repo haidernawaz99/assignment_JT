@@ -1,5 +1,5 @@
 import { UseGuards } from '@nestjs/common';
-import { Args, Mutation, Resolver } from '@nestjs/graphql';
+import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 
 import { UserReturn } from 'src/users/interface/user.return';
 import { UsersService } from 'src/users/users.service';
@@ -17,8 +17,8 @@ export class AuthResolver {
     private readonly userService: UsersService,
   ) {}
 
-  @UseGuards(LoginAuthGuard)
-  @Mutation(() => AuthLoginReturn)
+  @UseGuards(LoginAuthGuard) // <-- Checks if the credentials passed are valid, and if so, returns the user object and token.
+  @Query(() => AuthLoginReturn)
   async login(
     @Args('loginCredentials')
     _loginCredentials: AuthLoginInput,
@@ -27,8 +27,8 @@ export class AuthResolver {
     return this.authService.login(user);
   }
 
-  @UseGuards(JwtAuthGuard)
-  @Mutation(() => UserReturn)
+  @UseGuards(JwtAuthGuard) // <-- Checks if the token passed is valid, and if so, returns the user object and a **NEW** token.
+  @Query(() => UserReturn)
   async logout(@CurrentUser() user: UserReturn) {
     return user;
   }

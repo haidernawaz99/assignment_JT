@@ -18,6 +18,7 @@ const { Paragraph } = Typography;
 const { Option } = Select;
 import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
 import Router, { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
 
 const { Search } = Input;
 const { Title } = Typography;
@@ -40,6 +41,11 @@ const Layout = ({
   const [globalSearch, setGlobalSearch] = useState(true);
   const [searchBarOption, setSearchBarOption] = useState<String>("Category");
   const router = useRouter();
+  const { data: session, status } = useSession();
+
+  if (status === "loading") {
+    return <div>Loading...</div>;
+  }
 
   const onSwitchChange = (checked: boolean) => {
     setGlobalSearch(checked);

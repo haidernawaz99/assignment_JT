@@ -17,6 +17,7 @@ import Link from "next/link";
 import Router from "next/router";
 import { useState } from "react";
 import AdminLayout from "../../../components/admin/AdminLayout";
+import { useSession } from "next-auth/react";
 
 import client from "../../../graphql/apollo-client";
 const { Title, Paragraph, Text } = Typography;
@@ -88,6 +89,7 @@ interface DataType {
 
 const ManageAffiliate = () => {
   const [uploaded, setUploaded] = useState(false);
+
   const [extensionDate, setExtensionDate] = useState(0);
   const [form] = Form.useForm();
   const { data, loading, error, refetch } = useQuery(GET_ALL_AFFILIATES, {

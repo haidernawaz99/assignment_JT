@@ -2,8 +2,8 @@ import { Field, ID, Int, ObjectType } from '@nestjs/graphql';
 
 @ObjectType()
 export class UserReturn {
-  @Field(() => Int, { nullable: true })
-  id: number;
+  @Field(() => ID)
+  id: string;
 
   @Field()
   username: string;

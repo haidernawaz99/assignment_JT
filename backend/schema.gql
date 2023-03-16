@@ -76,7 +76,7 @@ type AffiliateJobReturn {
 }
 
 type UserReturn {
-  id: Int
+  id: ID!
   username: String!
   password: String
   isAdmin: Boolean!
@@ -85,6 +85,8 @@ type UserReturn {
 
 type AuthLoginReturn {
   accessToken: String!
+  username: String!
+  id: ID!
 }
 
 type Query {
@@ -96,6 +98,8 @@ type Query {
   getAllAffiliates(input: GetAllAffiliatesInputParams!): [AdminAffiliateReturn!]!
   getJobsAffiliate(input: GetJobAffiliatesInputParams): [AffiliateJobReturn!]!
   getJobByPaginationAdmin(input: GetJobPaginationAdminInputParams): JobPaginationReturn!
+  login(loginCredentials: AuthLoginInput!): AuthLoginReturn!
+  logout: UserReturn!
 }
 
 input GetJobInputParams {
@@ -135,6 +139,11 @@ input GetJobPaginationAdminInputParams {
   skip: Int
 }
 
+input AuthLoginInput {
+  username: String!
+  password: String!
+}
+
 type Mutation {
   createCat(input: CatInput!): CatReturn!
   createJob(input: JobCreateInput!): JobReturn!
@@ -147,8 +156,6 @@ type Mutation {
   disableAffiliate(input: DisableAffiliatesInputParams!): AdminAffiliateReturn!
   enableAffiliate(input: EnableAffiliatesInputParams!): AdminAffiliateReturn!
   deleteJob(input: DeleteJobInputParams!): JobReturn!
-  login(loginCredentials: AuthLoginInput!): AuthLoginReturn!
-  logout: UserReturn!
 }
 
 input CatInput {
@@ -229,9 +236,4 @@ input EnableAffiliatesInputParams {
 input DeleteJobInputParams {
   authToken: String
   id: ID!
-}
-
-input AuthLoginInput {
-  username: String!
-  password: String!
 }

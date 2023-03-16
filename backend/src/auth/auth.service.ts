@@ -22,9 +22,13 @@ export class AuthService {
   }
 
   login(user: UserReturn): any {
-    const payload = { username: user.username, sub: user.id };
+    console.log(user.id);
+    const payload = { username: user.username, id: user.id };
+
     return {
       accessToken: this.jwtService.sign(payload),
+      username: user.username,
+      id: user.id,
     };
   }
 }
