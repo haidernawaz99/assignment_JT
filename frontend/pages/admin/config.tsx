@@ -42,7 +42,7 @@ const Config = () => {
     },
   ] = useMutation(SET_ADMIN_MUTATION);
 
-  if (loading) {
+  if (!data) {
     return <h2>Loading...</h2>;
   }
 

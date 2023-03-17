@@ -261,7 +261,7 @@ const ManageAffiliate = () => {
     refetch();
   };
 
-  if (loading) {
+  if (!data) {
     return <h2>Loading...</h2>;
   }
 

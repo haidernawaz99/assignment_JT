@@ -80,7 +80,7 @@ const EditJob = () => {
     });
   }, [editToken]);
 
-  if (loading) {
+  if (!data) {
     return <h2>Loading...</h2>;
   }
   if (editToken === null) {

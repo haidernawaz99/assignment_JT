@@ -14,6 +14,15 @@ const LOGIN_QUERY = gql`
   }
 `;
 
+const NEW_TOKEN = gql`
+  query generateNewToken {
+    generateNewToken {
+      username
+      accessToken
+    }
+  }
+`;
+
 export default async function auth(req: NextApiRequest, res: NextApiResponse) {
   return await NextAuth(req, res, {
     debug: true,
@@ -45,10 +54,8 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
           // You can also use the `req` object to obtain additional parameters
           // (i.e., the request IP address)
 
-          console.log(credentials);
-
-          const res = await client.mutate({
-            mutation: LOGIN_QUERY,
+          const res = await client.query({
+            query: LOGIN_QUERY,
             variables: {
               loginCredentials: {
                 username: credentials.username,
@@ -76,25 +83,100 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
         //   user && (token.user = user);
         //   return token;
         // this is the first time the user is logging in.  Subsequent invocations will only contain the token parameter.
-        console.log(`JWT`);
+
         if (user) {
           token.accessToken = user.accessToken;
           token.username = user.username;
         }
+
+        // API Call for new token
+        console.log("API Call for new token");
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        myHeaders.append("Authorization", "Bearer " + token.accessToken);
+
+        var graphql = JSON.stringify({
+          query:
+            "query generateNewToken {\r\n  generateNewToken {    \r\n    username\r\n    accessToken\r\n  }\r\n}\r\n",
+          variables: {},
+        });
+        var requestOptions = {
+          method: "POST",
+          headers: myHeaders,
+          body: graphql,
+          redirect: "follow",
+        };
+
+        const res = await fetch(
+          "http://localhost:3000/graphql",
+          requestOptions as any
+        );
+        const resJSON = await res.json();
+        console.log("~~~~~~");
+        console.log(resJSON);
+        // console.log(res.data);
+
+        token.accessToken = resJSON.data.generateNewToken.accessToken as string;
+        token.username = resJSON.data.generateNewToken.username as string;
+
         return token;
       },
       session: async ({ session, token }) => {
         // Send properties to the client, like an access_token and user id from a provider.
+        console.log(`SES`);
+
+        // const res = await client.query({
+        //   query: NEW_TOKEN,
+        // });
+
+        // if (token.username) {
+        //   // API Call for new token
+        //   console.log("API Call for new token");
+        //   var myHeaders = new Headers();
+        //   myHeaders.append("Content-Type", "application/json");
+        //   myHeaders.append("Authorization", "Bearer " + token.accessToken);
+
+        //   var graphql = JSON.stringify({
+        //     query:
+        //       "query generateNewToken {\r\n  generateNewToken {    \r\n    username\r\n    accessToken\r\n  }\r\n}\r\n",
+        //     variables: {},
+        //   });
+        //   var requestOptions = {
+        //     method: "POST",
+        //     headers: myHeaders,
+        //     body: graphql,
+        //     redirect: "follow",
+        //   };
+
+        //   const res = await fetch(
+        //     "http://localhost:3000/graphql",
+        //     requestOptions as any
+        //   );
+        //   const resJSON = await res.json();
+        //   console.log("~~~~~~");
+        //   console.log(resJSON);
+        //   // console.log(res.data);
+
+        //   session.accessToken = resJSON.data.generateNewToken
+        //     .accessToken as string;
+        //   session.username = resJSON.data.generateNewToken.username as string;
+        // } else {
+        //   session.accessToken = token.accessToken as string;
+        //   session.username = token.username as string;
+        // }
 
         session.accessToken = token.accessToken as string;
         session.username = token.username as string;
+
+        // if user is logged in
+
         return session;
       },
     },
 
     session: {
       // jwt: true,
-      maxAge: 20,
+      maxAge: 59,
     },
   });
 }

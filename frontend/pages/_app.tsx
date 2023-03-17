@@ -4,10 +4,10 @@ import { SessionProvider } from "next-auth/react";
 
 export default function MyApp({ Component, pageProps, session }) {
   return (
-    <ApolloProvider client={client}>
-      <SessionProvider session={session} refetchInterval={0}>
+    <SessionProvider session={session} refetchInterval={0}>
+      <ApolloProvider client={client}>
         <Component {...pageProps} />
-      </SessionProvider>
-    </ApolloProvider>
+      </ApolloProvider>
+    </SessionProvider>
   );
 }

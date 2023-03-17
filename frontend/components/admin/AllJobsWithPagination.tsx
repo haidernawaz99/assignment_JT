@@ -48,7 +48,7 @@ const AllJobsWithPagination = ({ searchBar }: Props) => {
   if (data?.getJobByPaginationAdmin?.job?.length <= 0 && currentPage > 1)
     setCurrentPage(currentPage - 1);
 
-  if (loading) {
+  if (!data) {
     return <h2>Loading...</h2>;
   }
 

@@ -50,7 +50,7 @@ export default function GlobalSearch() {
     });
   }, [searchText, option]);
 
-  if (loading) {
+  if (!data) {
     return <h2>Loading...</h2>;
   }
 

@@ -41,11 +41,6 @@ const Layout = ({
   const [globalSearch, setGlobalSearch] = useState(true);
   const [searchBarOption, setSearchBarOption] = useState<String>("Category");
   const router = useRouter();
-  const { data: session, status } = useSession();
-
-  if (status === "loading") {
-    return <div>Loading...</div>;
-  }
 
   const onSwitchChange = (checked: boolean) => {
     setGlobalSearch(checked);

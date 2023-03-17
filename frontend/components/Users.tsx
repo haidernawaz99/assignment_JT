@@ -11,7 +11,7 @@ const QUERY = gql`
 export default function Users() {
   const { data, loading, error } = useQuery(QUERY);
 
-  if (loading) {
+  if (!data) {
     return <h2>Loading...</h2>;
   }
 

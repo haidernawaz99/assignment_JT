@@ -99,7 +99,7 @@ type Query {
   getJobsAffiliate(input: GetJobAffiliatesInputParams): [AffiliateJobReturn!]!
   getJobByPaginationAdmin(input: GetJobPaginationAdminInputParams): JobPaginationReturn!
   login(loginCredentials: AuthLoginInput!): AuthLoginReturn!
-  logout: UserReturn!
+  generateNewToken: UserReturn!
 }
 
 input GetJobInputParams {

@@ -47,8 +47,9 @@ const RecentJobs = ({ getAllCategories, searchBar }: Props) => {
   //     refetch();
   //   }, []);
 
-  if (loading) {
-    return <h2>Loading...</h2>;
+  if (!data) {
+    console.log(loading);
+    return <h2>Loading ...</h2>;
   }
 
   if (error) {

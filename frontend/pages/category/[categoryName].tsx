@@ -52,7 +52,7 @@ const Post = () => {
     return { jobs: searchResults, jobCount };
   };
 
-  if (loading) {
+  if (!data) {
     return <h2>Loading...</h2>;
   }
 

@@ -59,7 +59,7 @@ export default function GlobalSearch() {
     });
   }, [jobID]);
 
-  if (loading) {
+  if (!data) {
     return <h2>Loading...</h2>;
   }
 
