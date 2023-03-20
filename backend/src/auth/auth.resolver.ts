@@ -30,8 +30,6 @@ export class AuthResolver {
   @UseGuards(JwtAuthGuard) // <-- Checks if the token passed is valid, and if so, returns the user object and a **NEW** token.
   @Query(() => UserReturn)
   async generateNewToken(@CurrentUser() user: UserReturn) {
-    console.log('AYY LMAO MIRACLE', user.accessToken);
-    // return { username: 'haider', accessToken: 'dasdasdasd' };
     return user;
   }
 }

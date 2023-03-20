@@ -13,7 +13,7 @@ import { AffiliatesService } from './affiliates.service';
 import {
   category,
   GetJobAffiliatesInputParamsREST,
-} from './interfaces/affiliate.getJobsInputREST';
+} from './dtos/affiliate.getJobsInputREST';
 
 @Controller('/affiliate/getJobs')
 export class AffiliatesController {

@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { JobSchema } from './interfaces/job.schema';
+import { JobSchema } from './schemas/job.schema';
 import { MongooseModule } from '@nestjs/mongoose';
 import { JobsService } from './jobs.service';
 import { JobsResolver } from './jobs.resolver';

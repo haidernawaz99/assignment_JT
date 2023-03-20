@@ -1,14 +1,11 @@
 import { Field, Int, InputType, ID } from '@nestjs/graphql';
 import * as GraphQLUpload from 'graphql-upload/GraphQLUpload.js';
-import { FileUpload } from './job.fileupload';
+import { FileUpload } from '../interfaces/job.fileupload';
 
 @InputType()
-export class AdminEditJobInput {
+export class JobCreateInput {
   //   @Field(() => ID)
   //   readonly name: string;
-
-  @Field({ nullable: true })
-  authToken: string;
 
   @Field()
   company: string;

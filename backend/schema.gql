@@ -38,10 +38,6 @@ type JobPaginationReturn {
   jobCount: Int!
 }
 
-type AdminConfigReturn {
-  days: Float!
-}
-
 type UserReturn {
   id: ID!
   username: String!
@@ -56,10 +52,8 @@ type AuthLoginReturn {
   id: ID!
 }
 
-type CreateAffiliateReturn {
-  name: String!
-  email: String!
-  siteURL: String!
+type AdminConfigReturn {
+  days: Float!
 }
 
 type AdminAffiliateReturn {
@@ -70,6 +64,12 @@ type AdminAffiliateReturn {
   affiliateToken: String!
   status: String!
   createdAt: DateTime!
+}
+
+type CreateAffiliateReturn {
+  name: String!
+  email: String!
+  siteURL: String!
 }
 
 type AffiliateJobReturn {
@@ -94,10 +94,10 @@ type Query {
   cats: [CatReturn!]!
   jobs(input: GetJobInputParams): [JobReturn!]!
   getJobByPagination(input: GetJobPaginationInputParams): JobPaginationReturn!
-  getAdminConfig(input: GetAdminConfigInputParams!): AdminConfigReturn!
   getJobByPaginationAdmin(input: GetJobPaginationAdminInputParams): JobPaginationReturn!
   login(loginCredentials: AuthLoginInput!): AuthLoginReturn!
   generateNewToken: UserReturn!
+  getAdminConfig(input: GetAdminConfigInputParams!): AdminConfigReturn!
   getAllAffiliates(input: GetAllAffiliatesInputParams!): [AdminAffiliateReturn!]!
   getJobsAffiliate(input: GetJobAffiliatesInputParams): [AffiliateJobReturn!]!
 }
@@ -119,10 +119,6 @@ input GetJobPaginationInputParams {
   skip: Int
 }
 
-input GetAdminConfigInputParams {
-  authToken: String
-}
-
 input GetJobPaginationAdminInputParams {
   authToken: String
   limit: Int
@@ -132,6 +128,10 @@ input GetJobPaginationAdminInputParams {
 input AuthLoginInput {
   username: String!
   password: String!
+}
+
+input GetAdminConfigInputParams {
+  authToken: String
 }
 
 input GetAllAffiliatesInputParams {
@@ -149,8 +149,8 @@ type Mutation {
   createJob(input: JobCreateInput!): JobReturn!
   editJob(input: JobUpdateInput!): JobReturn!
   extendExpiresAt(input: JobExtendInput!): JobReturn!
-  updateAdminConfig(input: SetAdminConfigInputParams!): AdminConfigReturn!
   deleteJob(input: DeleteJobInputParams!): JobReturn!
+  updateAdminConfig(input: SetAdminConfigInputParams!): AdminConfigReturn!
   createAffiliate(input: CreateAffiliateInputParams!): CreateAffiliateReturn!
   approveAffiliate(input: ApproveAffiliatesInputParams!): AdminAffiliateReturn!
   deleteAffiliate(input: DeleteAffiliatesInputParams!): AdminAffiliateReturn!
@@ -202,14 +202,14 @@ input JobExtendInput {
   editToken: String!
 }
 
-input SetAdminConfigInputParams {
-  authToken: String
-  days: Int
-}
-
 input DeleteJobInputParams {
   authToken: String
   id: ID!
+}
+
+input SetAdminConfigInputParams {
+  authToken: String
+  days: Int
 }
 
 input CreateAffiliateInputParams {

@@ -1,6 +1,6 @@
 import { Field, Int, InputType, ID, registerEnumType } from '@nestjs/graphql';
 import * as GraphQLUpload from 'graphql-upload/GraphQLUpload.js';
-import { FileUpload } from './job.fileupload';
+import { FileUpload } from '../interfaces/job.fileupload';
 
 enum AllowedCategories {
   Design = 'Design',
@@ -14,9 +14,9 @@ registerEnumType(AllowedCategories, {
 });
 
 @InputType()
-export class GetJobPaginationAdminInputParams {
-  @Field(() => String, { nullable: true })
-  authToken: string;
+export class GetJobPaginationInputParams {
+  @Field((type) => String, { nullable: true })
+  category: AllowedCategories;
   @Field(() => Int, { nullable: true })
   limit: number;
   @Field(() => Int, { nullable: true })

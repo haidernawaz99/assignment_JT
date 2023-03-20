@@ -1,15 +1,16 @@
 import { Mutation, Resolver, Query, Args } from '@nestjs/graphql';
-import { CreateAffiliateInputParams } from '../affiliates/interfaces/affiliate.getCreateAffiliateInput';
-import { CreateAffiliateReturn } from '../affiliates/interfaces/affiliate.createAffiliate.return';
-import { AdminAffiliateReturn } from '../affiliates/interfaces/affiliate.adminAffiliates.return';
-import { GetAllAffiliatesInputParams } from '../affiliates/interfaces/affiliate.getAllAffiliatesInput';
-import { ApproveAffiliatesInputParams } from '../affiliates/interfaces/admin.approveAffiliatesInput';
-import { GetJobAffiliatesInputParams } from '../affiliates/interfaces/affiliate.getJobsInput';
-import { AffiliateJobReturn } from './interfaces/affiliate.getJobsAffiliate.return';
-import { DeleteAffiliatesInputParams } from '../affiliates/interfaces/admin.deleteAffiliateInput';
-import { DisableAffiliatesInputParams } from '../affiliates/interfaces/admin.disableAffiliateInput';
-import { EnableAffiliatesInputParams } from '../affiliates/interfaces/admin.enableAffiliateInput';
+
 import { AffiliatesService } from './affiliates.service';
+import { ApproveAffiliatesInputParams } from './dtos/admin.approveAffiliatesInput';
+import { DeleteAffiliatesInputParams } from './dtos/admin.deleteAffiliateInput';
+import { DisableAffiliatesInputParams } from './dtos/admin.disableAffiliateInput';
+import { EnableAffiliatesInputParams } from './dtos/admin.enableAffiliateInput';
+import { AdminAffiliateReturn } from './dtos/affiliate.adminAffiliates.return';
+import { CreateAffiliateReturn } from './dtos/affiliate.createAffiliate.return';
+import { GetAllAffiliatesInputParams } from './dtos/affiliate.getAllAffiliatesInput';
+import { CreateAffiliateInputParams } from './dtos/affiliate.getCreateAffiliateInput';
+import { AffiliateJobReturn } from './dtos/affiliate.getJobsAffiliate.return';
+import { GetJobAffiliatesInputParams } from './dtos/affiliate.getJobsInput';
 
 @Resolver()
 export class AffiliatesResolver {

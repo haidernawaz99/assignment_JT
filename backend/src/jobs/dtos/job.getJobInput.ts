@@ -1,6 +1,4 @@
 import { Field, Int, InputType, ID, registerEnumType } from '@nestjs/graphql';
-import * as GraphQLUpload from 'graphql-upload/GraphQLUpload.js';
-import { FileUpload } from './job.fileupload';
 
 enum AllowedCategories {
   Design = 'Design',

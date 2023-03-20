@@ -2,19 +2,21 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Affiliate } from './interfaces/affiliate.interface';
-import { CreateAffiliateInputParams } from '../affiliates/interfaces/affiliate.getCreateAffiliateInput';
-import { GetAllAffiliatesInputParams } from '../affiliates/interfaces/affiliate.getAllAffiliatesInput';
-import { ApproveAffiliatesInputParams } from '../affiliates/interfaces/admin.approveAffiliatesInput';
+
+import { ApproveAffiliatesInputParams } from './dtos/admin.approveAffiliatesInput';
 import { auth } from 'env/nodeMailerCredentials';
-import { GetJobAffiliatesInputParams } from '../affiliates/interfaces/affiliate.getJobsInput';
-import { GetJobAffiliatesInputParamsREST } from './interfaces/affiliate.getJobsInputREST';
-import { DeleteAffiliatesInputParams } from '../affiliates/interfaces/admin.deleteAffiliateInput';
-import { DisableAffiliatesInputParams } from '../affiliates/interfaces/admin.disableAffiliateInput';
-import { EnableAffiliatesInputParams } from '../affiliates/interfaces/admin.enableAffiliateInput';
+
 import { v4 as uuidv4 } from 'uuid';
 import { Job } from 'src/jobs/interfaces/job.interface';
-import { GetJobInputParams } from 'src/jobs/interfaces/job.getJobInput';
+import { GetJobInputParams } from 'src/jobs/dtos/job.getJobInput';
 import { JobsService } from 'src/jobs/jobs.service';
+import { CreateAffiliateInputParams } from './dtos/affiliate.getCreateAffiliateInput';
+import { GetAllAffiliatesInputParams } from './dtos/affiliate.getAllAffiliatesInput';
+import { EnableAffiliatesInputParams } from './dtos/admin.enableAffiliateInput';
+import { DisableAffiliatesInputParams } from './dtos/admin.disableAffiliateInput';
+import { DeleteAffiliatesInputParams } from './dtos/admin.deleteAffiliateInput';
+import { GetJobAffiliatesInputParams } from './dtos/affiliate.getJobsInput';
+import { GetJobAffiliatesInputParamsREST } from './dtos/affiliate.getJobsInputREST';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const nodemailer = require('nodemailer');
 

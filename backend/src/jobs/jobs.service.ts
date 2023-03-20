@@ -3,43 +3,27 @@ import { Model } from 'mongoose';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Job } from './interfaces/job.interface';
-import { JobCreateInput } from './interfaces/job.createInput';
+import { JobCreateInput } from './dtos/job.createInput';
 import { createWriteStream } from 'fs';
 import { join } from 'path';
-import { GetJobPaginationInputParams } from './interfaces/job.getJobInputPagination';
+import { GetJobPaginationInputParams } from './dtos/job.getJobInputPagination';
 import { JobPagination } from './interfaces/job.pagination.interface';
-import { GetJobInputParams } from './interfaces/job.getJobInput';
+import { GetJobInputParams } from './dtos/job.getJobInput';
 import { v4 as uuidv4 } from 'uuid';
-import { JobUpdateInput } from './interfaces/job.updateInput';
-import { JobExtendInput } from './interfaces/job.extendInput';
-import { GetAdminConfigInputParams } from './interfaces/admin.getAdminConfigInput';
-import { AdminConfig } from './interfaces/admin.config.interface';
-import { SetAdminConfigInputParams } from './interfaces/admin.setAdminConfigInput';
-import { DeleteJobInputParams } from './interfaces/admin.deleteJobInput';
-import { GetJobPaginationAdminInputParams } from './interfaces/admin.getJobInputPagination';
-const jsonfile = require('jsonfile');
+import { JobUpdateInput } from './dtos/job.updateInput';
+import { JobExtendInput } from './dtos/job.extendInput';
+import { DeleteJobInputParams } from './dtos/job.deleteJobInput';
+import { GetJobPaginationAdminInputParams } from './dtos/admin.getJobInputPagination';
+import { getExtensionPeriod } from 'common/utils/extension-period';
 
 @Injectable()
 export class JobsService {
   constructor(@InjectModel('Job') private jobModel: Model<Job>) {}
 
-  file = './src/jobs/jobsConfig.json';
-  async getExtensionPeriod() {
-    // read from File the extension period
-    const expiresAtDays = await jsonfile
-      .readFile(this.file)
-      .then((obj) => {
-        const expiresAtDays = 1000 * 60 * 60 * 24 * obj.days; // 1000ms * 60s * 60m * 24h * days
-        return expiresAtDays;
-      })
-      .catch((error) => console.error(error));
-    return expiresAtDays;
-  }
-
   async create(jobInput: JobCreateInput): Promise<Job> {
     // if the user has uploaded an image (logo) then dump it to the filesystem
     const editToken = uuidv4();
-    const expiresAt = Date.now() + (await this.getExtensionPeriod());
+    const expiresAt = Date.now() + (await getExtensionPeriod());
     if (jobInput?.image) {
       console.log(jobInput.image);
       const { createReadStream, filename } = await jobInput?.image;
@@ -247,7 +231,7 @@ export class JobsService {
   }
 
   async extendExpiresAt(jobExtend: JobExtendInput): Promise<Job> {
-    const newExpiresAt = Date.now() + (await this.getExtensionPeriod());
+    const newExpiresAt = Date.now() + (await getExtensionPeriod());
 
     //read the configuration file to see how the extension period (in days)
     const updatedJob = await this.jobModel.findOneAndUpdate(
@@ -256,21 +240,6 @@ export class JobsService {
       { new: true },
     );
     return updatedJob;
-  }
-
-  async getAdminConfig(input: GetAdminConfigInputParams): Promise<AdminConfig> {
-    //TODO: Protect the route
-    console.log(await this.getExtensionPeriod());
-    return { days: (await this.getExtensionPeriod()) / 1000 / 60 / 60 / 24 };
-  }
-
-  async setAdminConfig(input: SetAdminConfigInputParams): Promise<AdminConfig> {
-    //TODO: Protect the route
-
-    const updatedConfig = { ...input };
-
-    jsonfile.writeFileSync(this.file, updatedConfig);
-    return { days: (await this.getExtensionPeriod()) / 1000 / 60 / 60 / 24 };
   }
 
   async deleteJob(input: DeleteJobInputParams): Promise<Job> {

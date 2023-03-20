@@ -1,38 +1,20 @@
-import { Mutation, Query, ResolveField, Resolver, Args } from '@nestjs/graphql';
+import { Mutation, Query, Resolver, Args } from '@nestjs/graphql';
 import { JobsService } from './jobs.service';
-import { JobReturn } from './interfaces/job.return';
-import { JobCreateInput } from './interfaces/job.createInput';
-import { GetJobPaginationInputParams } from './interfaces/job.getJobInputPagination';
-import { JobPaginationReturn } from './interfaces/job.pagination.return';
-import { GetJobInputParams } from './interfaces/job.getJobInput';
-import { JobUpdateInput } from './interfaces/job.updateInput';
-import { JobExtendInput } from './interfaces/job.extendInput';
-import { AdminConfigReturn } from './interfaces/admin.configuation.return';
-import { GetAdminConfigInputParams } from './interfaces/admin.getAdminConfigInput';
-import { SetAdminConfigInputParams } from './interfaces/admin.setAdminConfigInput';
-
-import { DeleteJobInputParams } from './interfaces/admin.deleteJobInput';
-import { GetJobPaginationAdminInputParams } from './interfaces/admin.getJobInputPagination';
+import { JobReturn } from './dtos/job.return';
+import { JobCreateInput } from './dtos/job.createInput';
+import { GetJobPaginationInputParams } from './dtos/job.getJobInputPagination';
+import { JobPaginationReturn } from './dtos/job.pagination.return';
+import { GetJobInputParams } from './dtos/job.getJobInput';
+import { JobUpdateInput } from './dtos/job.updateInput';
+import { JobExtendInput } from './dtos/job.extendInput';
+import { DeleteJobInputParams } from './dtos/job.deleteJobInput';
+import { GetJobPaginationAdminInputParams } from './dtos/admin.getJobInputPagination';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { UseGuards } from '@nestjs/common';
 
 @Resolver()
 export class JobsResolver {
-  constructor(
-    //   private authorsService: AuthorsService,
-    //   private postsService: PostsService,
-    private readonly jobsService: JobsService,
-  ) {}
-
-  //   @Query((returns) => Author)
-  //   async author(@Args('id', { type: () => Int }) id: number) {
-  //     return this.authorsService.findOneById(id);
-  //   }
-
-  @Query(() => String)
-  async hello123() {
-    return 'Hello World!';
-  }
+  constructor(private readonly jobsService: JobsService) {}
 
   @Query(() => [JobReturn])
   async jobs(@Args('input', { nullable: true }) input: GetJobInputParams) {
@@ -62,17 +44,6 @@ export class JobsResolver {
     return this.jobsService.extendExpiresAt(input);
   }
 
-  @Query(() => AdminConfigReturn)
-  async getAdminConfig(@Args('input') input: GetAdminConfigInputParams) {
-    // return this.jobsService.pagination(input);
-    return this.jobsService.getAdminConfig(input);
-  }
-
-  @Mutation(() => AdminConfigReturn)
-  async updateAdminConfig(@Args('input') input: SetAdminConfigInputParams) {
-    return this.jobsService.setAdminConfig(input);
-  }
-
   @Mutation(() => JobReturn)
   async deleteJob(@Args('input') input: DeleteJobInputParams) {
     return this.jobsService.deleteJob(input);
@@ -86,10 +57,4 @@ export class JobsResolver {
     // return this.jobsService.pagination(input);
     return this.jobsService.paginationAdmin(input);
   }
-
-  //   @ResolveField()
-  //   async posts(@Parent() author: Author) {
-  //     const { id } = author;
-  //     return this.postsService.findAll({ authorId: id });
-  //   }
 }
