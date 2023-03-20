@@ -1,5 +1,5 @@
 import { ObjectType, Field, ID, Int, Float } from '@nestjs/graphql';
-import { JobReturn } from './job.return';
+import { JobReturn } from '../../jobs/interfaces/job.return';
 
 @ObjectType()
 export class CreateAffiliateReturn {

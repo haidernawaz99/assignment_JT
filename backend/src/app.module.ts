@@ -12,6 +12,8 @@ import { AuthModule } from './auth/auth.module';
 
 import { UsersModule } from './users/users.module';
 import { JwtModule } from '@nestjs/jwt';
+import { AdminModule } from './admin/admin.module';
+import { AffiliatesModule } from './affiliates/affiliates.module';
 
 @Module({
   imports: [
@@ -27,6 +29,8 @@ import { JwtModule } from '@nestjs/jwt';
     }),
     AuthModule,
     UsersModule,
+    AdminModule,
+    AffiliatesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

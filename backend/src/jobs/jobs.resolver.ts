@@ -10,18 +10,11 @@ import { JobExtendInput } from './interfaces/job.extendInput';
 import { AdminConfigReturn } from './interfaces/admin.configuation.return';
 import { GetAdminConfigInputParams } from './interfaces/admin.getAdminConfigInput';
 import { SetAdminConfigInputParams } from './interfaces/admin.setAdminConfigInput';
-import { CreateAffiliateInputParams } from './interfaces/affiliate.getCreateAffiliateInput';
-import { CreateAffiliateReturn } from './interfaces/affiliate.createAffiliate.return';
-import { AdminAffiliateReturn } from './interfaces/affiliate.adminAffiliates.return';
-import { GetAllAffiliatesInputParams } from './interfaces/affiliate.getAllAffiliatesInput';
-import { ApproveAffiliatesInputParams } from './interfaces/admin.approveAffiliatesInput';
-import { GetJobAffiliatesInputParams } from './interfaces/affiliate.getJobsInput';
-import { AffiliateJobReturn } from './interfaces/affiliate.getJobsAffiliate.return';
-import { DeleteAffiliatesInputParams } from './interfaces/admin.deleteAffiliateInput';
-import { DisableAffiliatesInputParams } from './interfaces/admin.disableAffiliateInput';
-import { EnableAffiliatesInputParams } from './interfaces/admin.enableAffiliateInput';
+
 import { DeleteJobInputParams } from './interfaces/admin.deleteJobInput';
 import { GetJobPaginationAdminInputParams } from './interfaces/admin.getJobInputPagination';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { UseGuards } from '@nestjs/common';
 
 @Resolver()
 export class JobsResolver {
@@ -80,53 +73,12 @@ export class JobsResolver {
     return this.jobsService.setAdminConfig(input);
   }
 
-  @Mutation(() => CreateAffiliateReturn)
-  async createAffiliate(@Args('input') input: CreateAffiliateInputParams) {
-    console.log('Create Affiliate: ', input);
-    return this.jobsService.createAffiliate(input);
-  }
-
-  @Query(() => [AdminAffiliateReturn])
-  async getAllAffiliates(@Args('input') input: GetAllAffiliatesInputParams) {
-    return this.jobsService.getAllAffiliates(input);
-  }
-
-  @Mutation(() => AdminAffiliateReturn)
-  async approveAffiliate(@Args('input') input: ApproveAffiliatesInputParams) {
-    console.log('Manage Affiliate: ', input);
-    return this.jobsService.approveAffiliate(input);
-  }
-
-  @Query(() => [AffiliateJobReturn])
-  async getJobsAffiliate(
-    @Args('input', { nullable: true }) input: GetJobAffiliatesInputParams,
-  ) {
-    return this.jobsService.getJobsAffiliate(input);
-  }
-
-  @Mutation(() => AdminAffiliateReturn)
-  async deleteAffiliate(@Args('input') input: DeleteAffiliatesInputParams) {
-    console.log('Delete Affiliate: ', input);
-    return this.jobsService.deleteAffiliate(input);
-  }
-
-  @Mutation(() => AdminAffiliateReturn)
-  async disableAffiliate(@Args('input') input: DisableAffiliatesInputParams) {
-    console.log('Disable Affiliate: ', input);
-    return this.jobsService.disableAffiliate(input);
-  }
-
-  @Mutation(() => AdminAffiliateReturn)
-  async enableAffiliate(@Args('input') input: EnableAffiliatesInputParams) {
-    console.log('Enable Affiliate: ', input);
-    return this.jobsService.enableAffiliate(input);
-  }
-
   @Mutation(() => JobReturn)
   async deleteJob(@Args('input') input: DeleteJobInputParams) {
     return this.jobsService.deleteJob(input);
   }
 
+  @UseGuards(JwtAuthGuard) // <-- Checks if the token passed is valid, and if so, returns the user object and a **NEW** token.
   @Query(() => JobPaginationReturn)
   async getJobByPaginationAdmin(
     @Args('input', { nullable: true }) input: GetJobPaginationAdminInputParams,

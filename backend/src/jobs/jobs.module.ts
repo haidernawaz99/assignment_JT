@@ -3,18 +3,10 @@ import { JobSchema } from './interfaces/job.schema';
 import { MongooseModule } from '@nestjs/mongoose';
 import { JobsService } from './jobs.service';
 import { JobsResolver } from './jobs.resolver';
-import { AffiliateSchema } from './interfaces/affiliate.schema';
-import { AffiliateController } from './affiliate.controller';
-import { JwtStrategy } from 'src/auth/jwt.strategy';
 
 @Module({
-  imports: [
-    MongooseModule.forFeature([
-      { name: 'Job', schema: JobSchema },
-      { name: 'Affiliate', schema: AffiliateSchema },
-    ]),
-  ],
+  imports: [MongooseModule.forFeature([{ name: 'Job', schema: JobSchema }])],
   providers: [JobsResolver, JobsService],
-  controllers: [AffiliateController],
+  exports: [JobsService],
 })
 export class JobsModule {}

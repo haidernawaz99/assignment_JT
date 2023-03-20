@@ -7,17 +7,17 @@ import {
   Res,
 } from '@nestjs/common';
 import { Response } from 'express';
+import { Job } from 'src/jobs/interfaces/job.interface';
+import { JobsService } from 'src/jobs/jobs.service';
+import { AffiliatesService } from './affiliates.service';
 import {
   category,
   GetJobAffiliatesInputParamsREST,
 } from './interfaces/affiliate.getJobsInputREST';
-import { Job } from './interfaces/job.interface';
-import { JobReturn } from './interfaces/job.return';
-import { JobsService } from './jobs.service';
 
 @Controller('/affiliate/getJobs')
-export class AffiliateController {
-  constructor(readonly jobService: JobsService) {}
+export class AffiliatesController {
+  constructor(readonly affiliateService: AffiliatesService) {}
 
   @Get()
   async getJobs(
@@ -38,7 +38,7 @@ export class AffiliateController {
       limit,
     };
 
-    const jobs = await this.jobService.getJobsAffiliate(input);
+    const jobs = await this.affiliateService.getJobsAffiliate(input);
 
     // if user doesnt specify an edit token, jobs will be returned, which will be an HttpException. If user specifies an edit token, jobsWithoutEditToken will be returned, which will remove the edit token from the jobs.
     return jobs;
