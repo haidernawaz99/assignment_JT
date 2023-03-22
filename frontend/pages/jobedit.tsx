@@ -80,17 +80,22 @@ const EditJob = () => {
     });
   }, [editToken]);
 
-  if (!data) {
-    return <h2>Loading...</h2>;
-  }
-  if (editToken === null) {
-    console.log(editToken);
-    return <h2>Invalid Job Edit Token</h2>;
-  }
-  if (error) {
+  if (error || data?.jobs[0]?.length === 0 || editToken === null) {
     console.error(error);
     return <Error statusCode={404} title="Invalid Job Edit Token" />;
   }
+
+  if (!data) {
+    return <h2>Loading...</h2>;
+  }
+  // if (editToken === null) {
+  //   console.log(editToken);
+  //   return <h2>Invalid Job Edit Token</h2>;
+  // }
+  // if (error) {
+  //   console.error(error);
+  //   return <Error statusCode={404} title="Invalid Job Edit Token" />;
+  // }
 
   if (data) {
     console.log(data);

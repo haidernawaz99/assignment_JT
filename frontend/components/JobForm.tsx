@@ -25,7 +25,7 @@ import {
 const { Title, Paragraph, Text } = Typography;
 const { Option } = Select;
 const { TextArea } = Input;
-import { useMutation, gql } from "@apollo/client";
+import { useMutation, gql, useLazyQuery } from "@apollo/client";
 import type { RcFile, UploadFile } from "antd/es/upload/interface";
 import client from "../graphql/apollo-client";
 import SuccessfulModal from "./SuccessfulModal";
@@ -48,7 +48,33 @@ const MUTATION = gql`
   }
 `;
 
+const IS_CUSTOM_URL_UNIQUE = gql`
+  query uniqueEmail($input: GetJobInputParams!) {
+    uniqueEmail(input: $input) {
+      company
+    }
+  }
+`;
+
 const JobForm = ({ uploadFormdata, data, isUpdating, editToken }: Props) => {
+  const [isCustomURLUnqiueRequest] = useLazyQuery(IS_CUSTOM_URL_UNIQUE);
+  const isCustomURLUnqiue = async (customURL: string) => {
+    const customURLResponse = await isCustomURLUnqiueRequest({
+      variables: {
+        input: {
+          customURL,
+        },
+      },
+    });
+
+    if (customURLResponse.data.uniqueEmail == null) {
+      // setCustomURL("success"); // unique
+      return "success";
+    } else {
+      // setCustomURL("error"); // not unique
+      return "error";
+    }
+  };
   const imageInitialVal = data?.logo
     ? [
         {
@@ -174,11 +200,28 @@ const JobForm = ({ uploadFormdata, data, isUpdating, editToken }: Props) => {
             label="Custom URL"
             name="url"
             initialValue={isUpdating ? (data?.url ? data.url : "") : ""}
+            // validateStatus={customURL}
+            hasFeedback
+            rules={[
+              ({ getFieldValue }) => ({
+                async validator(_, value) {
+                  if ((await isCustomURLUnqiue(value)) === "success") {
+                    return Promise.resolve();
+                  }
+                  return Promise.reject(
+                    new Error("Looks like someone has already taken this URL!")
+                  );
+                },
+              }),
+            ]}
           >
             <Input
               addonBefore="http://localhost:3000/customURL/"
-              addonAfter=".com"
+              // addonAfter=".com"
               placeholder="Enter Custom URL Here"
+              // onBlur={(e) => {
+              //   isCustomURLUnqiue(e.target.value);
+              // }}
             />
           </Form.Item>
           <Form.Item

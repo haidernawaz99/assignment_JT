@@ -32,6 +32,9 @@ export class GetJobInputParams {
   @Field(() => String, { nullable: true })
   company: string;
 
+  @Field(() => String, { nullable: true })
+  customURL: string;
+
   @Field(() => Int, { nullable: true })
   limit: number;
   @Field(() => Int, { nullable: true })

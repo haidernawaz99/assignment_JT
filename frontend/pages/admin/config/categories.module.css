@@ -1,0 +1,17 @@
+.editablerow > td {
+  /* border-radius: 10px; */
+
+  /* border-width: 3px; */
+  /* border: 1px solid gray;
+  border-style: solid; */
+}
+
+/* .editablerow td:first-child {
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+.editablerow td:last-child {
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+} */

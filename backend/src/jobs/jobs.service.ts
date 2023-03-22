@@ -14,7 +14,7 @@ import { JobUpdateInput } from './dtos/job.updateInput';
 import { JobExtendInput } from './dtos/job.extendInput';
 import { DeleteJobInputParams } from './dtos/job.deleteJobInput';
 import { GetJobPaginationAdminInputParams } from './dtos/admin.getJobInputPagination';
-import { getExtensionPeriod } from 'common/utils/extension-period';
+import { getExtensionPeriodFS } from 'common/utils/extension-period';
 
 @Injectable()
 export class JobsService {
@@ -23,7 +23,11 @@ export class JobsService {
   async create(jobInput: JobCreateInput): Promise<Job> {
     // if the user has uploaded an image (logo) then dump it to the filesystem
     const editToken = uuidv4();
-    const expiresAt = Date.now() + (await getExtensionPeriod());
+    const expiresAt = Date.now() + (await getExtensionPeriodFS());
+
+    // make custom url lowercase (case insensitive)
+    jobInput.url = jobInput.url.toLowerCase();
+
     if (jobInput?.image) {
       console.log(jobInput.image);
       const { createReadStream, filename } = await jobInput?.image;
@@ -150,7 +154,26 @@ export class JobsService {
       return [res];
     }
 
+    if (input?.customURL) {
+      console.log('Hi, custom URL!', input.customURL);
+      const res = await this.jobModel.findOne({
+        url: new RegExp(`^${input.customURL}$`, 'i'), // <-- case insensitive search
+      });
+      return [res];
+    }
+
     return await this.jobModel.find().sort({ createdAt: -1 });
+  }
+
+  async unqiueEmail(input: GetJobInputParams): Promise<Job | null> {
+    if (input?.customURL) {
+      console.log('Hi, custom URL!', input.customURL);
+      const res = await this.jobModel.findOne({
+        url: new RegExp(`^${input.customURL}$`, 'i'), // <-- case insensitive search
+      });
+      console.log(res);
+      return res;
+    }
   }
 
   async pagination(input: GetJobPaginationInputParams): Promise<JobPagination> {
@@ -193,6 +216,10 @@ export class JobsService {
     console.log('UPDATE');
     console.log(jobUpdate);
     console.log('Update');
+
+    // make custom url lowercase (case insensitive)
+    jobUpdate.url = jobUpdate.url.toLowerCase();
+
     // if the user has uploaded a **NEW** image (logo) then dump it to the filesystem
     if (jobUpdate?.image) {
       console.log(jobUpdate.image);
@@ -231,7 +258,7 @@ export class JobsService {
   }
 
   async extendExpiresAt(jobExtend: JobExtendInput): Promise<Job> {
-    const newExpiresAt = Date.now() + (await getExtensionPeriod());
+    const newExpiresAt = Date.now() + (await getExtensionPeriodFS());
 
     //read the configuration file to see how the extension period (in days)
     const updatedJob = await this.jobModel.findOneAndUpdate(

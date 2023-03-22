@@ -1,8 +1,8 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const jsonfile = require('jsonfile');
-const file = './common/utils/jobs-config.json';
+const file = './config/extension-config.json';
 
-export const getExtensionPeriod = async () => {
+export const getExtensionPeriodFS = async () => {
   // read from File the extension period
   const expiresAtDays = await jsonfile
     .readFile(file)
@@ -15,6 +15,6 @@ export const getExtensionPeriod = async () => {
   return expiresAtDays;
 };
 
-export const setExtensionPeriod = async (updatedConfig) => {
+export const setExtensionPeriodFS = async (updatedConfig) => {
   jsonfile.writeFileSync(file, updatedConfig);
 };

@@ -13,7 +13,11 @@ export const JobSchema = new mongoose.Schema({
   howToApply: String,
   public: Boolean,
   email: stringAndRequired,
-  url: String,
+  url: {
+    type: String,
+    required: false,
+    unique: true,
+  },
   logo: String,
   type: {
     type: String,

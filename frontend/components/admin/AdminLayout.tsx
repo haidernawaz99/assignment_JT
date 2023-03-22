@@ -150,8 +150,8 @@ const AdminLayout = ({
           <hr />
           <Link href="/">About Jobeet</Link> |{" "}
           <Link href="/about">Full RSS Feed</Link> |{" "}
-          <Link href="/admin/manage/affiliates/view">Jobeet API</Link> |{" "}
-          <Link href="/admin/manage/affiliates/view">Affiliates</Link> |{" "}
+          <Link href="/admin/manage/affiliates">Jobeet API</Link> |{" "}
+          <Link href="/admin/manage/affiliates">Affiliates</Link> |{" "}
         </footer>
       </div>
     );

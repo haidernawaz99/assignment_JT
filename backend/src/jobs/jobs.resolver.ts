@@ -21,6 +21,13 @@ export class JobsResolver {
     return this.jobsService.find(input);
   }
 
+  @Query(() => JobReturn, { nullable: true })
+  async uniqueEmail(
+    @Args('input', { nullable: true }) input: GetJobInputParams,
+  ) {
+    return this.jobsService.unqiueEmail(input);
+  }
+
   @Query(() => JobPaginationReturn)
   async getJobByPagination(
     @Args('input', { nullable: true }) input: GetJobPaginationInputParams,
@@ -44,6 +51,7 @@ export class JobsResolver {
     return this.jobsService.extendExpiresAt(input);
   }
 
+  @UseGuards(JwtAuthGuard) // <-- Checks if the token passed is valid, and if so, returns the user object and a **NEW** token.
   @Mutation(() => JobReturn)
   async deleteJob(@Args('input') input: DeleteJobInputParams) {
     return this.jobsService.deleteJob(input);

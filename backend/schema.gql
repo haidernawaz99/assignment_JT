@@ -52,7 +52,16 @@ type AuthLoginReturn {
   id: ID!
 }
 
-type AdminConfigReturn {
+type AdminCategoriesReturn {
+  categories: [JSON!]!
+}
+
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON
+
+type AdminExpirationReturn {
   days: Float!
 }
 
@@ -93,11 +102,13 @@ type Query {
   hello123: String!
   cats: [CatReturn!]!
   jobs(input: GetJobInputParams): [JobReturn!]!
+  uniqueEmail(input: GetJobInputParams): JobReturn
   getJobByPagination(input: GetJobPaginationInputParams): JobPaginationReturn!
   getJobByPaginationAdmin(input: GetJobPaginationAdminInputParams): JobPaginationReturn!
   login(loginCredentials: AuthLoginInput!): AuthLoginReturn!
   generateNewToken: UserReturn!
-  getAdminConfig(input: GetAdminConfigInputParams!): AdminConfigReturn!
+  getExpirationPeriod: AdminExpirationReturn!
+  getCategories: AdminCategoriesReturn!
   getAllAffiliates(input: GetAllAffiliatesInputParams!): [AdminAffiliateReturn!]!
   getJobsAffiliate(input: GetJobAffiliatesInputParams): [AffiliateJobReturn!]!
 }
@@ -109,6 +120,7 @@ input GetJobInputParams {
   location: String
   position: String
   company: String
+  customURL: String
   limit: Int
   skip: Int
 }
@@ -130,10 +142,6 @@ input AuthLoginInput {
   password: String!
 }
 
-input GetAdminConfigInputParams {
-  authToken: String
-}
-
 input GetAllAffiliatesInputParams {
   authToken: String
 }
@@ -150,7 +158,8 @@ type Mutation {
   editJob(input: JobUpdateInput!): JobReturn!
   extendExpiresAt(input: JobExtendInput!): JobReturn!
   deleteJob(input: DeleteJobInputParams!): JobReturn!
-  updateAdminConfig(input: SetAdminConfigInputParams!): AdminConfigReturn!
+  setExpirationPeriod(input: SetExpirationInputParams!): AdminExpirationReturn!
+  setCategories(input: SetCategoriesInputParams!): AdminCategoriesReturn!
   createAffiliate(input: CreateAffiliateInputParams!): CreateAffiliateReturn!
   approveAffiliate(input: ApproveAffiliatesInputParams!): AdminAffiliateReturn!
   deleteAffiliate(input: DeleteAffiliatesInputParams!): AdminAffiliateReturn!
@@ -207,9 +216,13 @@ input DeleteJobInputParams {
   id: ID!
 }
 
-input SetAdminConfigInputParams {
+input SetExpirationInputParams {
   authToken: String
   days: Int
+}
+
+input SetCategoriesInputParams {
+  categories: [JSON!]!
 }
 
 input CreateAffiliateInputParams {

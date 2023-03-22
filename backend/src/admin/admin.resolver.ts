@@ -1,20 +1,33 @@
+import { UseGuards } from '@nestjs/common';
 import { Mutation, Query, Resolver, Args } from '@nestjs/graphql';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { AdminService } from './admin.service';
-import { AdminConfigReturn } from './dtos/admin.configuation.return';
-import { GetAdminConfigInputParams } from './dtos/admin.getAdminConfigInput';
-import { SetAdminConfigInputParams } from './dtos/admin.setAdminConfigInput';
+import { AdminCategoriesReturn } from './dtos/admin.categories.return';
+import { AdminExpirationReturn } from './dtos/admin.expiration.return';
+import { SetCategoriesInputParams } from './dtos/admin.setCategoriesInput';
+import { SetExpirationInputParams } from './dtos/admin.setExpirationInput';
 
 @Resolver()
+@UseGuards(JwtAuthGuard)
 export class AdminResolver {
   constructor(private readonly adminService: AdminService) {}
-  @Query(() => AdminConfigReturn)
-  async getAdminConfig(@Args('input') input: GetAdminConfigInputParams) {
-    // return this.jobsService.pagination(input);
-    return this.adminService.getAdminConfig(input);
+  @Query(() => AdminExpirationReturn)
+  async getExpirationPeriod() {
+    return this.adminService.getExpiration();
   }
 
-  @Mutation(() => AdminConfigReturn)
-  async updateAdminConfig(@Args('input') input: SetAdminConfigInputParams) {
-    return this.adminService.setAdminConfig(input);
+  @Mutation(() => AdminExpirationReturn)
+  async setExpirationPeriod(@Args('input') input: SetExpirationInputParams) {
+    return this.adminService.setExpiration(input);
+  }
+
+  @Query(() => AdminCategoriesReturn)
+  async getCategories() {
+    return { categories: this.adminService.getCategories() };
+  }
+
+  @Mutation(() => AdminCategoriesReturn)
+  async setCategories(@Args('input') input: SetCategoriesInputParams) {
+    return this.adminService.setCategories(input);
   }
 }
