@@ -109,9 +109,11 @@ const BecomeAffiliate = () => {
 
   const [form] = Form.useForm();
   return (
-    <Layout>
+    <Layout enableLocalSearch={false}>
       <br />
+
       <Form form={form} labelCol={{ span: 4 }} onFinish={onFinish}>
+        <Title level={2}>Affiliate Form</Title>
         <Row>
           <Col xs={14} sm={18} md={16} lg={18} xl={10}>
             <Form.Item

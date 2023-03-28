@@ -15,6 +15,8 @@ const { Title, Paragraph, Text } = Typography;
 import React, { useContext, useEffect, useRef, useState } from "react";
 import type { FormInstance } from "antd/es/form";
 import styles from "./categories.module.css";
+import { SaveFilled } from "@ant-design/icons";
+import SuccessfulModal from "../../../components/SuccessfulModal";
 
 const EditableContext = React.createContext<FormInstance<any> | null>(null);
 
@@ -92,10 +94,15 @@ const Categories = () => {
   } = useQuery(GET_CATEGORIES);
   const [
     setCategories,
-    { data: setCategoryData, loading: setCategoryLoading },
+    {
+      data: setCategoryData,
+      loading: setCategoryLoading,
+      error: setCategoryError,
+    },
   ] = useMutation(SET_CATEGORIES);
   const [data, setData] = useState(null);
   const [editingKey, setEditingKey] = useState("");
+  const [showSuccessAlert, setShowSuccessAlert] = useState(false);
 
   useEffect(() => {
     // if (categoryData?.getCategories) {
@@ -118,7 +125,7 @@ const Categories = () => {
   const isEditing = (record: Category) => record.key === editingKey;
 
   const edit = (record: Partial<Category> & { key: React.Key }) => {
-    form.setFieldsValue({ name: "", age: "", address: "", ...record });
+    form.setFieldsValue({ category: "", ...record });
     setEditingKey(record.key);
   };
 
@@ -236,6 +243,8 @@ const Categories = () => {
       // setCount(count + 1);
     };
     setData([...data, newData]);
+    // setEditingKey(`${data.length + 1}`);
+    edit(newData);
   };
 
   const handleDelete = (key: React.Key) => {
@@ -243,12 +252,15 @@ const Categories = () => {
     setData(newData);
   };
 
-  const handleSave = () => {
-    setCategories({
+  const handleSave = async () => {
+    await setCategories({
       variables: {
-        categories: data,
+        input: {
+          categories: data,
+        },
       },
     });
+    if (!setCategoryError && !setCategoryLoading) setShowSuccessAlert(true);
   };
 
   return (
@@ -256,26 +268,35 @@ const Categories = () => {
       <Title level={3} style={{ marginBottom: 0 }}>
         Configure Categories
       </Title>
-      {/* {uploaded && (
+      {showSuccessAlert && (
         <Alert
           message="Updated Categories"
           closable
+          afterClose={() => setShowSuccessAlert(false)}
           description={
             <div>
-              Successfully Updated Categories Period to{" "}
-              <strong> {form.getFieldValue("extensionPeriod")}</strong> days.
+              Successfully Updated Categories
+              {/* Period to{" "} */}
+              {/* <strong> {form.getFieldValue("extensionPeriod")}</strong> days. */}
             </div>
           }
           type="success"
           showIcon
         />
-      )} */}
+      )}
 
       <br />
-
-      <Button onClick={handleAdd} type="primary" style={{ marginBottom: 16 }}>
-        Add a row
-      </Button>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "flex-end",
+          alignContent: "flex-end",
+        }}
+      >
+        <Button onClick={handleAdd} type="primary" style={{ marginBottom: 16 }}>
+          Add a row
+        </Button>
+      </div>
 
       <div
         style={
@@ -307,9 +328,28 @@ const Categories = () => {
         </Form>
       </div>
 
-      <Button onClick={handleSave} type="primary" style={{ marginBottom: 16 }}>
-        Save Changes
-      </Button>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "flex-end",
+          alignContent: "flex-end",
+        }}
+      >
+        <Button
+          onClick={handleSave}
+          icon={<SaveFilled />}
+          disabled={editingKey !== ""}
+          type="primary"
+        >
+          Save Changes
+        </Button>
+      </div>
+
+      {/* <SuccessfulModal
+        showModal={showModal}
+        isUpdating //
+        modalTitle="Categories Updated Successfully"
+      /> */}
     </AdminLayout>
   );
 };

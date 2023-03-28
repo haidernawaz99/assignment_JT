@@ -63,6 +63,20 @@ export default function GlobalSearch() {
     console.log(data);
     return (
       <Layout title="Global Search" setSearch={setSearchBar}>
+        {
+          // Object.keys(filterJobsByCategory(data, searchBar)).length>0 && (
+          Object.keys(filterJobsByCategory(data, searchBar)).map((category) => {
+            return (
+              <RecentJobTable
+                category={category}
+                data={filterJobsByCategory(data, searchBar)[category]}
+                setCurrentPage={setCurrentPage}
+              />
+            );
+          })
+        }
+
+        {/* 
         {filterJobsByCategory(data, searchBar).designJobs.length > 0 && (
           <RecentJobTable
             category={"Design"}
@@ -90,7 +104,7 @@ export default function GlobalSearch() {
             data={filterJobsByCategory(data, searchBar).otherJobs}
             setCurrentPage={setCurrentPage}
           />
-        )}
+        )} */}
       </Layout>
     );
   }

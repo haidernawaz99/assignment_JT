@@ -16,17 +16,27 @@ const filterJobsByCategory = (data, searchBar: SearchBarQuery) => {
   // remove expired jobs -- only show jobs that expire in 5 days or more
   jobs = jobs.filter((job) => expiresAtDays(job.expiresAt) >= 5);
 
-  const designJobs = jobs.filter((job) => job.category === "Design");
-  const developmentJobs = jobs.filter((job) => job.category === "Development");
-  const productJobs = jobs.filter((job) => job.category === "Product");
-  const otherJobs = jobs.filter((job) => job.category === "Other");
+  // get unique categories from the jobs
+  const categories = [...new Set(jobs.map((job) => job.category))];
 
-  return {
-    designJobs,
-    developmentJobs,
-    productJobs,
-    otherJobs,
-  };
+  const filterJobsByCategory = {};
+
+  //filter jobs array by the categories
+  categories.forEach((category: string) => {
+    // jobs = jobs.filter((job) => job.category === category);
+    filterJobsByCategory[category] = jobs.filter(
+      (job) => job.category === category
+    );
+  });
+
+  console.log(filterJobsByCategory);
+
+  // const designJobs = jobs.filter((job) => job.category === "Design");
+  // const developmentJobs = jobs.filter((job) => job.category === "Development");
+  // const productJobs = jobs.filter((job) => job.category === "Product");
+  // const otherJobs = jobs.filter((job) => job.category === "Other");
+
+  return filterJobsByCategory;
 };
 
 export default filterJobsByCategory;

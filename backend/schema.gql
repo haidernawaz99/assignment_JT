@@ -38,6 +38,15 @@ type JobPaginationReturn {
   jobCount: Int!
 }
 
+type JobCategoriesReturn {
+  categories: [JSON!]!
+}
+
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON
+
 type UserReturn {
   id: ID!
   username: String!
@@ -52,17 +61,12 @@ type AuthLoginReturn {
   id: ID!
 }
 
-type AdminCategoriesReturn {
-  categories: [JSON!]!
-}
-
-"""
-The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
-"""
-scalar JSON
-
 type AdminExpirationReturn {
   days: Float!
+}
+
+type AdminCategoriesReturn {
+  categories: [JSON!]!
 }
 
 type AdminAffiliateReturn {
@@ -105,10 +109,10 @@ type Query {
   uniqueEmail(input: GetJobInputParams): JobReturn
   getJobByPagination(input: GetJobPaginationInputParams): JobPaginationReturn!
   getJobByPaginationAdmin(input: GetJobPaginationAdminInputParams): JobPaginationReturn!
+  getCategories: JobCategoriesReturn!
   login(loginCredentials: AuthLoginInput!): AuthLoginReturn!
   generateNewToken: UserReturn!
   getExpirationPeriod: AdminExpirationReturn!
-  getCategories: AdminCategoriesReturn!
   getAllAffiliates(input: GetAllAffiliatesInputParams!): [AdminAffiliateReturn!]!
   getJobsAffiliate(input: GetJobAffiliatesInputParams): [AffiliateJobReturn!]!
 }

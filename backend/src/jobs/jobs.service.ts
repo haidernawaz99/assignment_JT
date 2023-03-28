@@ -15,6 +15,7 @@ import { JobExtendInput } from './dtos/job.extendInput';
 import { DeleteJobInputParams } from './dtos/job.deleteJobInput';
 import { GetJobPaginationAdminInputParams } from './dtos/admin.getJobInputPagination';
 import { getExtensionPeriodFS } from 'common/utils/extension-period';
+import { getCategoriesFS } from 'common/utils/manage-categories';
 
 @Injectable()
 export class JobsService {
@@ -71,14 +72,28 @@ export class JobsService {
 
     if (input?.categories && input?.limit) {
       console.log('HIII2');
-
       const jobs = [];
-      for (let i = 0; i < input.categories.length; i++) {
-        const res = await this.jobModel
-          .find({ category: input.categories[i] })
-          .limit(input.limit)
-          .sort({ createdAt: -1 });
-        jobs.push(res);
+      //Get jobs from each category since categories are now dynamic,
+      //and return them in a single array
+      if (input.categories[0] === 'all') {
+        const currentCategories = await this.getCategories();
+
+        for (let i = 0; i < currentCategories.length; i++) {
+          const res = await this.jobModel
+            .find({ category: currentCategories[i].category })
+            .limit(input.limit)
+            .sort({ createdAt: -1 });
+          jobs.push(res);
+        }
+      } else {
+        // get jobs exlusive to the categories selected
+        for (let i = 0; i < input.categories.length; i++) {
+          const res = await this.jobModel
+            .find({ category: input.categories[i] })
+            .limit(input.limit)
+            .sort({ createdAt: -1 });
+          jobs.push(res);
+        }
       }
       console.log(jobs);
       const jobsFlattened = jobs.flat();
@@ -288,5 +303,9 @@ export class JobsService {
     const jobCount = await this.jobModel.find().countDocuments();
     console.log({ job, jobCount });
     return { jobCount, job };
+  }
+
+  async getCategories(): Promise<[{ category: string; index: number }]> {
+    return await getCategoriesFS(); //
   }
 }

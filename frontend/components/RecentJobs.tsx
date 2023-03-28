@@ -28,20 +28,30 @@ const QUERY = gql`
   }
 `;
 
+const GET_CATEGORIES = gql`
+  query getCategories {
+    getCategories {
+      categories
+    }
+  }
+`;
+
 const RecentJobs = ({ getAllCategories, searchBar }: Props) => {
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const {
+    data: categoryData,
+    loading: categoryLoading,
+    error: categoryError,
+  } = useQuery(GET_CATEGORIES);
   const { data, loading, error, refetch } = useQuery(QUERY, {
     variables: {
       input: {
-        categories: getAllCategories
-          ? ["Design", "Development", "Product", "Other"]
-          : null,
+        categories: getAllCategories ? ["all"] : null,
 
         limit: 10,
       },
     },
   });
-  console.log("dasdasdas");
 
   //   useEffect(() => {
   //     refetch();
@@ -82,6 +92,8 @@ const RecentJobs = ({ getAllCategories, searchBar }: Props) => {
   //   };
   // };
 
+  console.log(data);
+
   return (
     <>
       <div>
@@ -92,7 +104,20 @@ const RecentJobs = ({ getAllCategories, searchBar }: Props) => {
             <RecentJobTable category={job.category} />
           </div>
         ))} */}
-        {filterJobsByCategory(data, searchBar).designJobs.length > 0 && (
+
+        {
+          // Object.keys(filterJobsByCategory(data, searchBar)).length>0 && (
+          Object.keys(filterJobsByCategory(data, searchBar)).map((category) => {
+            return (
+              <RecentJobTable
+                category={category}
+                data={filterJobsByCategory(data, searchBar)[category]}
+                setCurrentPage={setCurrentPage}
+              />
+            );
+          })
+        }
+        {/* {filterJobsByCategory(data, searchBar).designJobs.length > 0 && (
           <RecentJobTable
             category={"Design"}
             data={filterJobsByCategory(data, searchBar).designJobs}
@@ -119,7 +144,7 @@ const RecentJobs = ({ getAllCategories, searchBar }: Props) => {
             data={filterJobsByCategory(data, searchBar).otherJobs}
             setCurrentPage={setCurrentPage}
           />
-        )}
+        )} */}
       </div>
     </>
   );

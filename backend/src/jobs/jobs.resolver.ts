@@ -11,6 +11,7 @@ import { DeleteJobInputParams } from './dtos/job.deleteJobInput';
 import { GetJobPaginationAdminInputParams } from './dtos/admin.getJobInputPagination';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { UseGuards } from '@nestjs/common';
+import { JobCategoriesReturn } from 'src/jobs/dtos/job.categories.return';
 
 @Resolver()
 export class JobsResolver {
@@ -64,5 +65,10 @@ export class JobsResolver {
   ) {
     // return this.jobsService.pagination(input);
     return this.jobsService.paginationAdmin(input);
+  }
+
+  @Query(() => JobCategoriesReturn)
+  async getCategories() {
+    return { categories: this.jobsService.getCategories() }; // <-- How the frontend expects the input, in a categories object.
   }
 }

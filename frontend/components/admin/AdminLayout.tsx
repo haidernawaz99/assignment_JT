@@ -15,9 +15,11 @@ import { ApolloProvider } from "@apollo/client";
 import { useSession } from "next-auth/react";
 const { Paragraph } = Typography;
 const { Option } = Select;
-import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
+import { CheckOutlined, CloseOutlined, PlusOutlined } from "@ant-design/icons";
 import Router, { useRouter } from "next/router";
 import { SearchBarQuery } from "../../interfaces/searchBarQuery";
+import styles from "./AdminLayout.module.css";
+import { Sidebar, Menu, MenuItem, useProSidebar } from "react-pro-sidebar";
 
 const { Search } = Input;
 const { Title } = Typography;
@@ -41,6 +43,7 @@ const AdminLayout = ({
   const [searchBarOption, setSearchBarOption] = useState<String>("Category");
   const router = useRouter();
   const { data: session, status } = useSession();
+  const { collapseSidebar } = useProSidebar();
 
   const onSwitchChange = (checked: boolean) => {
     setGlobalSearch(checked);
@@ -74,6 +77,7 @@ const AdminLayout = ({
         <a href="/api/users">Users API</a>
       </nav> */}
         </header>
+
         <div>
           <Typography>
             <Title>
@@ -134,6 +138,7 @@ const AdminLayout = ({
               </Col>
               <Col>
                 <Button
+                  icon={<PlusOutlined />}
                   type="primary"
                   onClick={() => {
                     Router.push("/admin/manage/job/add");
@@ -146,12 +151,12 @@ const AdminLayout = ({
           </Typography>
         </div>
         {children}
-        <footer>
+        <footer className={styles.footer}>
           <hr />
           <Link href="/">About Jobeet</Link> |{" "}
           <Link href="/about">Full RSS Feed</Link> |{" "}
-          <Link href="/admin/manage/affiliates">Jobeet API</Link> |{" "}
-          <Link href="/admin/manage/affiliates">Affiliates</Link> |{" "}
+          {/* <Link href="/admin/manage/affiliates">Jobeet API</Link> |{" "}
+          <Link href="/admin/manage/affiliates">Affiliates</Link> |{" "} */}
         </footer>
       </div>
     );

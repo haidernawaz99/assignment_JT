@@ -8,7 +8,7 @@ type Props = {
   showModal: any;
   isUpdating?: boolean;
   editToken?: string;
-  redirectTo: string;
+  redirectTo?: string;
   modalTitle?: string;
 };
 
@@ -128,7 +128,7 @@ const SuccessfulModal = ({
 
       onOk: () => {
         instance.destroy();
-        Router.push(redirectTo);
+        redirectTo && Router.push(redirectTo);
         clearInterval(timer);
         clearTimeout(timeOut);
       },
@@ -137,7 +137,7 @@ const SuccessfulModal = ({
     const timeOut = setTimeout(() => {
       //   clearInterval(timer);
       instance.destroy();
-      Router.push(redirectTo);
+      redirectTo && Router.push(redirectTo);
     }, secondsToGo * 1000);
   };
 

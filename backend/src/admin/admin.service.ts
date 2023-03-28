@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import {
   getExtensionPeriodFS,
   setExtensionPeriodFS,
@@ -11,9 +11,13 @@ import {
   setCategoriesFS,
 } from 'common/utils/manage-categories';
 import { SetCategoriesInputParams } from './dtos/admin.setCategoriesInput';
+import { JobsService } from 'src/jobs/jobs.service';
 
 @Injectable()
 export class AdminService {
+  @Inject(JobsService)
+  private readonly jobsService: JobsService;
+
   // ----------------------------------------------------------------
   // Expiration Period Config Starts From Here
   async getExpiration(): Promise<ExpirationConfig> {
@@ -34,15 +38,11 @@ export class AdminService {
   // ----------------------------------------------------------------
   // Categories Config Starts From Here
 
-  async getCategories(): Promise<[object]> {
-    return await getCategoriesFS(); // <-- This is how the frontend's table accepts the data
-  }
-
   async setCategories(input: SetCategoriesInputParams): Promise<[object]> {
+    console.log(input);
     const updatedConfig = { ...input };
-    console.log('updatedConfig', updatedConfig);
     setCategoriesFS(updatedConfig);
-    return this.getCategories();
+    return this.jobsService.getCategories();
   }
 
   // Categories Config Ends Here

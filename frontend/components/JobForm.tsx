@@ -1,5 +1,5 @@
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import type { RadioChangeEvent, UploadProps } from "antd";
 import Layout from "./Layout";
 import {
@@ -25,7 +25,7 @@ import {
 const { Title, Paragraph, Text } = Typography;
 const { Option } = Select;
 const { TextArea } = Input;
-import { useMutation, gql, useLazyQuery } from "@apollo/client";
+import { useMutation, gql, useLazyQuery, useQuery } from "@apollo/client";
 import type { RcFile, UploadFile } from "antd/es/upload/interface";
 import client from "../graphql/apollo-client";
 import SuccessfulModal from "./SuccessfulModal";
@@ -38,6 +38,13 @@ type Props = {
   editToken?: string;
 };
 
+const GET_CATEGORIES = gql`
+  query getCategories {
+    getCategories {
+      categories
+    }
+  }
+`;
 const MUTATION = gql`
   mutation createJob($input: JobCreateInput!) {
     createJob(input: $input) {
@@ -58,6 +65,11 @@ const IS_CUSTOM_URL_UNIQUE = gql`
 
 const JobForm = ({ uploadFormdata, data, isUpdating, editToken }: Props) => {
   const [isCustomURLUnqiueRequest] = useLazyQuery(IS_CUSTOM_URL_UNIQUE);
+  const {
+    data: categoriesResponse,
+    loading: categoriesLoading,
+    error: categoriesError,
+  } = useQuery(GET_CATEGORIES);
   const isCustomURLUnqiue = async (customURL: string) => {
     const customURLResponse = await isCustomURLUnqiueRequest({
       variables: {
@@ -145,6 +157,10 @@ const JobForm = ({ uploadFormdata, data, isUpdating, editToken }: Props) => {
     console.log(showModal);
   };
 
+  useEffect(() => {
+    console.log("categoriesResponse: ", categoriesResponse);
+  }, [categoriesLoading]);
+
   const [form] = Form.useForm();
   return (
     <Form form={form} labelCol={{ span: 4 }} onFinish={onFinish}>
@@ -157,10 +173,11 @@ const JobForm = ({ uploadFormdata, data, isUpdating, editToken }: Props) => {
             initialValue={isUpdating ? data.category : ""}
           >
             <Select allowClear>
-              <Option value="Design">Design</Option>
-              <Option value="Development">Development</Option>
-              <Option value="Product">Product</Option>
-              <Option value="Other">Other</Option>
+              {categoriesResponse?.getCategories.categories.map(
+                ({ category }) => (
+                  <Option value={category}>{category}</Option>
+                )
+              )}
             </Select>
           </Form.Item>
           <Form.Item
@@ -196,6 +213,7 @@ const JobForm = ({ uploadFormdata, data, isUpdating, editToken }: Props) => {
               </Button>
             </Upload>
           </Form.Item>
+
           <Form.Item
             label="Custom URL"
             name="url"
@@ -205,7 +223,10 @@ const JobForm = ({ uploadFormdata, data, isUpdating, editToken }: Props) => {
             rules={[
               ({ getFieldValue }) => ({
                 async validator(_, value) {
-                  if ((await isCustomURLUnqiue(value)) === "success") {
+                  if (
+                    (await isCustomURLUnqiue(value)) === "success" ||
+                    data?.url === value
+                  ) {
                     return Promise.resolve();
                   }
                   return Promise.reject(
@@ -224,6 +245,7 @@ const JobForm = ({ uploadFormdata, data, isUpdating, editToken }: Props) => {
               // }}
             />
           </Form.Item>
+
           <Form.Item
             label="Position"
             name="Position"

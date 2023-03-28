@@ -7,6 +7,7 @@
     "type-check": "tsc"
   },
   "dependencies": {
+    "@ant-design/icons": "^5.0.1",
     "@apollo/client": "^3.7.9",
     "antd": "^5.2.2",
     "apollo-upload-client": "^17.0.0",
@@ -14,7 +15,8 @@
     "next": "latest",
     "next-auth": "^4.20.1",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-pro-sidebar": "^1.0.0"
   },
   "devDependencies": {
     "@types/apollo-upload-client": "^17.0.2",

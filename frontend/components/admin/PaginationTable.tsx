@@ -46,6 +46,7 @@ const PaginationTable = ({
     {
       title: "Category",
       dataIndex: "category",
+      // ellipsis: true,
       key: "category",
       align: "center",
       onCell: (record) => {
@@ -61,6 +62,7 @@ const PaginationTable = ({
       title: "Location",
       dataIndex: "location",
       key: "location",
+      // ellipsis: true,
       align: "center",
       onCell: (record) => {
         return {
@@ -74,6 +76,7 @@ const PaginationTable = ({
     {
       title: "Position",
       dataIndex: "position",
+      // ellipsis: true,
       key: "position",
       align: "center",
       onCell: (record) => {
@@ -89,6 +92,8 @@ const PaginationTable = ({
       title: "Company",
       dataIndex: "company",
       key: "company",
+      // ellipsis: true,
+
       align: "center",
       onCell: (record) => {
         return {
@@ -103,6 +108,8 @@ const PaginationTable = ({
       title: "Type",
       dataIndex: "type",
       key: "type",
+      // ellipsis: true,
+
       align: "center",
       onCell: (record) => {
         return {
@@ -117,6 +124,8 @@ const PaginationTable = ({
       title: "Created At",
       dataIndex: "createdAt",
       key: "createdAt",
+      // ellipsis: true,
+
       align: "center",
       onCell: (record) => {
         return {
@@ -140,6 +149,8 @@ const PaginationTable = ({
       title: "Expires At",
       dataIndex: "expiresAt",
       key: "expiresAt",
+      // ellipsis: true,
+
       align: "center",
       onCell: (record) => {
         return {
@@ -162,6 +173,8 @@ const PaginationTable = ({
     {
       title: "Action",
       key: "action",
+      // ellipsis: true,
+
       align: "center",
 
       render: (_, record) => (
@@ -214,6 +227,7 @@ const PaginationTable = ({
       <Table
         columns={columns}
         bordered
+        // tableLayout="fixed"
         dataSource={data}
         rowKey={(record) => record.id}
         pagination={{

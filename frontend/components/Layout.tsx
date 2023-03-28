@@ -19,6 +19,8 @@ const { Option } = Select;
 import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
 import Router, { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
+import styles from "./Layout.module.css";
+import Navbar from "./navbar/Navbar";
 
 const { Search } = Input;
 const { Title } = Typography;
@@ -58,7 +60,9 @@ const Layout = ({
         <Link href="/">Home</Link> | <Link href="/about">About</Link> |{" "}
         <Link href="/users">Users List</Link> |{" "}
         <a href="/api/users">Users API</a>
-      </nav> */}
+        
+      // </nav> */}
+        <Navbar />
       </header>
       <div>
         <Typography>
@@ -132,12 +136,12 @@ const Layout = ({
         </Typography>
       </div>
       {children}
-      <footer>
+      <footer className={styles.footer}>
         <hr />
         <Link href="/">About Jobeet</Link> |{" "}
         <Link href="/about">Full RSS Feed</Link> |{" "}
-        <Link href="/admin/manage/affiliates">Jobeet API</Link> |{" "}
-        <Link href="/admin/manage/affiliates">Affiliates</Link> |{" "}
+        <Link href="/affiliate/apply">Affiliates</Link> |{" "}
+        <Link href="/admin">Admin</Link> |{" "}
       </footer>
     </div>
   );

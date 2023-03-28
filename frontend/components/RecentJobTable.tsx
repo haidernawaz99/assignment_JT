@@ -24,17 +24,20 @@ const columns: ColumnsType<DataType> = [
     title: "Location",
     dataIndex: "location",
     key: "location",
+    ellipsis: true,
     render: (text) => <a>{text}</a>,
   },
   {
     title: "Position",
     dataIndex: "position",
+    ellipsis: true,
     key: "position",
     render: (text) => <a>{text}</a>,
   },
   {
     title: "Company",
     dataIndex: "company",
+    ellipsis: true,
     key: "company",
     render: (text) => <a>{text}</a>,
   },
@@ -66,12 +69,14 @@ const RecentJobTable = ({
 
       <Table
         columns={columns}
+        tableLayout="fixed"
         dataSource={data}
         pagination={{
           hideOnSinglePage: true,
           current: currentPage,
           pageSize: 20,
           onChange: (page) => setCurrentPage(page),
+          responsive: true,
           total: totalDataCount,
           showTotal: (total, range) =>
             `${range[0]}-${range[1]} of ${total} items`,

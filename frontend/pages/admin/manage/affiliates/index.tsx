@@ -16,10 +16,10 @@ import { ColumnsType } from "antd/es/table";
 import Link from "next/link";
 import Router from "next/router";
 import { useState } from "react";
-import AdminLayout from "../../../components/admin/AdminLayout";
+import AdminLayout from "../../../../components/admin/AdminLayout";
 import { useSession } from "next-auth/react";
 
-import client from "../../../graphql/apollo-client";
+import client from "../../../../graphql/apollo-client";
 const { Title, Paragraph, Text } = Typography;
 
 const GET_ALL_AFFILIATES = gql`
@@ -87,7 +87,7 @@ interface DataType {
   status: "Unapproved" | "Disabled" | "Enabled";
 }
 
-const ManageAffiliate = () => {
+const Index = () => {
   const [uploaded, setUploaded] = useState(false);
 
   const [extensionDate, setExtensionDate] = useState(0);
@@ -104,6 +104,7 @@ const ManageAffiliate = () => {
     {
       title: "Name",
       dataIndex: "name",
+      ellipsis: true,
       key: "name",
       align: "center",
       // render: (text) => <a>{text}</a>,
@@ -112,6 +113,7 @@ const ManageAffiliate = () => {
       title: "Email",
       dataIndex: "email",
       key: "email",
+      ellipsis: true,
       align: "center",
       // render: (text) => <a>{text}</a>,
     },
@@ -119,6 +121,7 @@ const ManageAffiliate = () => {
       title: "Site URL",
       dataIndex: "siteURL",
       key: "siteURL",
+      ellipsis: true,
       align: "center",
       render: (text) => (
         <a href={text} target="_blank">
@@ -131,22 +134,23 @@ const ManageAffiliate = () => {
       title: "Status",
       key: "status",
       dataIndex: "status",
+      ellipsis: true,
       align: "center",
       render: (_, record) => (
         <>
           {record.status === "Unapproved" && (
-            <Tag style={{ padding: "8%", fontSize: 13 }} color="geekblue">
+            <Tag style={{ padding: "2%", fontSize: 13 }} color="geekblue">
               Unapproved
             </Tag>
           )}
 
           {record.status === "Disabled" && (
-            <Tag color="volcano" style={{ padding: "8%", fontSize: 13 }}>
+            <Tag color="volcano" style={{ padding: "2%", fontSize: 13 }}>
               Disabled
             </Tag>
           )}
           {record.status === "Enabled" && (
-            <Tag color="green" style={{ padding: "8%", fontSize: 13 }}>
+            <Tag color="green" style={{ padding: "2%", fontSize: 13 }}>
               Enabled
             </Tag>
           )}
@@ -282,11 +286,28 @@ const ManageAffiliate = () => {
 
       <Divider orientation="left" orientationMargin={0}>
         <Row justify={"space-between"}></Row>
-        <hr />
 
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "flex-end",
+            alignContent: "flex-end",
+          }}
+        >
+          <Button
+            onClick={() => Router.push("/admin/manage/affiliates/add")}
+            type="primary"
+            style={{ marginBottom: 16 }}
+          >
+            Add an Affiliate
+          </Button>
+        </div>
+
+        <hr />
         <Table
           columns={columns}
           dataSource={data.getAllAffiliates}
+          tableLayout="fixed"
           rowKey={(record) => record.id}
           pagination={{
             hideOnSinglePage: true,
@@ -308,4 +329,4 @@ const ManageAffiliate = () => {
   );
 };
 
-export default ManageAffiliate;
+export default Index;

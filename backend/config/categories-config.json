@@ -1,6 +1,1 @@
-{
-  "categories": [
-    { "category": "Development", "key": 0 },
-    { "category": "Design", "key": 1 }
-  ]
-}
+{"categories":[{"category":"Development","key":0},{"key":"2","category":"Design"},{"key":"3","category":"Product"},{"key":"4","category":"TestCat"}]}

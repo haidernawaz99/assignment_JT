@@ -28,8 +28,8 @@ export const JobSchema = new mongoose.Schema({
   category: {
     type: String,
     required: true,
-    enum: ['Design', 'Development', 'Product', 'Other'],
-    message: '{VALUE} is not supported',
+    // enum: ['Design', 'Development', 'Product', 'Other'],
+    // message: '{VALUE} is not supported',
   },
   createdAt: {
     type: Date,
