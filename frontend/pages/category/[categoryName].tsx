@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import Layout from "../../components/Layout";
+import Layout from "../../components/Layout/Layout";
 import RecentJobTable from "../../components/RecentJobTable";
 import { useQuery, gql, ApolloClient, ApolloProvider } from "@apollo/client";
 import { useEffect, useState } from "react";

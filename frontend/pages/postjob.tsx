@@ -1,6 +1,6 @@
 import Link from "next/link";
 import React, { useState } from "react";
-import Layout from "../components/Layout";
+import Layout from "../components/Layout/Layout";
 import { Typography } from "antd";
 import JobForm from "../components/JobForm";
 import { gql, useMutation } from "@apollo/client";

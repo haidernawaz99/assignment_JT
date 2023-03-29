@@ -1,0 +1,16 @@
+.search {
+  background-image: url("./images/banner_bg.png");
+  background-repeat: no-repeat;
+  border-radius: 7px;
+}
+
+.searchHeaderImage {
+  margin-top: 12vh;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10vh;
+}
+
+.searchBar::placeholder {
+  color: gray;
+}

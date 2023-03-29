@@ -1,6 +1,6 @@
 import Link from "next/link";
 import React, { useEffect, useLayoutEffect, useState } from "react";
-import Layout from "../components/Layout";
+import Layout from "../components/Layout/Layout";
 import { Alert, Button, Typography } from "antd";
 import JobForm from "../components/JobForm";
 import { gql, useLazyQuery, useMutation, useQuery } from "@apollo/client";

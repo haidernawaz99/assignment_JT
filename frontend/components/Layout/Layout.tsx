@@ -12,15 +12,15 @@ import {
   Switch,
 } from "antd";
 import { ApolloProvider } from "@apollo/client";
-import client from "../graphql/apollo-client";
-import { SearchBarQuery } from "../interfaces/searchBarQuery";
+import client from "../../graphql/apollo-client";
+import { SearchBarQuery } from "../../interfaces/searchBarQuery";
 const { Paragraph } = Typography;
 const { Option } = Select;
 import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
 import Router, { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 import styles from "./Layout.module.css";
-import Navbar from "./navbar/Navbar";
+import Navbar from "../navbar/Navbar";
 
 const { Search } = Input;
 const { Title } = Typography;
@@ -66,14 +66,15 @@ const Layout = ({
       </header>
       <div>
         <Typography>
-          <Title>
+          {/* <Title>
             <Link href={"/"}>Jobeet</Link>
-          </Title>
+          </Title> */}
 
-          <Row justify={"space-between"}>
-            <Col xs={24} sm={12} md={6} lg={8} xl={10}>
-              <Input.Group compact>
+          {/* <div className="search">
+            <Row justify={"space-between"}>
+              <Col xs={24} sm={24} md={24} lg={4} xl={4}>
                 <Select
+                  style={{ minWidth: "100%" }}
                   defaultValue={categoryEnabled ? "Category" : "Position"}
                   onChange={(value: String) => {
                     setSearch((prevState: SearchBarQuery) => ({
@@ -90,6 +91,8 @@ const Layout = ({
                   <Option value="Location">Location</Option>
                   <Option value="Company">Company</Option>
                 </Select>
+              </Col>
+              <Col xs={24} sm={24} md={24} lg={20} xl={20}>
                 <Search
                   placeholder="Live Search"
                   onSearch={(value: String) => {
@@ -105,34 +108,26 @@ const Layout = ({
                     }
                     //means perform global search
                   }}
-                  style={{ width: "50%" }}
                   enterButton
                 />
-              </Input.Group>
-              {enableLocalSearch && (
-                <Paragraph>
-                  Perform Global Search:{" "}
-                  <Switch
-                    checkedChildren={<CheckOutlined />}
-                    unCheckedChildren={<CloseOutlined />}
-                    defaultChecked
-                    onChange={onSwitchChange}
-                    title="Perform Global Search?"
-                  />
-                </Paragraph>
-              )}
-            </Col>
-            <Col>
-              <Button
-                type="primary"
-                onClick={() => {
-                  Router.push("/postjob");
-                }}
-              >
-                Post a Job
-              </Button>
-            </Col>
-          </Row>
+              </Col>
+
+              <Col>
+                {enableLocalSearch && (
+                  <Paragraph>
+                    Perform Global Search:{" "}
+                    <Switch
+                      checkedChildren={<CheckOutlined />}
+                      unCheckedChildren={<CloseOutlined />}
+                      defaultChecked
+                      onChange={onSwitchChange}
+                      title="Perform Global Search?"
+                    />
+                  </Paragraph>
+                )}
+              </Col>
+            </Row>
+          </div> */}
         </Typography>
       </div>
       {children}

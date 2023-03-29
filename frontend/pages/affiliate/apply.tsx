@@ -29,7 +29,7 @@ import { useMutation, gql } from "@apollo/client";
 import type { RcFile, UploadFile } from "antd/es/upload/interface";
 import Router from "next/router";
 import client from "../../graphql/apollo-client";
-import Layout from "../../components/Layout";
+import Layout from "../../components/Layout/Layout";
 import SuccessfulModal from "../../components/SuccessfulModal";
 
 type Props = {};

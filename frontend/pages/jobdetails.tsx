@@ -2,7 +2,7 @@ import { gql, useLazyQuery, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import { useEffect, useLayoutEffect, useState } from "react";
 import JobDetail from "../components/JobDetail";
-import Layout from "../components/Layout";
+import Layout from "../components/Layout/Layout";
 import { SearchBarQuery } from "../interfaces/searchBarQuery";
 import Error from "next/error";
 

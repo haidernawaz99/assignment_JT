@@ -1,0 +1,27 @@
+.mainRow {
+  background-color: #1677ff;
+
+  border-radius: 5px;
+  margin-top: 2vh;
+}
+.instruction {
+  color: white;
+  font-size: 20px;
+  font-weight: 500;
+}
+.image {
+  background-color: white;
+  border-radius: 5px;
+  display: flex;
+  margin-left: 2vh;
+  margin-top: 2vh;
+  padding: 10px;
+}
+
+.lastImage {
+  background-color: white;
+  border-radius: 5px;
+  display: flex;
+
+  padding: 10px;
+}

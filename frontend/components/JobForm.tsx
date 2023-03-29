@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import type { RadioChangeEvent, UploadProps } from "antd";
-import Layout from "./Layout";
+import Layout from "./Layout/Layout";
 import {
   Divider,
   Typography,

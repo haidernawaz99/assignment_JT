@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Layout from "../components/Layout";
+import Layout from "./Layout/Layout";
 import RecentJobTable from "../components/RecentJobTable";
 
 import Users from "../components/Users";

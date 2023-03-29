@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { useEffect, useLayoutEffect, useState } from "react";
 import Error from "next/error";
 import { SearchBarQuery } from "../../interfaces/searchBarQuery";
-import Layout from "../../components/Layout";
+import Layout from "../../components/Layout/Layout";
 import JobDetail from "../../components/JobDetail";
 
 const reloadSession = () => {
