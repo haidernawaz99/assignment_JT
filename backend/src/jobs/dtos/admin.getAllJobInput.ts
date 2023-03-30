@@ -12,11 +12,7 @@ registerEnumType(AllowedCategories, {
 });
 
 @InputType()
-export class GetJobPaginationAdminInputParams {
+export class GetAllJobsAdminInputParams {
   @Field(() => String, { nullable: true })
   authToken: string;
-  @Field(() => Int, { nullable: true })
-  limit: number;
-  @Field(() => Int, { nullable: true })
-  skip: number;
 }

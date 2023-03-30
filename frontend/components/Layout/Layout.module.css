@@ -1,10 +1,17 @@
+.pageContainer {
+  position: relative;
+  min-height: 100vh;
+}
+
+.contentWrap {
+  /* padding-bottom: 2.5rem; Footer height */
+  padding: 2vw;
+  padding-bottom: 8vh; /* Footer height */
+}
+
 .footer {
-  position: fixed;
-  left: 0;
+  position: absolute;
   bottom: 0;
+
   width: 100%;
-
-  background-color: rgba(255, 255, 255, 0.267);
-
-  backdrop-filter: blur(5px);
 }

@@ -8,7 +8,7 @@ import web from "./icons/web.png";
 const Process = () => {
   return (
     <Row justify={"space-around"} align={"middle"} className={styles.mainRow}>
-      <Col className={styles.instruction} md={4}>
+      <Col className={styles.instruction} md={4} lg={{ offset: 2 }}>
         <Image
           src={web}
           alt={"web"}
@@ -16,9 +16,15 @@ const Process = () => {
           height={55}
           className={styles.image}
         />
-        <div>Visit Jobeet</div>
+        <div className={styles.firstText}>Visit Jobeet</div>
       </Col>
-      <Col className={styles.instruction} md={4}>
+      <Col
+        className={styles.instruction}
+        xs={{ pull: 1 }}
+        sm={{ pull: 0 }}
+        md={{ span: 4, push: 0 }}
+        lg={{ span: 4, pull: 0 }}
+      >
         <Image
           src={job}
           alt={"web"}
@@ -26,12 +32,12 @@ const Process = () => {
           height={55}
           className={styles.image}
         />
-        <div>Search </div>
+        <div className={styles.secondText}>Search </div>
       </Col>
       <Col
         className={styles.instruction}
-        md={{ span: 4, push: 2 }}
-        lg={{ span: 4, push: 3 }}
+        md={{ span: 4, push: 1 }}
+        lg={{ span: 4, pull: 4 }}
       >
         <Image
           src={interview}
@@ -40,7 +46,7 @@ const Process = () => {
           height={55}
           className={styles.lastImage}
         />
-        <div>Apply</div>
+        <div className={styles.thirdText}>Apply</div>
       </Col>
     </Row>
   );

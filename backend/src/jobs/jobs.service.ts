@@ -6,16 +6,18 @@ import { Job } from './interfaces/job.interface';
 import { JobCreateInput } from './dtos/job.createInput';
 import { createWriteStream } from 'fs';
 import { join } from 'path';
-import { GetJobPaginationInputParams } from './dtos/job.getJobInputPagination';
+
 import { JobPagination } from './interfaces/job.pagination.interface';
 import { GetJobInputParams } from './dtos/job.getJobInput';
 import { v4 as uuidv4 } from 'uuid';
 import { JobUpdateInput } from './dtos/job.updateInput';
 import { JobExtendInput } from './dtos/job.extendInput';
 import { DeleteJobInputParams } from './dtos/job.deleteJobInput';
-import { GetJobPaginationAdminInputParams } from './dtos/admin.getJobInputPagination';
+
 import { getExtensionPeriodFS } from 'common/utils/extension-period';
 import { getCategoriesFS } from 'common/utils/manage-categories';
+import { GetJobPaginationInputParams } from './dtos/job.getJobInputPagination';
+import { GetAllJobsAdminInputParams } from './dtos/admin.getAllJobInput';
 
 @Injectable()
 export class JobsService {
@@ -288,21 +290,17 @@ export class JobsService {
     return await this.jobModel.findByIdAndDelete(input.id);
   }
 
-  async paginationAdmin(
-    input: GetJobPaginationAdminInputParams,
-  ): Promise<JobPagination> {
+  async jobsAdmin(): Promise<Job[]> {
     const job = await this.jobModel
       .find()
       .select('+editToken')
-      .limit(input.limit)
+
       // .skip((input.skip - 1) * 20) // (input.skip - 1) corrects for the fact that the first page is page 1, not page 0. 20 is the number of items per page.
-      .skip(input.skip)
 
       .sort({ createdAt: -1 });
+    console.log(job);
 
-    const jobCount = await this.jobModel.find().countDocuments();
-    console.log({ job, jobCount });
-    return { jobCount, job };
+    return job;
   }
 
   async getCategories(): Promise<[{ category: string; index: number }]> {

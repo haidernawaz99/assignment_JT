@@ -108,7 +108,7 @@ type Query {
   jobs(input: GetJobInputParams): [JobReturn!]!
   uniqueEmail(input: GetJobInputParams): JobReturn
   getJobByPagination(input: GetJobPaginationInputParams): JobPaginationReturn!
-  getJobByPaginationAdmin(input: GetJobPaginationAdminInputParams): JobPaginationReturn!
+  getAllJobsAdmin: [JobReturn!]!
   getCategories: JobCategoriesReturn!
   login(loginCredentials: AuthLoginInput!): AuthLoginReturn!
   generateNewToken: UserReturn!
@@ -131,12 +131,6 @@ input GetJobInputParams {
 
 input GetJobPaginationInputParams {
   category: String
-  limit: Int
-  skip: Int
-}
-
-input GetJobPaginationAdminInputParams {
-  authToken: String
   limit: Int
   skip: Int
 }
