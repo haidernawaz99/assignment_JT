@@ -31,6 +31,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       id: payload.sub,
       username: payload.username,
       accessToken: this.jwtService.sign({ username: payload.username }),
+      expirationAccessToken: payload.exp * 1000,
       // accessToken: sign(payload, jwtSecretKey, { expiresIn: '60s' }),
     };
   }

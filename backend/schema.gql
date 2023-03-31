@@ -53,6 +53,7 @@ type UserReturn {
   password: String
   isAdmin: Boolean!
   accessToken: String!
+  expirationAccessToken: String
 }
 
 type AuthLoginReturn {

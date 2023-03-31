@@ -2,6 +2,7 @@ import { gql } from "@apollo/client";
 import { NextApiRequest, NextApiResponse } from "next";
 import nextAuth from "next-auth";
 import NextAuth from "next-auth";
+import { decode, getToken } from "next-auth/jwt";
 import CredentialsProvider from "next-auth/providers/credentials";
 import client from "../../../graphql/apollo-client";
 
@@ -78,6 +79,11 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
     ],
 
     callbacks: {
+      // jwt callback is where we decide whether the token needs to be refreshed.
+      // session callback is where we specify what will be available on the client with useSession() or getSession().
+      // https://dev.to/mabaranowski/nextjs-authentication-jwt-refresh-token-rotation-with-nextauthjs-5696
+      // https://authjs.dev/guides/basics/refresh-token-rotation
+
       jwt: async ({ token, user }) => {
         //   console.log("jwt: ", token, user);
         //   user && (token.user = user);
@@ -85,11 +91,20 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
         // this is the first time the user is logging in.  Subsequent invocations will only contain the token parameter.
 
         if (user) {
+          // first time logging in... just create and return the token
           token.accessToken = user.accessToken;
           token.username = user.username;
+          token.expirationAccessToken = user.expirationAccessToken;
+
+          return token;
+        } else if ((token.expirationAccessToken as number) - Date.now() > 0) {
+          // this Token has not expired, so we can just return the token as is
+          console.log("Token has not expired");
+          return token;
         }
 
         // API Call for new token
+
         console.log("API Call for new token");
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
@@ -97,7 +112,7 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
 
         var graphql = JSON.stringify({
           query:
-            "query generateNewToken {\r\n  generateNewToken {    \r\n    username\r\n    accessToken\r\n  }\r\n}\r\n",
+            "query generateNewToken {\r\n  generateNewToken {    \r\n    username\r\n expirationAccessToken \r\n   accessToken\r\n  }\r\n}\r\n",
           variables: {},
         });
         var requestOptions = {
@@ -118,6 +133,8 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
 
         token.accessToken = resJSON.data.generateNewToken.accessToken as string;
         token.username = resJSON.data.generateNewToken.username as string;
+        token.expirationAccessToken = resJSON.data.generateNewToken
+          .expirationAccessToken as string;
 
         return token;
       },
@@ -167,6 +184,7 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
 
         session.accessToken = token.accessToken as string;
         session.username = token.username as string;
+        session.expirationAccessToken = token.expirationAccessToken as string;
 
         // if user is logged in
 
@@ -174,6 +192,9 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
       },
     },
 
+    jwt: {
+      maxAge: 59,
+    },
     session: {
       // jwt: true,
       maxAge: 59,

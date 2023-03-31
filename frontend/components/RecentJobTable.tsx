@@ -69,6 +69,7 @@ const RecentJobTable = ({
 
       <Table
         columns={columns}
+        rowKey={(record) => record.id}
         tableLayout="fixed"
         dataSource={data}
         pagination={{

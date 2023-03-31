@@ -11,10 +11,12 @@ declare module "next-auth" {
     };
     accessToken: string;
     username: string;
+    expirationAccessToken: string;
   }
 
   interface User {
     accessToken: string;
     username: string;
+    expirationAccessToken: string;
   }
 }

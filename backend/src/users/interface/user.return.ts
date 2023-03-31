@@ -16,4 +16,7 @@ export class UserReturn {
 
   @Field()
   accessToken: string;
+
+  @Field({ nullable: true })
+  expirationAccessToken: string;
 }
