@@ -97,15 +97,16 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
           token.expirationAccessToken = user.expirationAccessToken;
 
           return token;
-        } else if ((token.expirationAccessToken as number) - Date.now() > 0) {
-          // this Token has not expired, so we can just return the token as is
-          console.log("Token has not expired");
+        } else if ((token.expirationAccessToken as number) - Date.now() > 3) {
+          // this Token will not expire for at least 3 seconds
+          console.log("Token will not expire for at least 3 seconds");
           return token;
         }
 
         // API Call for new token
 
         console.log("API Call for new token");
+        console.log(token);
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
         myHeaders.append("Authorization", "Bearer " + token.accessToken);

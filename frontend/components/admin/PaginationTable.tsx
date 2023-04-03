@@ -338,7 +338,7 @@ const PaginationTable = ({ data }: Props) => {
     });
     client.cache.evict({
       id: "ROOT_QUERY",
-      fieldName: "getJobByPaginationAdmin",
+      fieldName: "getAllJobsAdmin",
       broadcast: true,
     });
 

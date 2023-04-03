@@ -6,10 +6,10 @@ import { SearchBarQuery } from "../../interfaces/searchBarQuery";
 import Layout from "../../components/Layout/Layout";
 import JobDetail from "../../components/JobDetail";
 
-const reloadSession = () => {
-  const event = new Event("visibilitychange");
-  document.dispatchEvent(event);
-};
+// const reloadSession = () => {
+//   const event = new Event("visibilitychange");
+//   document.dispatchEvent(event);
+// };
 
 const FETCH_JOB_DETAILS = gql`
   query fetchJobs($input: GetJobInputParams!) {
@@ -43,9 +43,9 @@ export default function CustomURL() {
   const [getJobDetails, { data, loading, error, refetch }] =
     useLazyQuery(FETCH_JOB_DETAILS);
 
-  useEffect(() => {
-    reloadSession();
-  }, []);
+  // useEffect(() => {
+  //   reloadSession();
+  // }, []);
 
   useEffect(() => {
     // I could've used useQuery and no useEffect, but it was fetching all the data on component mount.
