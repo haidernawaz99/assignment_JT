@@ -288,9 +288,7 @@ const JobForm = ({ uploadFormdata, data, isUpdating, editToken }: Props) => {
             <SuccessfulModal
               showModal={showModal}
               isUpdating={isUpdating}
-              redirectTo={`/jobdetails?jobID=${
-                data?.createJob?.id || data?.id
-              }`}
+              redirectTo={`/job/${data?.createJob?.id || data?.id}`}
               editToken={data?.createJob?.editToken}
             />
           )}

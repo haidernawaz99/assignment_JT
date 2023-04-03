@@ -1,12 +1,12 @@
 import Link from "next/link";
 import React, { useEffect, useLayoutEffect, useState } from "react";
-import Layout from "../components/Layout/Layout";
+import Layout from "../../components/Layout/Layout";
 import { Alert, Button, Typography } from "antd";
-import JobForm from "../components/JobForm";
+import JobForm from "../../components/JobForm";
 import { gql, useLazyQuery, useMutation, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import Error from "next/error";
-import expiresAtDays from "../utils/expiresAtDay";
+import expiresAtDays from "../../utils/expiresAtDay";
 const { Title } = Typography;
 
 const QUERY = gql`

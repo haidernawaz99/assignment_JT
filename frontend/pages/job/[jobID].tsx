@@ -47,16 +47,28 @@ export default function GlobalSearch() {
     reloadSession();
   }, []);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     // I could've used useQuery and no useEffect, but it was fetching all the data on component mount.
 
-    getJobDetails({
-      variables: {
-        input: {
-          id: jobID,
+    // Check if the jobID is a valid mongo object ID. If it is, use the ID to fetch the job details. If not, use the customURL to fetch the job details.
+    const mongoObjIDRegex = new RegExp("^[0-9a-fA-F]{24}$");
+    if (mongoObjIDRegex.test(jobID as string)) {
+      getJobDetails({
+        variables: {
+          input: {
+            id: jobID,
+          },
         },
-      },
-    });
+      });
+    } else {
+      getJobDetails({
+        variables: {
+          input: {
+            customURL: jobID,
+          },
+        },
+      });
+    }
   }, [jobID]);
 
   if (!data) {

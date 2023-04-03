@@ -36,13 +36,11 @@ const SuccessfulModal = ({
               <div>
                 Please safely store the Edit Link to your Job. <br />
                 <strong> Edit Link: </strong>
-                {/* <a href={"/jobedit?editToken=" + editToken}>Go to Job Edit</a> */}
+                {/* <a href={"/edit/" + editToken}>Go to Job Edit</a> */}
                 <Input.Group compact>
                   <Input
                     style={{ width: "80%" }}
-                    defaultValue={
-                      "http://localhost:3001/jobedit?editToken=" + editToken
-                    }
+                    defaultValue={"http://localhost:3001/edit/" + editToken}
                     disabled
                   />
                   <Tooltip title="copy token url">
@@ -50,17 +48,13 @@ const SuccessfulModal = ({
                       icon={<CopyOutlined />}
                       onClick={() => {
                         navigator.clipboard.writeText(
-                          "http://localhost:3001/jobedit?editToken=" + editToken
+                          "http://localhost:3001/edit/" + editToken
                         );
                       }}
                     />
                   </Tooltip>
                   <Tooltip title="Open in New Tab">
-                    <Link
-                      href={"/jobedit?editToken=" + editToken}
-                      passHref
-                      legacyBehavior
-                    >
+                    <Link href={"/edit/" + editToken} passHref legacyBehavior>
                       <a target="_blank" rel="noopener noreferrer">
                         <Button icon={<SelectOutlined />} />
                       </a>
@@ -87,13 +81,11 @@ const SuccessfulModal = ({
             <div>
               Please safely store the Edit Link to your Job. <br />
               <strong> Edit Link: </strong>
-              {/* <a href={"/jobedit?editToken=" + editToken}>Go to Job Edit</a> */}
+              {/* <a href={"/edit/" + editToken}>Go to Job Edit</a> */}
               <Input.Group compact>
                 <Input
                   style={{ width: "80%" }}
-                  defaultValue={
-                    "http://localhost:3001/jobedit?editToken=" + editToken
-                  }
+                  defaultValue={"http://localhost:3001/edit/" + editToken}
                   disabled
                 />
                 <Tooltip title="copy token url">
@@ -101,17 +93,13 @@ const SuccessfulModal = ({
                     icon={<CopyOutlined />}
                     onClick={() => {
                       navigator.clipboard.writeText(
-                        "http://localhost:3001/jobedit?editToken=" + editToken
+                        "http://localhost:3001/edit/" + editToken
                       );
                     }}
                   />
                 </Tooltip>
                 <Tooltip title="Open in New Tab">
-                  <Link
-                    href={"/jobedit?editToken=" + editToken}
-                    passHref
-                    legacyBehavior
-                  >
+                  <Link href={"/edit/" + editToken} passHref legacyBehavior>
                     <a target="_blank" rel="noopener noreferrer">
                       <Button icon={<SelectOutlined />} />
                     </a>

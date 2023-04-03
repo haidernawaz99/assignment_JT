@@ -72,7 +72,7 @@ export default function GlobalSearch() {
                   category={category}
                   data={filterJobsByCategory(data.jobs, searchBar)[category]}
                   setCurrentPage={setCurrentPage}
-                  isEditable={true}
+                  isEditable={false}
                 />
               );
             }

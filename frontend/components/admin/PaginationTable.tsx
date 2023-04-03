@@ -316,9 +316,7 @@ const PaginationTable = ({ data }: Props) => {
           <Button
             type="primary"
             onClick={() => {
-              Router.push(
-                `/admin/manage/job/edit?editToken=${record.editToken}`
-              );
+              Router.push(`/admin/manage/job/edit/${record.editToken}`);
             }}
           >
             Edit

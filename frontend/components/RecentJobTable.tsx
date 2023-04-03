@@ -80,7 +80,8 @@ const RecentJobTable = ({
                   disabled={!record.editToken}
                   onClick={() => {
                     Router.push(
-                      `/admin/manage/job/edit?editToken=${record.editToken}`
+                      // `/admin/manage/job/edit?editToken=${record.editToken}`
+                      `/admin/manage/job/edit/${record.editToken}`
                     );
                   }}
                 >
