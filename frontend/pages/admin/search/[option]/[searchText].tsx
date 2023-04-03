@@ -1,25 +1,26 @@
 import { gql, useLazyQuery, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import { useEffect, useLayoutEffect, useState } from "react";
-import Layout from "../../../components/Layout/Layout";
-import RecentJobTable from "../../../components/RecentJobTable";
-import { SearchBarQuery } from "../../../interfaces/searchBarQuery";
-import filterJobsByCategory from "../../../utils/filterJobsByCategory";
+import AdminLayout from "../../../../components/admin/AdminLayout";
+import RecentJobTable from "../../../../components/RecentJobTable";
+import { SearchBarQuery } from "../../../../interfaces/searchBarQuery";
+import filterJobsByCategory from "../../../../utils/filterJobsByCategory";
 
-const GLOBAL_SEARCH = gql`
-  query fetchJobs($input: GetJobInputParams!) {
-    jobs(input: $input) {
+const GLOBAL_SEARCH_ADMIN = gql`
+  query searchJobAdmin($input: SearchJobAdminInputParams!) {
+    searchJobAdmin(input: $input) {
       location
       position
       company
       category
       id
       expiresAt
+      editToken
     }
   }
 `;
 
-export default function GlobalSearch() {
+export default function AdminGlobalSearch() {
   const [searchBar, setSearchBar] = useState<SearchBarQuery>({
     text: "",
     option: "Position" as "Position" | "Company" | "Location" | "Category",
@@ -30,7 +31,7 @@ export default function GlobalSearch() {
   const [currentPage, setCurrentPage] = useState<number>(1);
 
   const [getSearchResult, { data, loading, error, refetch }] =
-    useLazyQuery(GLOBAL_SEARCH);
+    useLazyQuery(GLOBAL_SEARCH_ADMIN);
 
   useLayoutEffect(() => {
     // I could've used useQuery and no useEffect, but it was fetching all the data on component mount.
@@ -61,16 +62,21 @@ export default function GlobalSearch() {
 
   if (data) {
     console.log(data);
+
     return (
-      <Layout title="Global Search" setSearch={setSearchBar}>
+      <AdminLayout title="Global Search" setSearch={setSearchBar}>
         {
           // Object.keys(filterJobsByCategory(data, searchBar)).length>0 && (
-          Object.keys(filterJobsByCategory(data.jobs, searchBar)).map(
+          Object.keys(filterJobsByCategory(data.searchJobAdmin, searchBar)).map(
             (category) => {
               return (
                 <RecentJobTable
                   category={category}
-                  data={filterJobsByCategory(data.jobs, searchBar)[category]}
+                  data={
+                    filterJobsByCategory(data.searchJobAdmin, searchBar)[
+                      category
+                    ]
+                  }
                   setCurrentPage={setCurrentPage}
                   isEditable={true}
                 />
@@ -78,7 +84,7 @@ export default function GlobalSearch() {
             }
           )
         }
-      </Layout>
+      </AdminLayout>
     );
   }
 }

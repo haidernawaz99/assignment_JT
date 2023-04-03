@@ -2,10 +2,9 @@ import { SearchBarQuery } from "../interfaces/searchBarQuery";
 import search from "../utils/search";
 import expiresAtDays from "./expiresAtDay";
 
-const filterJobsByCategory = (data, searchBar: SearchBarQuery) => {
-  let jobs = data.jobs;
+const filterJobsByCategory = (jobs, searchBar: SearchBarQuery) => {
   // map object's id to key
-  jobs = data.jobs.map((job) => ({ ...job, key: job.id }));
+  jobs = jobs.map((job) => ({ ...job, key: job.id }));
 
   if (searchBar != null && (searchBar.text !== "" || searchBar.text != null)) {
     // if search bar is not empty, factor that in!

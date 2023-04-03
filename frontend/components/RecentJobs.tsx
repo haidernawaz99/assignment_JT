@@ -107,15 +107,17 @@ const RecentJobs = ({ getAllCategories, searchBar }: Props) => {
 
         {
           // Object.keys(filterJobsByCategory(data, searchBar)).length>0 && (
-          Object.keys(filterJobsByCategory(data, searchBar)).map((category) => {
-            return (
-              <RecentJobTable
-                category={category}
-                data={filterJobsByCategory(data, searchBar)[category]}
-                setCurrentPage={setCurrentPage}
-              />
-            );
-          })
+          Object.keys(filterJobsByCategory(data.jobs, searchBar)).map(
+            (category) => {
+              return (
+                <RecentJobTable
+                  category={category}
+                  data={filterJobsByCategory(data.jobs, searchBar)[category]}
+                  setCurrentPage={setCurrentPage}
+                />
+              );
+            }
+          )
         }
         {/* {filterJobsByCategory(data, searchBar).designJobs.length > 0 && (
           <RecentJobTable

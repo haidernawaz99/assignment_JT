@@ -77,7 +77,7 @@ const AdminLayout = ({
       <div>
         <Typography>
           <Title>
-            <Link href={"/"}>Jobeet</Link>
+            <Link href={"/"}>Jobeet Admin</Link>
           </Title>
 
           <Row justify={"space-between"}>
@@ -104,8 +104,8 @@ const AdminLayout = ({
                   placeholder="Live Search"
                   onSearch={(value: String) => {
                     if (globalSearch) {
-                      router.push(
-                        `/search/${searchBarOption.toLowerCase()}/${value}`
+                      Router.push(
+                        `/admin/search/${searchBarOption.toLowerCase()}/${value}`
                       );
                     } else {
                       setSearch((prevState: SearchBarQuery) => ({

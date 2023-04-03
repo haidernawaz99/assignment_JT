@@ -166,7 +166,7 @@ const PaginationTable = ({ data }: Props) => {
       onCell: (record) => {
         return {
           onClick: (event) => {
-            Router.push(`/jobdetails?jobID=${record.id}`);
+            Router.push(`/job/${encodeURIComponent(record.id)}`);
           },
         };
       },
@@ -182,7 +182,7 @@ const PaginationTable = ({ data }: Props) => {
       onCell: (record) => {
         return {
           onClick: (event) => {
-            Router.push(`/jobdetails?jobID=${record.id}`);
+            Router.push(`/job/${encodeURIComponent(record.id)}`);
           },
         };
       },
@@ -197,7 +197,7 @@ const PaginationTable = ({ data }: Props) => {
       onCell: (record) => {
         return {
           onClick: (event) => {
-            Router.push(`/jobdetails?jobID=${record.id}`);
+            Router.push(`/job/${encodeURIComponent(record.id)}`);
           },
         };
       },
@@ -213,7 +213,7 @@ const PaginationTable = ({ data }: Props) => {
       onCell: (record) => {
         return {
           onClick: (event) => {
-            Router.push(`/jobdetails?jobID=${record.id}`);
+            Router.push(`/job/${encodeURIComponent(record.id)}`);
           },
         };
       },
@@ -230,7 +230,7 @@ const PaginationTable = ({ data }: Props) => {
       onCell: (record) => {
         return {
           onClick: (event) => {
-            Router.push(`/jobdetails?jobID=${record.id}`);
+            Router.push(`/job/${encodeURIComponent(record.id)}`);
           },
         };
       },
@@ -254,7 +254,7 @@ const PaginationTable = ({ data }: Props) => {
       onCell: (record) => {
         return {
           onClick: (event) => {
-            Router.push(`/jobdetails?jobID=${record.id}`);
+            Router.push(`/job/${encodeURIComponent(record.id)}`);
           },
         };
       },
@@ -283,7 +283,7 @@ const PaginationTable = ({ data }: Props) => {
       onCell: (record) => {
         return {
           onClick: (event) => {
-            Router.push(`/jobdetails?jobID=${record.id}`);
+            Router.push(`/job/${encodeURIComponent(record.id)}`);
           },
         };
       },
@@ -370,7 +370,7 @@ const PaginationTable = ({ data }: Props) => {
         // onRow={(record, rowIndex) => {
         //   return {
         //     onClick: () => {
-        //       Router.push(`/jobdetails?jobID=${record.id}`);
+        //       Router.push(`/job/${encodeURIComponent(record.id)}`);
         //     },
         //   };
         // }}

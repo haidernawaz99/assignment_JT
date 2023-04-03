@@ -14,6 +14,7 @@ import { UseGuards } from '@nestjs/common';
 import { JobCategoriesReturn } from 'src/jobs/dtos/job.categories.return';
 import { GetAllJobsAdminInputParams } from './dtos/admin.getAllJobInput';
 import { GetJobPaginationInputParams } from './dtos/job.getJobInputPagination';
+import { SearchJobAdminInputParams } from './dtos/admin.searchJobsInput';
 
 @Resolver()
 export class JobsResolver {
@@ -70,5 +71,11 @@ export class JobsResolver {
   @Query(() => JobCategoriesReturn)
   async getCategories() {
     return { categories: this.jobsService.getCategories() }; // <-- How the frontend expects the input, in a categories object.
+  }
+
+  @UseGuards(JwtAuthGuard) // <-- Checks if the token passed is valid, and if so, returns the user object and a **NEW** token.
+  @Query(() => [JobReturn])
+  async searchJobAdmin(@Args('input') input: SearchJobAdminInputParams) {
+    return this.jobsService.searchJobsAdmin(input);
   }
 }

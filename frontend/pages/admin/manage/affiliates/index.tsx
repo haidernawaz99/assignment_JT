@@ -318,7 +318,7 @@ const Index = () => {
           onRow={(record, rowIndex) => {
             return {
               onClick: () => {
-                //   Router.push(`/jobdetails?jobID=${record.id}`);
+                //   Router.push(`/job/${encodeURIComponent(record.id)}`);
                 null;
               },
             };

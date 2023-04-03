@@ -18,6 +18,7 @@ import { getExtensionPeriodFS } from 'common/utils/extension-period';
 import { getCategoriesFS } from 'common/utils/manage-categories';
 import { GetJobPaginationInputParams } from './dtos/job.getJobInputPagination';
 import { GetAllJobsAdminInputParams } from './dtos/admin.getAllJobInput';
+import { SearchJobAdminInputParams } from './dtos/admin.searchJobsInput';
 
 @Injectable()
 export class JobsService {
@@ -305,5 +306,53 @@ export class JobsService {
 
   async getCategories(): Promise<[{ category: string; index: number }]> {
     return await getCategoriesFS(); //
+  }
+
+  async searchJobsAdmin(input: SearchJobAdminInputParams): Promise<Job[]> {
+    if (input.categories) {
+      console.log(input.categories);
+
+      if (input.categories.length === 1) {
+        const result = await this.jobModel
+          .find({ category: { $regex: input.categories[0], $options: 'i' } })
+          .sort({ createdAt: -1 }) // i for case insensitive
+          .select('+editToken');
+        console.log(result);
+        return result;
+      }
+
+      const result = this.jobModel
+        .find({ category: { $in: input.categories } })
+        .sort({ createdAt: -1 })
+        .select('+editToken');
+      return result;
+    }
+
+    if (input.location) {
+      console.log('HI location');
+
+      return await this.jobModel
+        .find({ location: { $regex: input.location, $options: 'i' } }) // i for case insensitive
+        .sort({ createdAt: -1 })
+        .select('+editToken');
+    }
+
+    if (input.position) {
+      console.log('HI position');
+
+      return await this.jobModel
+        .find({ position: { $regex: input.position, $options: 'i' } }) // i for case insensitive
+        .sort({ createdAt: -1 })
+        .select('+editToken');
+    }
+
+    if (input.company) {
+      console.log('HI position');
+
+      return await this.jobModel
+        .find({ company: { $regex: input.company, $options: 'i' } }) // i for case insensitive
+        .sort({ createdAt: -1 })
+        .select('+editToken');
+    }
   }
 }
