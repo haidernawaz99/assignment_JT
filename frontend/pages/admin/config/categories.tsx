@@ -11,6 +11,7 @@ import {
 } from "antd";
 import AdminLayout from "../../../components/admin/AdminLayout";
 import client from "../../../graphql/apollo-client";
+
 const { Title, Paragraph, Text } = Typography;
 import React, { useContext, useEffect, useRef, useState } from "react";
 import type { FormInstance } from "antd/es/form";
@@ -172,6 +173,7 @@ const Categories = () => {
 
       render: (_: any, record: Category) => {
         const editable = isEditing(record);
+
         return (
           <div
             style={
@@ -224,6 +226,7 @@ const Categories = () => {
     if (!col.editable) {
       return col;
     }
+
     return {
       ...col,
       onCell: (record: Category) => ({

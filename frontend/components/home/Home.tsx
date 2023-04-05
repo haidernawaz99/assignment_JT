@@ -17,6 +17,7 @@ import {
   CloseOutlined,
   SearchOutlined,
 } from "@ant-design/icons";
+
 const { Option } = Select;
 const { Search } = Input;
 
@@ -33,8 +34,8 @@ import Process from "./process/Process";
 const IndexPage = () => {
   const [checked, setChecked] = useState(true);
   const [globalSearch, setGlobalSearch] = useState(true);
-  const [searchBarOption, setSearchBarOption] = useState<String>("Category");
-  const [searchValue, setSearchValue] = useState<String>("");
+  const [searchBarOption, setSearchBarOption] = useState<string>("Category");
+  const [searchValue, setSearchValue] = useState<string>("");
 
   const [searchBar, setSearchBar] = useState<SearchBarQuery>({
     text: "",
@@ -69,7 +70,7 @@ const IndexPage = () => {
               style={{ width: "100%", marginLeft: 4 }}
               size="large"
               defaultValue={"Category"}
-              onChange={(value: String) => {
+              onChange={(value: string) => {
                 // setSearch((prevState: SearchBarQuery) => ({
                 //   ...prevState,
                 //   option: value,

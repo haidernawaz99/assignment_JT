@@ -22,6 +22,7 @@ import {
   UploadOutlined,
   ExclamationCircleFilled,
 } from "@ant-design/icons";
+
 const { Title, Paragraph, Text } = Typography;
 const { Option } = Select;
 const { TextArea } = Input;
@@ -108,6 +109,7 @@ const BecomeAffiliate = () => {
   );
 
   const [form] = Form.useForm();
+
   return (
     <Layout enableLocalSearch={false}>
       <br />
@@ -191,3 +193,6 @@ const BecomeAffiliate = () => {
   );
 };
 export default BecomeAffiliate;
+BecomeAffiliate.getLayout = (page) => {
+  return <>{page} </>;
+};

@@ -13,9 +13,10 @@ import {
 } from "antd";
 import { ApolloProvider } from "@apollo/client";
 import client from "../../graphql/apollo-client";
-import { SearchBarQuery } from "../../interfaces/searchBarQuery";
+
 const { Paragraph } = Typography;
 const { Option } = Select;
+
 import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
 import Router, { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
@@ -42,13 +43,14 @@ const Layout = ({
   enableLocalSearch = true,
 }: Props) => {
   const [globalSearch, setGlobalSearch] = useState(true);
-  const [searchBarOption, setSearchBarOption] = useState<String>("Category");
+  const [searchBarOption, setSearchBarOption] = useState<string>("Category");
   const router = useRouter();
 
   const onSwitchChange = (checked: boolean) => {
     setGlobalSearch(checked);
     console.log(`switch to ${checked}`);
   };
+
   return (
     <div>
       <Head>

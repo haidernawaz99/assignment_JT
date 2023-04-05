@@ -1,5 +1,5 @@
 .mainRow {
-  background-color: #1677ff;
+  background-color: #722ed1;
 
   border-radius: 5px;
   margin-top: 2vh;
@@ -27,14 +27,14 @@
   padding: 10px;
 }
 
-/* .firstText {
-  margin-right: -1vh;
-} */
+.firstText {
+  margin-left: -1vh;
+}
 
 .secondText {
-  margin-left: 2.4vh;
+  margin-left: 1.55vh;
 }
 
-.thirdText {
-  margin-left: 1vh;
-}
+/* .thirdText {
+  margin-left: 0vh;
+} */

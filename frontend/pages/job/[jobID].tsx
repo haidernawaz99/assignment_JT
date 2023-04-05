@@ -36,7 +36,7 @@ export default function GlobalSearch() {
     option: "Position" as "Position" | "Company" | "Location" | "Category",
   });
   const router = useRouter();
-  let { jobID } = router.query;
+  const { jobID } = router.query;
 
   console.log(jobID);
 
@@ -77,11 +77,13 @@ export default function GlobalSearch() {
 
   if (error) {
     console.error(error);
+
     return <Error statusCode={404} title="Invalid Job ID" />;
   }
 
   if (data) {
     console.log(data);
+
     return (
       <Layout
         title={data.position}
@@ -93,3 +95,7 @@ export default function GlobalSearch() {
     );
   }
 }
+
+GlobalSearch.getLayout = (page) => {
+  return <>{page} </>;
+};

@@ -38,6 +38,7 @@ const AllJobsWithPagination = ({ searchBar }: Props) => {
 
   if (error) {
     console.error(error);
+
     return null;
   }
 

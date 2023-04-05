@@ -1,44 +1,101 @@
-import { Space, Switch, Typography } from "antd";
+// ** MUI Imports
+import Grid from "@mui/material/Grid";
 
-import Link from "next/link";
-import { useState } from "react";
-import AdminLayout from "../../components/admin/AdminLayout";
-import AllJobsWithPagination from "../../components/admin/AllJobsWithPagination";
-import { SearchBarQuery } from "../../interfaces/searchBarQuery";
+// ** Icons Imports
+import Poll from "mdi-material-ui/Poll";
+import CurrencyUsd from "mdi-material-ui/CurrencyUsd";
+import HelpCircleOutline from "mdi-material-ui/HelpCircleOutline";
+import BriefcaseVariantOutline from "mdi-material-ui/BriefcaseVariantOutline";
 
-const { Paragraph } = Typography;
-const { Title } = Typography;
+// ** Custom Components Imports
+import CardStatisticsVerticalComponent from "../../@core/components/card-statistics/card-stats-vertical";
 
-const ManageJobs = () => {
-  const [searchBar, setSearchBar] = useState<SearchBarQuery>({
-    text: "",
-    option: "Position" as "Position" | "Company" | "Location" | "Category",
-  });
+// ** Styled Component Import
+import ApexChartWrapper from "../../@core/styles/libs/react-apexcharts";
 
+// ** Demo Components Imports
+import Table from "../../views/dashboard/Table";
+import Trophy from "../../views/dashboard/Trophy";
+import TotalEarning from "../../views/dashboard/TotalEarning";
+import StatisticsCard from "../../views/dashboard/StatisticsCard";
+import WeeklyOverview from "../../views/dashboard/WeeklyOverview";
+import DepositWithdraw from "../../views/dashboard/DepositWithdraw";
+import SalesByCountries from "../../views/dashboard/SalesByCountries";
+
+const Dashboard = () => {
   return (
-    <AdminLayout
-      title="Admin Dashboard -- Jobeet"
-      setSearch={setSearchBar}
-      enableLocalSearch={false}
-    >
-      <Title level={3}>Manage</Title>
-      <ul>
-        <li>
-          {" "}
-          <Link href="/admin/manage/job">Jobs</Link>{" "}
-        </li>
-        <li>
-          {" "}
-          <Link href="/admin/manage/affiliates">Affiliates</Link>{" "}
-        </li>
-        <li>
-          {" "}
-          <Link href="/admin/config/categories">Categories</Link>{" "}
-        </li>
-      </ul>
-      <br />
-    </AdminLayout>
+    <ApexChartWrapper>
+      <Grid container spacing={6}>
+        <Grid item xs={12} md={4}>
+          <Trophy />
+        </Grid>
+        <Grid item xs={12} md={8}>
+          <StatisticsCard />
+        </Grid>
+        <Grid item xs={12} md={6} lg={4}>
+          <WeeklyOverview />
+        </Grid>
+        <Grid item xs={12} md={6} lg={4}>
+          <TotalEarning />
+        </Grid>
+        <Grid item xs={12} md={6} lg={4}>
+          <Grid container spacing={6}>
+            <Grid item xs={6}>
+              <CardStatisticsVerticalComponent
+                stats="$25.6k"
+                icon={<Poll />}
+                color="success"
+                trendNumber="+42%"
+                title="Total Profit"
+                subtitle="Weekly Profit"
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <CardStatisticsVerticalComponent
+                stats="$78"
+                title="Refunds"
+                trend="negative"
+                color="secondary"
+                trendNumber="-15%"
+                subtitle="Past Month"
+                icon={<CurrencyUsd />}
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <CardStatisticsVerticalComponent
+                stats="862"
+                trend="negative"
+                trendNumber="-18%"
+                title="New Project"
+                subtitle="Yearly Project"
+                icon={<BriefcaseVariantOutline />}
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <CardStatisticsVerticalComponent
+                stats="15"
+                color="warning"
+                trend="negative"
+                trendNumber="-18%"
+                subtitle="Last Week"
+                title="Sales Queries"
+                icon={<HelpCircleOutline />}
+              />
+            </Grid>
+          </Grid>
+        </Grid>
+        <Grid item xs={12} md={6} lg={4}>
+          <SalesByCountries />
+        </Grid>
+        <Grid item xs={12} md={12} lg={8}>
+          <DepositWithdraw />
+        </Grid>
+        <Grid item xs={12}>
+          <Table />
+        </Grid>
+      </Grid>
+    </ApexChartWrapper>
   );
 };
 
-export default ManageJobs;
+export default Dashboard;

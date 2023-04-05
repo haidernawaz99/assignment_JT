@@ -49,6 +49,7 @@ const Post = () => {
     }
 
     const searchResults = search(jobs, searchBar); // if search bar is not empty, return search results
+
     return { jobs: searchResults, jobCount };
   };
 
@@ -58,6 +59,7 @@ const Post = () => {
 
   if (error) {
     console.error(error);
+
     return null;
   }
 
@@ -80,3 +82,6 @@ const Post = () => {
 };
 
 export default Post;
+Post.getLayout = (page) => {
+  return <>{page} </>;
+};

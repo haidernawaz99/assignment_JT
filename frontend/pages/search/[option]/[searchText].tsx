@@ -61,6 +61,7 @@ export default function GlobalSearch() {
 
   if (data) {
     console.log(data);
+
     return (
       <Layout title="Global Search" setSearch={setSearchBar}>
         {
@@ -82,3 +83,7 @@ export default function GlobalSearch() {
     );
   }
 }
+
+GlobalSearch.getLayout = (page) => {
+  return <>{page} </>;
+};

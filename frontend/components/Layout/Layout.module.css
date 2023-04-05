@@ -6,6 +6,7 @@
 .contentWrap {
   /* padding-bottom: 2.5rem; Footer height */
   padding: 2vw;
+  padding-top: 1vh;
   padding-bottom: 8vh; /* Footer height */
 }
 

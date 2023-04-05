@@ -36,7 +36,7 @@ export default function CustomURL() {
     option: "Position" as "Position" | "Company" | "Location" | "Category",
   });
   const router = useRouter();
-  let { customurl } = router.query;
+  const { customurl } = router.query;
 
   console.log(customurl);
 
@@ -61,6 +61,7 @@ export default function CustomURL() {
 
   if (error || data?.jobs[0]?.length === 0) {
     console.error(error);
+
     return <Error statusCode={404} title="Invalid Custom URL" />;
   }
 
@@ -69,6 +70,7 @@ export default function CustomURL() {
   }
   if (data) {
     console.log(data);
+
     return (
       <Layout
         title={data.position}
@@ -80,3 +82,7 @@ export default function CustomURL() {
     );
   }
 }
+
+CustomURL.getLayout = (page) => {
+  return <>{page} </>;
+};

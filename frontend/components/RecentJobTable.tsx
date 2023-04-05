@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { Divider, Row, Col, Space, Table, Tag, Button } from "antd";
+import { Divider, Row, Col, Space, Table, Button } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import Router from "next/router";
 
@@ -79,10 +79,7 @@ const RecentJobTable = ({
                   type="default"
                   disabled={!record.editToken}
                   onClick={() => {
-                    Router.push(
-                      // `/admin/manage/job/edit?editToken=${record.editToken}`
-                      `/admin/manage/job/edit/${record.editToken}`
-                    );
+                    Router.push(`/admin/manage/job/edit/${record.editToken}`);
                   }}
                 >
                   Edit

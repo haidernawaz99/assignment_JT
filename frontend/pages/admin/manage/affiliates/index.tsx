@@ -20,6 +20,7 @@ import AdminLayout from "../../../../components/admin/AdminLayout";
 import { useSession } from "next-auth/react";
 
 import client from "../../../../graphql/apollo-client";
+
 const { Title, Paragraph, Text } = Typography;
 
 const GET_ALL_AFFILIATES = gql`
@@ -271,6 +272,7 @@ const Index = () => {
 
   if (error) {
     console.error(error);
+
     return null;
   }
 

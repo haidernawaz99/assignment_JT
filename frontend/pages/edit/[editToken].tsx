@@ -7,6 +7,7 @@ import { gql, useLazyQuery, useMutation, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import Error from "next/error";
 import expiresAtDays from "../../utils/expiresAtDay";
+
 const { Title } = Typography;
 
 const QUERY = gql`
@@ -50,7 +51,7 @@ const MUTATION = gql`
 
 const EditJob = () => {
   const router = useRouter();
-  let { editToken } = router.query;
+  const { editToken } = router.query;
   const [jobExtendedSuccessfully, setJobExtendedSuccessfully] = useState(false);
 
   const [
@@ -82,6 +83,7 @@ const EditJob = () => {
 
   if (error || data?.jobs[0]?.length === 0 || editToken === null) {
     console.error(error);
+
     return <Error statusCode={404} title="Invalid Job Edit Token" />;
   }
 
@@ -204,3 +206,7 @@ const EditJob = () => {
 };
 
 export default EditJob;
+
+EditJob.getLayout = (page) => {
+  return <>{page} </>;
+};

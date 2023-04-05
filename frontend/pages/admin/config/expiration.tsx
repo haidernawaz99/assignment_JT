@@ -4,6 +4,7 @@ import { useState } from "react";
 import AdminLayout from "../../../components/admin/AdminLayout";
 
 import client from "../../../graphql/apollo-client";
+
 const { Title, Paragraph, Text } = Typography;
 
 const GET_ADMIN_CONFIG = gql`
@@ -42,6 +43,7 @@ const Expiration = () => {
 
   if (error) {
     console.error(error);
+
     return null;
   }
 

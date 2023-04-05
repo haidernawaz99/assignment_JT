@@ -160,7 +160,7 @@ const PaginationTable = ({ data }: Props) => {
     {
       title: "Category",
       dataIndex: "category",
-      // ellipsis: true,
+      ellipsis: true,
       key: "category",
       align: "center",
       onCell: (record) => {
@@ -177,7 +177,7 @@ const PaginationTable = ({ data }: Props) => {
       title: "Location",
       dataIndex: "location",
       key: "location",
-      // ellipsis: true,
+      ellipsis: true,
       align: "center",
       onCell: (record) => {
         return {
@@ -191,7 +191,7 @@ const PaginationTable = ({ data }: Props) => {
     {
       title: "Position",
       dataIndex: "position",
-      // ellipsis: true,
+      ellipsis: true,
       key: "position",
       align: "center",
       onCell: (record) => {
@@ -207,7 +207,7 @@ const PaginationTable = ({ data }: Props) => {
       title: "Company",
       dataIndex: "company",
       key: "company",
-      // ellipsis: true,
+      ellipsis: true,
 
       align: "center",
       onCell: (record) => {
@@ -224,7 +224,7 @@ const PaginationTable = ({ data }: Props) => {
       title: "Type",
       dataIndex: "type",
       key: "type",
-      // ellipsis: true,
+      ellipsis: true,
 
       align: "center",
       onCell: (record) => {
@@ -248,7 +248,7 @@ const PaginationTable = ({ data }: Props) => {
       title: "Created At",
       dataIndex: "createdAt",
       key: "createdAt",
-      // ellipsis: true,
+      ellipsis: true,
 
       align: "center",
       onCell: (record) => {
@@ -277,7 +277,7 @@ const PaginationTable = ({ data }: Props) => {
       title: "Expires At",
       dataIndex: "expiresAt",
       key: "expiresAt",
-      // ellipsis: true,
+      ellipsis: true,
 
       align: "center",
       onCell: (record) => {
@@ -303,7 +303,7 @@ const PaginationTable = ({ data }: Props) => {
     {
       title: "Action",
       key: "action",
-      // ellipsis: true,
+      ellipsis: true,
 
       align: "center",
 
@@ -355,7 +355,7 @@ const PaginationTable = ({ data }: Props) => {
       <Table
         columns={columns}
         bordered
-        // tableLayout="fixed"
+        tableLayout="fixed"
         dataSource={data}
         rowKey={(record) => record.id}
         pagination={{
