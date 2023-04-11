@@ -1,14 +1,13 @@
-import Link from "next/link";
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import Layout from "../../components/Layout/Layout";
-import { Alert, Button, Typography } from "antd";
+import { Alert, Button } from "antd";
 import JobForm from "../../components/JobForm";
 import { gql, useLazyQuery, useMutation, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import Error from "next/error";
 import expiresAtDays from "../../utils/expiresAtDay";
-
-const { Title } = Typography;
+import { Typography } from "@mui/material";
+import Link from "@mui/material/Link";
 
 const QUERY = gql`
   query fetchJobs($input: GetJobInputParams!) {
@@ -23,6 +22,7 @@ const QUERY = gql`
       logo
       url
       expiresAt
+      howToApply
     }
   }
 `;
@@ -49,7 +49,7 @@ const MUTATION = gql`
   }
 `;
 
-const EditJob = () => {
+const EditJob = ({ isAdmin = false }) => {
   const router = useRouter();
   const { editToken } = router.query;
   const [jobExtendedSuccessfully, setJobExtendedSuccessfully] = useState(false);
@@ -72,6 +72,7 @@ const EditJob = () => {
 
   const [fetchData, { data, loading, error, refetch }] = useLazyQuery(QUERY);
   useEffect(() => {
+    if (!editToken) return;
     fetchData({
       variables: {
         input: {
@@ -79,7 +80,7 @@ const EditJob = () => {
         },
       },
     });
-  }, [editToken]);
+  }, [editToken, fetchData]);
 
   if (error || data?.jobs[0]?.length === 0 || editToken === null) {
     console.error(error);
@@ -119,8 +120,13 @@ const EditJob = () => {
 
   return (
     data && (
-      <Layout title="Edit a Job" enableLocalSearch={false}>
-        <Title level={3}>Edit a Job</Title>
+      <>
+        <Typography variant="h5">
+          <Link>Edit a Job</Link>
+        </Typography>
+        <Typography variant="body2">
+          An asterisk (*) denotes a mandatory field.
+        </Typography>
         {jobExtendedSuccessfully && (
           <Alert
             message="Job Extended Successfully"
@@ -199,8 +205,9 @@ const EditJob = () => {
           data={data.jobs[0]}
           isUpdating={true}
           editToken={editToken as string}
+          isAdmin={isAdmin}
         />
-      </Layout>
+      </>
     )
   );
 };
@@ -208,5 +215,9 @@ const EditJob = () => {
 export default EditJob;
 
 EditJob.getLayout = (page) => {
-  return <>{page} </>;
+  return (
+    <Layout title="Edit a Job" enableLocalSearch={false}>
+      {page}
+    </Layout>
+  );
 };

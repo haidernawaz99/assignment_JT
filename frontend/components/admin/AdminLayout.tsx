@@ -15,6 +15,9 @@ import { ApolloProvider } from "@apollo/client";
 
 import { CheckOutlined, CloseOutlined, PlusOutlined } from "@ant-design/icons";
 import Router, { useRouter } from "next/router";
+import UserLayout from "../../layouts/UserLayout";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
 
 const { Search } = Input;
 const { Title } = Typography;
@@ -68,22 +71,11 @@ const AdminLayout = ({
       </nav> */}
       </header>
 
-      <div>
-        <Row justify={"end"}>
-          <Col>
-            <Button
-              icon={<PlusOutlined />}
-              type="primary"
-              onClick={() => {
-                Router.push("/admin/manage/job/add");
-              }}
-            >
-              Post a Job
-            </Button>
-          </Col>
-        </Row>
-      </div>
-      {children}
+      <div></div>
+
+      <Card>
+        <CardContent> {children}</CardContent>
+      </Card>
 
       {/* <footer className={styles.footer}>
         <hr />

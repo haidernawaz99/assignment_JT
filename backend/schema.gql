@@ -47,6 +47,19 @@ The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://
 """
 scalar JSON
 
+type AdminExpirationReturn {
+  days: Float!
+}
+
+type AdminCategoriesReturn {
+  categories: [JSON!]!
+}
+
+type AdminUserViewReturn {
+  key: String!
+  value: String!
+}
+
 type UserReturn {
   id: ID!
   username: String!
@@ -60,14 +73,6 @@ type AuthLoginReturn {
   accessToken: String!
   username: String!
   id: ID!
-}
-
-type AdminExpirationReturn {
-  days: Float!
-}
-
-type AdminCategoriesReturn {
-  categories: [JSON!]!
 }
 
 type AdminAffiliateReturn {
@@ -112,9 +117,10 @@ type Query {
   getAllJobsAdmin: [JobReturn!]!
   getCategories: JobCategoriesReturn!
   searchJobAdmin(input: SearchJobAdminInputParams!): [JobReturn!]!
+  getExpirationPeriod: AdminExpirationReturn!
+  getUserView: [AdminUserViewReturn!]!
   login(loginCredentials: AuthLoginInput!): AuthLoginReturn!
   generateNewToken: UserReturn!
-  getExpirationPeriod: AdminExpirationReturn!
   getAllAffiliates(input: GetAllAffiliatesInputParams!): [AdminAffiliateReturn!]!
   getJobsAffiliate(input: GetJobAffiliatesInputParams): [AffiliateJobReturn!]!
 }
@@ -142,6 +148,8 @@ input SearchJobAdminInputParams {
   location: String
   position: String
   company: String
+  id: String
+  customURL: String
   limit: Int
   skip: Int
 }
@@ -169,6 +177,7 @@ type Mutation {
   deleteJob(input: DeleteJobInputParams!): JobReturn!
   setExpirationPeriod(input: SetExpirationInputParams!): AdminExpirationReturn!
   setCategories(input: SetCategoriesInputParams!): AdminCategoriesReturn!
+  setUserView(input: SetUserViewInputParams!): [AdminUserViewReturn!]!
   createAffiliate(input: CreateAffiliateInputParams!): CreateAffiliateReturn!
   approveAffiliate(input: ApproveAffiliatesInputParams!): AdminAffiliateReturn!
   deleteAffiliate(input: DeleteAffiliatesInputParams!): AdminAffiliateReturn!
@@ -232,6 +241,13 @@ input SetExpirationInputParams {
 
 input SetCategoriesInputParams {
   categories: [JSON!]!
+}
+
+input SetUserViewInputParams {
+  extensionPeriod: String!
+  limit: String!
+  order: String!
+  sort: String!
 }
 
 input CreateAffiliateInputParams {

@@ -63,7 +63,6 @@ const Layout = ({
           <header>
             <Navbar />
           </header>
-
           {children}
 
           {/* <footer className={styles.footer}>

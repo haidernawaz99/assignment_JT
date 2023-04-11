@@ -1,19 +1,20 @@
 import { gql, useLazyQuery, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import { useEffect, useLayoutEffect, useState } from "react";
-import JobDetail from "../../components/JobDetail/JobDetail";
-import Layout from "../../components/Layout/Layout";
-import { SearchBarQuery } from "../../interfaces/searchBarQuery";
+
 import Error from "next/error";
+import { SearchBarQuery } from "../../../interfaces/searchBarQuery";
+import JobDetail from "../../../components/JobDetail/JobDetail";
+import AdminLayout from "../../../components/admin/AdminLayout";
 
-// const reloadSession = () => {
-//   const event = new Event("visibilitychange");
-//   document.dispatchEvent(event);
-// };
+const reloadSession = () => {
+  const event = new Event("visibilitychange");
+  document.dispatchEvent(event);
+};
 
-const FETCH_JOB_DETAILS = gql`
-  query fetchJobs($input: GetJobInputParams!) {
-    jobs(input: $input) {
+const FETCH_ADMIN_JOB_DETAILS = gql`
+  query searchJobAdmin($input: SearchJobAdminInputParams!) {
+    searchJobAdmin(input: $input) {
       company
       position
       location
@@ -26,6 +27,7 @@ const FETCH_JOB_DETAILS = gql`
       createdAt
       logo
       expiresAt
+      editToken
     }
   }
 `;
@@ -40,12 +42,13 @@ export default function GlobalSearch() {
 
   console.log(jobID);
 
-  const [getJobDetails, { data, loading, error, refetch }] =
-    useLazyQuery(FETCH_JOB_DETAILS);
+  const [getJobDetails, { data, loading, error, refetch }] = useLazyQuery(
+    FETCH_ADMIN_JOB_DETAILS
+  );
 
-  // useEffect(() => {
-  //   reloadSession();
-  // }, []);
+  useEffect(() => {
+    reloadSession();
+  }, []);
 
   useEffect(() => {
     // I could've used useQuery and no useEffect, but it was fetching all the data on component mount.
@@ -71,23 +74,27 @@ export default function GlobalSearch() {
     }
   }, [jobID, getJobDetails]);
 
-  if (error || data?.jobs[0]?.length === 0 || jobID === null) {
-    console.error(error);
-
-    return <Error statusCode={404} title="Invalid Job URL" />;
-  }
-
   if (!data) {
     return <h2>Loading...</h2>;
+  }
+
+  if (error) {
+    console.error(error);
+
+    return <Error statusCode={404} title="Invalid Job ID" />;
   }
 
   if (data) {
     console.log(data);
 
-    return <JobDetail job={data.jobs[0]} />;
+    return (
+      <AdminLayout
+        title={data.position}
+        setSearch={setSearchBar}
+        enableLocalSearch={false}
+      >
+        <JobDetail job={data.searchJobAdmin[0]} isAdmin />
+      </AdminLayout>
+    );
   }
 }
-
-GlobalSearch.getLayout = (page) => {
-  return <Layout title={"Job Edit"}>{page} </Layout>;
-};

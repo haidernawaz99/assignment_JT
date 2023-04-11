@@ -4,19 +4,19 @@ import {
   Button,
   Form,
   InputNumber,
-  Typography,
   Input,
   Popconfirm,
   Table,
 } from "antd";
 import AdminLayout from "../../../components/admin/AdminLayout";
 import client from "../../../graphql/apollo-client";
+import Typography from "@mui/material/Typography";
+import Link from "@mui/material/Link";
 
-const { Title, Paragraph, Text } = Typography;
 import React, { useContext, useEffect, useRef, useState } from "react";
 import type { FormInstance } from "antd/es/form";
 import styles from "./categories.module.css";
-import { SaveFilled } from "@ant-design/icons";
+import { PlusOutlined, SaveFilled } from "@ant-design/icons";
 import SuccessfulModal from "../../../components/SuccessfulModal";
 
 const EditableContext = React.createContext<FormInstance<any> | null>(null);
@@ -268,24 +268,28 @@ const Categories = () => {
 
   return (
     <AdminLayout title="Configure Categories" enableLocalSearch={false}>
-      <Title level={3} style={{ marginBottom: 0 }}>
-        Configure Categories
-      </Title>
+      <Typography variant="h5">
+        <Link>Categories</Link>
+      </Typography>
+      <Typography variant="body2">Manage Categories Here.</Typography>
       {showSuccessAlert && (
-        <Alert
-          message="Updated Categories"
-          closable
-          afterClose={() => setShowSuccessAlert(false)}
-          description={
-            <div>
-              Successfully Updated Categories
-              {/* Period to{" "} */}
-              {/* <strong> {form.getFieldValue("extensionPeriod")}</strong> days. */}
-            </div>
-          }
-          type="success"
-          showIcon
-        />
+        <>
+          <br />
+          <Alert
+            message="Updated Categories"
+            closable
+            afterClose={() => setShowSuccessAlert(false)}
+            description={
+              <div>
+                Successfully Updated Categories
+                {/* Period to{" "} */}
+                {/* <strong> {form.getFieldValue("extensionPeriod")}</strong> days. */}
+              </div>
+            }
+            type="success"
+            showIcon
+          />
+        </>
       )}
 
       <br />
@@ -296,7 +300,12 @@ const Categories = () => {
           alignContent: "flex-end",
         }}
       >
-        <Button onClick={handleAdd} type="primary" style={{ marginBottom: 16 }}>
+        <Button
+          onClick={handleAdd}
+          type="primary"
+          style={{ marginBottom: 16 }}
+          icon={<PlusOutlined />}
+        >
           Add a row
         </Button>
       </div>
@@ -313,6 +322,7 @@ const Categories = () => {
           }
         }
       >
+        <hr />
         <Form form={form} component={false}>
           <Table
             components={{

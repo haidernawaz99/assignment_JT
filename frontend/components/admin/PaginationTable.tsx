@@ -166,7 +166,7 @@ const PaginationTable = ({ data }: Props) => {
       onCell: (record) => {
         return {
           onClick: (event) => {
-            Router.push(`/job/${encodeURIComponent(record.id)}`);
+            Router.push(`/admin/job/${encodeURIComponent(record.id)}`);
           },
         };
       },
@@ -182,7 +182,7 @@ const PaginationTable = ({ data }: Props) => {
       onCell: (record) => {
         return {
           onClick: (event) => {
-            Router.push(`/job/${encodeURIComponent(record.id)}`);
+            Router.push(`/admin/job/${encodeURIComponent(record.id)}`);
           },
         };
       },
@@ -197,7 +197,7 @@ const PaginationTable = ({ data }: Props) => {
       onCell: (record) => {
         return {
           onClick: (event) => {
-            Router.push(`/job/${encodeURIComponent(record.id)}`);
+            Router.push(`/admin/job/${encodeURIComponent(record.id)}`);
           },
         };
       },
@@ -213,7 +213,7 @@ const PaginationTable = ({ data }: Props) => {
       onCell: (record) => {
         return {
           onClick: (event) => {
-            Router.push(`/job/${encodeURIComponent(record.id)}`);
+            Router.push(`/admin/job/${encodeURIComponent(record.id)}`);
           },
         };
       },
@@ -230,7 +230,7 @@ const PaginationTable = ({ data }: Props) => {
       onCell: (record) => {
         return {
           onClick: (event) => {
-            Router.push(`/job/${encodeURIComponent(record.id)}`);
+            Router.push(`/admin/job/${encodeURIComponent(record.id)}`);
           },
         };
       },
@@ -254,7 +254,7 @@ const PaginationTable = ({ data }: Props) => {
       onCell: (record) => {
         return {
           onClick: (event) => {
-            Router.push(`/job/${encodeURIComponent(record.id)}`);
+            Router.push(`/admin/job/${encodeURIComponent(record.id)}`);
           },
         };
       },
@@ -262,9 +262,9 @@ const PaginationTable = ({ data }: Props) => {
       render: (text) => (
         <a>
           {new Date(text).toLocaleDateString("en-pk", {
-            weekday: "long",
+            weekday: "short",
             year: "numeric",
-            month: "long",
+            month: "short",
             day: "numeric",
           })}
         </a>
@@ -283,16 +283,16 @@ const PaginationTable = ({ data }: Props) => {
       onCell: (record) => {
         return {
           onClick: (event) => {
-            Router.push(`/job/${encodeURIComponent(record.id)}`);
+            Router.push(`/admin/job/${encodeURIComponent(record.id)}`);
           },
         };
       },
       render: (text) => (
         <a>
           {new Date(text).toLocaleDateString("en-pk", {
-            weekday: "long",
+            weekday: "short",
             year: "numeric",
-            month: "long",
+            month: "short",
             day: "numeric",
           })}
         </a>
@@ -309,12 +309,13 @@ const PaginationTable = ({ data }: Props) => {
 
       render: (_, record) => (
         <Space size="middle">
-          <Button danger onClick={() => deleteJob(record.id)}>
+          <Button danger size="small" onClick={() => deleteJob(record.id)}>
             Delete
           </Button>
 
           <Button
             type="primary"
+            size="small"
             onClick={() => {
               Router.push(`/admin/manage/job/edit/${record.editToken}`);
             }}

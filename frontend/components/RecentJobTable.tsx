@@ -90,6 +90,7 @@ const RecentJobTable = ({
         ] as ColumnsType<DataType>)
       : []),
   ];
+
   return (
     <Divider orientation="left" orientationMargin={0}>
       <Row justify={"space-between"}>

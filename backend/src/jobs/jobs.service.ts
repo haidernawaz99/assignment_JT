@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 import { Model } from 'mongoose';
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Job } from './interfaces/job.interface';
 import { JobCreateInput } from './dtos/job.createInput';
@@ -17,12 +17,16 @@ import { DeleteJobInputParams } from './dtos/job.deleteJobInput';
 import { getExtensionPeriodFS } from 'common/utils/extension-period';
 import { getCategoriesFS } from 'common/utils/manage-categories';
 import { GetJobPaginationInputParams } from './dtos/job.getJobInputPagination';
-import { GetAllJobsAdminInputParams } from './dtos/admin.getAllJobInput';
 import { SearchJobAdminInputParams } from './dtos/admin.searchJobsInput';
+import { AdminService } from 'src/admin/admin.service';
+import * as moment from 'moment';
 
 @Injectable()
 export class JobsService {
   constructor(@InjectModel('Job') private jobModel: Model<Job>) {}
+
+  @Inject(AdminService)
+  private readonly adminService: AdminService;
 
   async create(jobInput: JobCreateInput): Promise<Job> {
     // if the user has uploaded an image (logo) then dump it to the filesystem
@@ -79,13 +83,36 @@ export class JobsService {
       //Get jobs from each category since categories are now dynamic,
       //and return them in a single array
       if (input.categories[0] === 'all') {
+        console.log("I'm here");
         const currentCategories = await this.getCategories();
+        // console.log(currentCategories);
+
+        console.log(
+          parseInt((await this.adminService.getUserViewConfig())[3].value),
+        );
+
+        // console.log(moment().subtract(5, 'days').toDate());
+        const sort = {};
+        const sortParameter = (await this.adminService.getUserViewConfig())[1]
+          .value;
+        const orderParameter = (await this.adminService.getUserViewConfig())[2]
+          .value;
+        sort[sortParameter] = orderParameter;
 
         for (let i = 0; i < currentCategories.length; i++) {
           const res = await this.jobModel
-            .find({ category: currentCategories[i].category })
-            .limit(input.limit)
-            .sort({ createdAt: -1 });
+            .find({
+              category: currentCategories[i].category,
+              expiresAt: {
+                $gte: moment().subtract(1, 'days').toDate(),
+              },
+            })
+            // .sort((await this.adminService.getSortConfig()).value)
+            .sort(sort)
+
+            .limit(
+              parseInt((await this.adminService.getUserViewConfig())[3].value),
+            );
           jobs.push(res);
         }
       } else {
@@ -98,8 +125,9 @@ export class JobsService {
           jobs.push(res);
         }
       }
-      console.log(jobs);
+
       const jobsFlattened = jobs.flat();
+      // console.log(jobsFlattened);
       return jobsFlattened;
     }
     if (input?.categories) {
@@ -230,7 +258,7 @@ export class JobsService {
     console.log({ job, jobCount });
     return { jobCount, job };
   }
-  async update(jobUpdate: JobUpdateInput): Promise<Job> {
+  async update(jobUpdate: JobUpdateInput, request): Promise<Job> {
     console.log('UPDATE');
     console.log(jobUpdate);
     console.log('Update');
@@ -239,7 +267,8 @@ export class JobsService {
     jobUpdate.url = jobUpdate.url.toLowerCase();
 
     // if the user has uploaded a **NEW** image (logo) then dump it to the filesystem
-    if (jobUpdate?.image) {
+    // if (jobUpdate?.image) {
+    if (request.headers['content-type'].includes('multipart/form-data')) {
       console.log(jobUpdate.image);
       const { createReadStream, filename } = await jobUpdate?.image;
       jobUpdate.logo = filename || null; //save the filename to the database (if exists)
@@ -266,7 +295,9 @@ export class JobsService {
 
     // if the user has NOT uploaded an image (logo)
 
-    jobUpdate.logo = null;
+    if (jobUpdate?.logo == null) {
+      jobUpdate.logo = null;
+    }
     const updatedJob = await this.jobModel.findOneAndUpdate(
       { editToken: jobUpdate.editToken },
       jobUpdate,
@@ -347,12 +378,30 @@ export class JobsService {
     }
 
     if (input.company) {
-      console.log('HI position');
+      console.log('HI Company');
 
       return await this.jobModel
         .find({ company: { $regex: input.company, $options: 'i' } }) // i for case insensitive
         .sort({ createdAt: -1 })
         .select('+editToken');
+    }
+
+    if (input.customURL) {
+      console.log('HI CustomURL');
+
+      const res = await this.jobModel
+        .findOne({
+          url: new RegExp(`^${input.customURL}$`, 'i'), // <-- case insensitive search
+        })
+        .select('+editToken');
+      return [res];
+    }
+
+    if (input?.id) {
+      console.log('HI ID');
+
+      const res = await this.jobModel.findById(input.id).select('+editToken');
+      return [res];
     }
   }
 }

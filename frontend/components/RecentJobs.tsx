@@ -59,11 +59,13 @@ const RecentJobs = ({ getAllCategories, searchBar }: Props) => {
 
   if (!data) {
     console.log(loading);
+
     return <h2>Loading ...</h2>;
   }
 
   if (error) {
     console.error(error);
+
     return null;
   }
   // const filterJobsByCategory = () => {

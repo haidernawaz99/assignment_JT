@@ -1,11 +1,12 @@
 import { gql, useMutation, useQuery } from "@apollo/client";
-import { Alert, Button, Form, InputNumber, Typography } from "antd";
+import { Alert, Button, Form, InputNumber } from "antd";
 import { useState } from "react";
 import AdminLayout from "../../../components/admin/AdminLayout";
 
 import client from "../../../graphql/apollo-client";
-
-const { Title, Paragraph, Text } = Typography;
+import Typography from "@mui/material/Typography";
+import Link from "@mui/material/Link";
+import { SaveFilled } from "@ant-design/icons";
 
 const GET_ADMIN_CONFIG = gql`
   query getExpirationPeriod {
@@ -49,23 +50,30 @@ const Expiration = () => {
 
   return (
     <AdminLayout title="Website Configuration" enableLocalSearch={false}>
-      <Title level={3} style={{ marginBottom: 0 }}>
-        Website Configuration
-      </Title>
+      <Typography variant="h5">
+        <Link>Expiration Period</Link>
+      </Typography>
+      <Typography variant="body2">Manage Expiration Period Here.</Typography>
+
       {uploaded && (
-        <Alert
-          message="Updated Extension Period"
-          closable
-          description={
-            <div>
-              Successfully Updated Extension Period to{" "}
-              <strong> {form.getFieldValue("extensionPeriod")}</strong> days.
-            </div>
-          }
-          type="success"
-          showIcon
-        />
+        <>
+          <br />
+          <Alert
+            message="Updated Extension Period"
+            closable
+            description={
+              <div>
+                Successfully Updated Extension Period to{" "}
+                <strong> {form.getFieldValue("extensionPeriod")}</strong> days.
+              </div>
+            }
+            type="success"
+            showIcon
+          />
+        </>
       )}
+      <br />
+      <hr />
       <Form
         form={form}
         onFinish={(values) => {
@@ -98,12 +106,13 @@ const Expiration = () => {
           />
         </Form.Item>
 
-        <Form.Item wrapperCol={{ offset: 4 }}>
+        <Form.Item style={{ display: "flex", justifyContent: "flex-end" }}>
           <Button
             type={"primary"}
             size={"large"}
             htmlType="submit"
             disabled={uploaded}
+            icon={<SaveFilled />}
           >
             Save
           </Button>

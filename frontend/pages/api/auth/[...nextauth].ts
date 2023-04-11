@@ -97,9 +97,11 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
           token.expirationAccessToken = user.expirationAccessToken;
 
           return token;
-        } else if ((token.expirationAccessToken as number) - Date.now() > 3) {
-          // this Token will not expire for at least 3 seconds
-          console.log("Token will not expire for at least 3 seconds");
+        } else if ((token.expirationAccessToken as number) - Date.now() > 300) {
+          // 300 seconds = 5 minutes
+          // this Token will not expire for at least 5 minutes
+          console.log("Token will not expire for at least 5 minutes");
+
           return token;
         }
 
@@ -107,16 +109,16 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
 
         console.log("API Call for new token");
         console.log(token);
-        var myHeaders = new Headers();
+        const myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
         myHeaders.append("Authorization", "Bearer " + token.accessToken);
 
-        var graphql = JSON.stringify({
+        const graphql = JSON.stringify({
           query:
             "query generateNewToken {\r\n  generateNewToken {    \r\n    username\r\n expirationAccessToken \r\n   accessToken\r\n  }\r\n}\r\n",
           variables: {},
         });
-        var requestOptions = {
+        const requestOptions = {
           method: "POST",
           headers: myHeaders,
           body: graphql,
@@ -194,11 +196,13 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
     },
 
     jwt: {
-      maxAge: 59,
+      // maxAge: 59,
+      maxAge: 1740, // 29 minutes
     },
     session: {
       // jwt: true,
-      maxAge: 59,
+      // maxAge: 59,
+      maxAge: 1740, // 29 minutes
     },
   });
 }

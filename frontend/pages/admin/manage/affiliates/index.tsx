@@ -1,27 +1,13 @@
 import { gql, useMutation, useQuery } from "@apollo/client";
-import {
-  Alert,
-  Button,
-  Col,
-  Divider,
-  Form,
-  InputNumber,
-  Row,
-  Space,
-  Table,
-  Tag,
-  Typography,
-} from "antd";
+import { Button, Divider, Form, Row, Space, Table, Tag } from "antd";
 import { ColumnsType } from "antd/es/table";
-import Link from "next/link";
 import Router from "next/router";
 import { useState } from "react";
 import AdminLayout from "../../../../components/admin/AdminLayout";
-import { useSession } from "next-auth/react";
-
-import client from "../../../../graphql/apollo-client";
-
-const { Title, Paragraph, Text } = Typography;
+import Typography from "@mui/material/Typography";
+import Link from "@mui/material/Link";
+import UserLayout from "../../../../layouts/UserLayout";
+import { PlusOutlined } from "@ant-design/icons";
 
 const GET_ALL_AFFILIATES = gql`
   query getAllAffiliates($input: GetAllAffiliatesInputParams!) {
@@ -168,19 +154,13 @@ const Index = () => {
             Delete
           </Button>
           {record.status === "Unapproved" && (
-            <Button type="primary" onClick={() => approveAffiliate(record)}>
-              Approve
-            </Button>
+            <Button onClick={() => approveAffiliate(record)}>Approve</Button>
           )}
           {record.status === "Enabled" && (
-            <Button type="primary" onClick={() => disableAffiliate(record)}>
-              Disable
-            </Button>
+            <Button onClick={() => disableAffiliate(record)}>Disable</Button>
           )}
           {record.status === "Disabled" && (
-            <Button type="primary" onClick={() => enableAffiliate(record)}>
-              Enable
-            </Button>
+            <Button onClick={() => enableAffiliate(record)}>Enable</Button>
           )}
         </Space>
       ),
@@ -282,9 +262,10 @@ const Index = () => {
 
   return (
     <AdminLayout title="Manage Affiliates -- Jobeet" enableLocalSearch={false}>
-      <Title level={3} style={{ marginBottom: 0 }}>
-        Manage Affiliate
-      </Title>
+      <Typography variant="h5">
+        <Link>Affiliates</Link>
+      </Typography>
+      <Typography variant="body2">Manage Affiliates Here.</Typography>
 
       <Divider orientation="left" orientationMargin={0}>
         <Row justify={"space-between"}></Row>
@@ -300,6 +281,7 @@ const Index = () => {
             onClick={() => Router.push("/admin/manage/affiliates/add")}
             type="primary"
             style={{ marginBottom: 16 }}
+            icon={<PlusOutlined />}
           >
             Add an Affiliate
           </Button>

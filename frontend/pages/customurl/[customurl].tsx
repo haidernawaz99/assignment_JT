@@ -4,7 +4,7 @@ import { useEffect, useLayoutEffect, useState } from "react";
 import Error from "next/error";
 import { SearchBarQuery } from "../../interfaces/searchBarQuery";
 import Layout from "../../components/Layout/Layout";
-import JobDetail from "../../components/JobDetail";
+import JobDetail from "../../components/JobDetail/JobDetail";
 
 // const reloadSession = () => {
 //   const event = new Event("visibilitychange");

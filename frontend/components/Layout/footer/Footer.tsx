@@ -24,7 +24,7 @@ const Footer = () => {
             Affiliates
           </Link>{" "}
           |{" "}
-          <Link className={styles.links} href="/admin">
+          <Link className={styles.links} href="/admin/dashboard">
             Admin
           </Link>
         </Col>

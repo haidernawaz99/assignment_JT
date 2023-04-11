@@ -25,6 +25,10 @@ export class SearchJobAdminInputParams {
   position: string;
   @Field(() => String, { nullable: true })
   company: string;
+  @Field(() => String, { nullable: true })
+  id: string;
+  @Field(() => String, { nullable: true })
+  customURL: string;
 
   @Field(() => Int, { nullable: true })
   limit: number;

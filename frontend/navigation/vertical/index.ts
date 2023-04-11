@@ -1,15 +1,10 @@
 // ** Icon imports
-import Login from "mdi-material-ui/Login";
-import Table from "mdi-material-ui/Table";
-import CubeOutline from "mdi-material-ui/CubeOutline";
 import HomeOutline from "mdi-material-ui/HomeOutline";
-import FormatLetterCase from "mdi-material-ui/FormatLetterCase";
-import AccountCogOutline from "mdi-material-ui/AccountCogOutline";
-import CreditCardOutline from "mdi-material-ui/CreditCardOutline";
-import AccountPlusOutline from "mdi-material-ui/AccountPlusOutline";
-import AlertCircleOutline from "mdi-material-ui/AlertCircleOutline";
-import GoogleCirclesExtended from "mdi-material-ui/GoogleCirclesExtended";
 import BriefcaseOutline from "mdi-material-ui/BriefcaseOutline";
+import AccountTieOutline from "mdi-material-ui/AccountTieOutline";
+import ListStatus from "mdi-material-ui/ListStatus";
+import WrenchClock from "mdi-material-ui/WrenchClock";
+import TableCog from "mdi-material-ui/TableCog";
 
 // ** Type import
 import { VerticalNavItemsType } from "../../@core/layouts/types";
@@ -19,13 +14,13 @@ const navigation = (): VerticalNavItemsType => {
     {
       title: "Dashboard",
       icon: HomeOutline,
-      path: "/admin",
+      path: "/admin/dashboard",
     },
-    {
-      title: "Account Settings",
-      icon: AccountCogOutline,
-      path: "/admin/account-settings",
-    },
+    // {
+    //   title: "Account Settings",
+    //   icon: AccountCogOutline,
+    //   path: "/admin/account-settings",
+    // },
     {
       sectionTitle: "Manage",
     },
@@ -35,54 +30,76 @@ const navigation = (): VerticalNavItemsType => {
       path: "/admin/manage/job",
     },
     {
-      sectionTitle: "Pages",
+      title: "Affiliates",
+      icon: AccountTieOutline,
+      path: "/admin/manage/affiliates",
     },
     {
-      title: "Login",
-      icon: Login,
-      path: "/pages/login",
-      openInNewTab: true,
+      title: "Categories",
+      icon: ListStatus,
+      path: "/admin/config/categories",
     },
+
+    // {
+    //   title: "Expiration",
+    //   icon: WrenchClock,
+    //   path: "/admin/config/expiration",
+    // },
     {
-      title: "Register",
-      icon: AccountPlusOutline,
-      path: "/pages/register",
-      openInNewTab: true,
+      title: "User View",
+      icon: TableCog,
+      path: "/admin/config/user-view",
     },
-    {
-      title: "Error",
-      icon: AlertCircleOutline,
-      path: "/pages/error",
-      openInNewTab: true,
-    },
-    {
-      sectionTitle: "User Interface",
-    },
-    {
-      title: "Typography",
-      icon: FormatLetterCase,
-      path: "/admin/typography",
-    },
-    {
-      title: "Icons",
-      path: "/admin/icons",
-      icon: GoogleCirclesExtended,
-    },
-    {
-      title: "Cards",
-      icon: CreditCardOutline,
-      path: "/admin/cards",
-    },
-    {
-      title: "Tables",
-      icon: Table,
-      path: "/admin/tables",
-    },
-    {
-      icon: CubeOutline,
-      title: "Form Layouts",
-      path: "/admin/form-layouts",
-    },
+
+    // {
+    //   sectionTitle: "Pages",
+    // },
+    // {
+    //   title: "Login",
+    //   icon: Login,
+    //   path: "/pages/login",
+    //   openInNewTab: true,
+    // },
+    // {
+    //   title: "Register",
+    //   icon: AccountPlusOutline,
+    //   path: "/pages/register",
+    //   openInNewTab: true,
+    // },
+    // {
+    //   title: "Error",
+    //   icon: AlertCircleOutline,
+    //   path: "/pages/error",
+    //   openInNewTab: true,
+    // },
+    // {
+    //   sectionTitle: "User Interface",
+    // },
+    // {
+    //   title: "Typography",
+    //   icon: FormatLetterCase,
+    //   path: "/admin/typography",
+    // },
+    // {
+    //   title: "Icons",
+    //   path: "/admin/icons",
+    //   icon: GoogleCirclesExtended,
+    // },
+    // {
+    //   title: "Cards",
+    //   icon: CreditCardOutline,
+    //   path: "/admin/cards",
+    // },
+    // {
+    //   title: "Tables",
+    //   icon: Table,
+    //   path: "/admin/tables",
+    // },
+    // {
+    //   icon: CubeOutline,
+    //   title: "Form Layouts",
+    //   path: "/admin/form-layouts",
+    // },
   ];
 };
 

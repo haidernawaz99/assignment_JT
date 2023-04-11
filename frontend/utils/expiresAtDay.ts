@@ -9,6 +9,7 @@ const expiresAtDays = (expiresAt: Date) => {
   //calculate the difference in days
   const days = Math.floor(diff / (1000 * 60 * 60 * 24));
   console.log(days);
+
   return days;
 };
 

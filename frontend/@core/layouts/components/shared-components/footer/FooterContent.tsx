@@ -24,9 +24,7 @@ const FooterContent = () => {
           ❤️
         </Box>
         {` by `}
-        <Link target="_blank" href="https://themeselection.com/">
-          ThemeSelection
-        </Link>
+        Jobeet
       </Typography>
       {hidden ? null : (
         <Box
@@ -37,7 +35,7 @@ const FooterContent = () => {
             "& :not(:last-child)": { mr: 4 },
           }}
         >
-          <Link
+          {/* <Link
             target="_blank"
             href="https://github.com/themeselection/materio-mui-react-nextjs-admin-template-free/blob/main/LICENSE"
           >
@@ -57,7 +55,7 @@ const FooterContent = () => {
             href="https://github.com/themeselection/materio-mui-react-nextjs-admin-template-free/issues"
           >
             Support
-          </Link>
+          </Link> */}
         </Box>
       )}
     </Box>

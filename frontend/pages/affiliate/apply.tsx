@@ -1,10 +1,8 @@
-import Link from "next/link";
 import React, { useState } from "react";
 import type { RadioChangeEvent, UploadProps } from "antd";
 
 import {
   Divider,
-  Typography,
   Button,
   Form,
   Input,
@@ -17,13 +15,9 @@ import {
   Modal,
   Space,
 } from "antd";
-import {
-  InboxOutlined,
-  UploadOutlined,
-  ExclamationCircleFilled,
-} from "@ant-design/icons";
+import Typography from "@mui/material/Typography";
+import Link from "@mui/material/Link";
 
-const { Title, Paragraph, Text } = Typography;
 const { Option } = Select;
 const { TextArea } = Input;
 import { useMutation, gql } from "@apollo/client";
@@ -32,6 +26,7 @@ import Router from "next/router";
 import client from "../../graphql/apollo-client";
 import Layout from "../../components/Layout/Layout";
 import SuccessfulModal from "../../components/SuccessfulModal";
+import { SaveOutlined } from "@ant-design/icons";
 
 type Props = {};
 
@@ -111,13 +106,19 @@ const BecomeAffiliate = () => {
   const [form] = Form.useForm();
 
   return (
-    <Layout enableLocalSearch={false}>
-      <br />
-
+    <>
       <Form form={form} labelCol={{ span: 4 }} onFinish={onFinish}>
-        <Title level={2}>Affiliate Form</Title>
+        <Typography variant="h5">
+          <Link>Affiliates</Link>
+        </Typography>
+        <Typography variant="body2">
+          An asterisk (*) denotes a mandatory field.
+        </Typography>
+
+        <br />
+
         <Row>
-          <Col xs={14} sm={18} md={16} lg={18} xl={10}>
+          <Col>
             <Form.Item
               label="Name"
               name="name"
@@ -174,6 +175,7 @@ const BecomeAffiliate = () => {
                 size={"large"}
                 htmlType="submit"
                 disabled={uploading}
+                icon={<SaveOutlined />}
               >
                 Submit
               </Button>
@@ -189,10 +191,10 @@ const BecomeAffiliate = () => {
           </Col>
         </Row>
       </Form>
-    </Layout>
+    </>
   );
 };
 export default BecomeAffiliate;
 BecomeAffiliate.getLayout = (page) => {
-  return <>{page} </>;
+  return <Layout enableLocalSearch={false}>{page} </Layout>;
 };

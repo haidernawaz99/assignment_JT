@@ -21,9 +21,9 @@ const SuccessfulModal = ({
 }: Props) => {
   const [modal, contextHolder] = Modal.useModal();
 
-  let title =
+  const title =
     modalTitle || `Job ${isUpdating ? `updated` : `added`} successfully!`;
-  let content = "";
+  const content = "";
 
   const countDown = () => {
     let secondsToGo = 10;
@@ -134,6 +134,7 @@ const SuccessfulModal = ({
       countDown();
     }
   }, [showModal]);
+
   return <>{contextHolder}</>;
 };
 

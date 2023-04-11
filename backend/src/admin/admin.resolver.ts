@@ -6,6 +6,8 @@ import { AdminExpirationReturn } from './dtos/admin.expiration.return';
 import { SetCategoriesInputParams } from './dtos/admin.setCategoriesInput';
 import { SetExpirationInputParams } from './dtos/admin.setExpirationInput';
 import { AdminCategoriesReturn } from './dtos/admin.categories.return';
+import { AdminUserViewReturn } from './dtos/admin.userView.return';
+import { SetUserViewInputParams } from './dtos/admin.setUserViewInput.return';
 
 @Resolver()
 @UseGuards(JwtAuthGuard)
@@ -24,5 +26,15 @@ export class AdminResolver {
   @Mutation(() => AdminCategoriesReturn)
   async setCategories(@Args('input') input: SetCategoriesInputParams) {
     return { categories: this.adminService.setCategories(input) };
+  }
+
+  @Query(() => [AdminUserViewReturn])
+  async getUserView() {
+    return this.adminService.getUserViewConfig();
+  }
+
+  @Mutation(() => [AdminUserViewReturn])
+  async setUserView(@Args('input') input: SetUserViewInputParams) {
+    return this.adminService.setUserViewConfig(input);
   }
 }

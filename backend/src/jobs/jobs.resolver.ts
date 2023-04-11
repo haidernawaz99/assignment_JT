@@ -15,6 +15,7 @@ import { JobCategoriesReturn } from 'src/jobs/dtos/job.categories.return';
 import { GetAllJobsAdminInputParams } from './dtos/admin.getAllJobInput';
 import { GetJobPaginationInputParams } from './dtos/job.getJobInputPagination';
 import { SearchJobAdminInputParams } from './dtos/admin.searchJobsInput';
+import { CurrentRequest } from './decorators/current-request.decorator';
 
 @Resolver()
 export class JobsResolver {
@@ -46,8 +47,11 @@ export class JobsResolver {
   }
 
   @Mutation(() => JobReturn)
-  async editJob(@Args('input') input: JobUpdateInput) {
-    return this.jobsService.update(input);
+  async editJob(
+    @Args('input') input: JobUpdateInput,
+    @CurrentRequest() request,
+  ) {
+    return this.jobsService.update(input, request);
   }
 
   @Mutation(() => JobReturn)

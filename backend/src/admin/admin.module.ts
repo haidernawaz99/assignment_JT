@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { AdminService } from './admin.service';
 import { AdminResolver } from './admin.resolver';
-import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
-import { JobsModule } from 'src/jobs/jobs.module';
+import { MongooseModule } from '@nestjs/mongoose';
+import { ConfigSchema } from './schema/config.schema';
 
 @Module({
   providers: [
@@ -13,6 +13,9 @@ import { JobsModule } from 'src/jobs/jobs.module';
     //   useClass: JwtAuthGuard,
     // }, // This is protecting ALL the Modules in the Project
   ],
-  imports: [JobsModule],
+  imports: [
+    MongooseModule.forFeature([{ name: 'Config', schema: ConfigSchema }]),
+  ],
+  exports: [AdminService],
 })
 export class AdminModule {}

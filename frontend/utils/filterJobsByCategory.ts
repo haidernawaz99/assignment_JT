@@ -13,7 +13,7 @@ const filterJobsByCategory = (jobs, searchBar: SearchBarQuery) => {
   }
 
   // remove expired jobs -- only show jobs that expire in 5 days or more
-  jobs = jobs.filter((job) => expiresAtDays(job.expiresAt) >= 5);
+  // jobs = jobs.filter((job) => expiresAtDays(job.expiresAt) >= 5);
 
   // get unique categories from the jobs
   const categories = [...new Set(jobs.map((job) => job.category))];
