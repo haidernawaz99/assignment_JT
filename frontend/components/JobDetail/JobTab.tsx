@@ -65,8 +65,8 @@ export default function JobTabs({
           scrollButtons={true}
           allowScrollButtonsMobile
         >
-          <Tab label="Job Description" {...a11yProps(0)} />
-          <Tab label="How to Apply" {...a11yProps(1)} />
+          <Tab label="Description" {...a11yProps(0)} />
+          <Tab label="Apply" {...a11yProps(1)} />
           <Tab label="About Us" {...a11yProps(2)} />
         </Tabs>
       </Box>
